@@ -27,43 +27,33 @@ class VBA extends PHP
                     $token[1] = '//' . substr($token[1], 1);      
                 }
                 // Turn Subs into Functions
-                else if ($token[0] === T_STRING && ($token[1] == "Sub" || $token[1] == "Property")) {
+                elseif ($token[0] === T_STRING && ($token[1] == "Sub" || $token[1] == "Property")) {
                     $token[1] = "Function";
-                }
-                else if ($token[0] == T_BITWISE_AND) {
+                } elseif ($token[0] == T_BITWISE_AND) {
                     $token[1] = '.';
-                }
-                else if ($token[0] === T_STRING && $token[1] == "NOT") {
+                } elseif ($token[0] === T_STRING && $token[1] == "NOT") {
                     $token[1] = '!';
-                }
-                else if ($token[0] === T_STRING && $token[1] == "AND") {
+                } elseif ($token[0] === T_STRING && $token[1] == "AND") {
                     $token[1] = '&&';
-                }
-                else if ($token[0] === T_STRING && $token[1] == "OR") {
+                } elseif ($token[0] === T_STRING && $token[1] == "OR") {
                     $token[1] = '||';
-                }
-                else if ($token[0] === T_IF) {
+                } elseif ($token[0] === T_IF) {
                     $token = [T_STRING, 'if ('];
-                }
-                else if ($token[0] === T_STRING && $token[1] == "Then") {
+                } elseif ($token[0] === T_STRING && $token[1] == "Then") {
                     $token = [T_STRING, ') {'];
-                }
-                else if ($token[0] === T_ELSE) {
+                } elseif ($token[0] === T_ELSE) {
                     $token = [T_STRING, '} else {'];
-                }
-                else if ($token[0] === T_ELSEIF) {
+                } elseif ($token[0] === T_ELSEIF) {
                     $token = [T_STRING, '} elseif ('];
-                }
-                else if ($token[0] === T_STRING && $token[1] == "Is") {
+                } elseif ($token[0] === T_STRING && $token[1] == "Is") {
                     $token = [T_STRING, '==='];
-                }
-                else if ($token == ".") {
+                } elseif ($token == ".") {
                     $token = [T_STRING, '->'];
                 }
                 // If a string with the value "End" is found, change it to a special enddeclare if it is
                 // followed by Property, Function, or Sub.
                 // If it is follow by "if", change it to "endif"
-                else if ($token[0] === T_STRING && $token[1] === "End") {
+                elseif ($token[0] === T_STRING && $token[1] === "End") {
                     $next_tag =  $line_tokens[$key + 2][1];
                     if ($next_tag == "Function" || $next_tag == "Sub" || $next_tag == "Property") { 
                         $token[1] = "enddeclare";
@@ -74,17 +64,16 @@ class VBA extends PHP
                         unset($line_tokens[$key + 1]);
                         unset($line_tokens[$key + 2]);
                     }
-                }
-                else if ($token[0] == T_FOR) {
+                } elseif ($token[0] == T_FOR) {
                     $next_tag =  $line_tokens[$key + 2][1];
-                    if ($next_tag == "Each") { 
+                    if ($next_tag == "Each") {
                         $token[1] = 'foreach';
                         unset($line_tokens[$key + 1]);
                         unset($line_tokens[$key + 2]);
                     }
                 }
                 // A for loop ends with Next i while a foreach ends with Next
-                else if ($token[0] == T_STRING && $token[1] == "Next") {
+                elseif ($token[0] == T_STRING && $token[1] == "Next") {
                         $token[1] = '}';
                 }
                 // Write the token value back to the new string
@@ -94,7 +83,7 @@ class VBA extends PHP
                     $new_string .= $token;
                 }
             }
-            $new_string .= "\r\n";             
+            $new_string .= "\r\n";   
         }
         return $new_string;
     }
@@ -119,7 +108,7 @@ class VBA extends PHP
             'shared' => false,
             'with'   => [],
         ];
-        $this->scopeOpeners[T_IF] = 
+        $this->scopeOpeners[T_IF] =
         [
             'start'  => [T_OPEN_CURLY_BRACKET => T_OPEN_CURLY_BRACKET],
             'end'    => [
@@ -132,7 +121,7 @@ class VBA extends PHP
                 T_ELSEIF => T_ELSEIF,
             ],
         ];
-        $this->scopeOpeners[T_ELSE] = 
+        $this->scopeOpeners[T_ELSE] =
         [
             'start'  => [T_OPEN_CURLY_BRACKET => T_OPEN_CURLY_BRACKET],
             'end'    => [
@@ -145,7 +134,7 @@ class VBA extends PHP
                 T_ELSEIF => T_ELSEIF,
             ],
         ];
-        $this->scopeOpeners[T_ELSEIF] = 
+        $this->scopeOpeners[T_ELSEIF] =
         [
             'start'  => [T_OPEN_CURLY_BRACKET => T_OPEN_CURLY_BRACKET],
             'end'    => [
@@ -158,7 +147,7 @@ class VBA extends PHP
                 T_ELSE => T_ELSE,
             ],
         ];
-        $this->scopeOpeners[T_FUNCTION] = 
+        $this->scopeOpeners[T_FUNCTION] =
         [
             'start'  => [T_CLOSE_PARENTHESIS => T_CLOSE_PARENTHESIS],  //Should be newline
             'end'    => [T_ENDDECLARE => T_ENDDECLARE],
@@ -166,7 +155,7 @@ class VBA extends PHP
             'shared' => false,
             'with'   => [],
         ];
-        $this->scopeOpeners[T_FOREACH] = 
+        $this->scopeOpeners[T_FOREACH] =
         [
             'start'  => [
                 T_WHITESPACE=> T_WHITESPACE, //Should be line ending
@@ -178,7 +167,7 @@ class VBA extends PHP
             'shared' => false,
             'with'   => [],
         ];
-        $this->scopeOpeners[T_FOR] = 
+        $this->scopeOpeners[T_FOR] =
         [
             'start'  => [
                 T_WHITESPACE=> T_WHITESPACE,
@@ -193,6 +182,4 @@ class VBA extends PHP
         $string = $this->convertFile($string);
         return parent::tokenize($string);
     }
-
 }
-
