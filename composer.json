@@ -1,5 +1,5 @@
 {
-  "name": "Beakerboy/VBA_Tokenizer",
+  "name": "beakerboy/vba_tokenizer",
   "homepage": "https://github.com/Beakerboy/VBA_Tokenizer/",
   "require": {
     "php": ">=7.0.0"
