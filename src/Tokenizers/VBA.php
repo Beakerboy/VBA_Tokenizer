@@ -43,7 +43,7 @@ class VBA extends PHP
                     $token[1] = '||';
                 }
                 else if ($token[0] === T_STRING && $token[1] == "Then") {
-                    $token[1] = 'static';
+                    $token = '?';
                 }
                 else if ($token == ".") {
                     $token = [T_STRING, '->'];
@@ -55,33 +55,20 @@ class VBA extends PHP
                     $next_tag =  $line_tokens[$key + 2][1];
                     if ($next_tag == "Function" || $next_tag == "Sub" || $next_tag == "Property") { 
                         $token[1] = "enddeclare";
-                        next($line_tokens);
-                        $next_key = key($line_tokens);
-                        next($line_tokens);
-                        $second_key = key($line_tokens);
-                        unset($line_tokens[$next_key]);
-                        unset($line_tokens[$second_key]);
+                        unset($line_tokens[$key + 1]);
+                        unset($line_tokens[$key + 2]);
                     } elseif ($next_tag == 'If') {
                         $token[1] = "endif";
-                        next($line_tokens);
-                        $next_key = key($line_tokens);
-                        next($line_tokens);
-                        $second_key = key($line_tokens);
-                        unset($line_tokens[$next_key]);
-                        unset($line_tokens[$second_key]);
+                        unset($line_tokens[$key + 1]);
+                        unset($line_tokens[$key + 2]);
                     }
                 }
                 else if ($token[0] == T_FOR) {
                     $next_tag =  $line_tokens[$key + 2][1];
                     if ($next_tag == "Each") { 
                         $token[1] = 'foreach';
-                        next($line_tokens);
-                        $next_key = key($line_tokens);
-                        next($line_tokens);
-                        $second_key = key($line_tokens);
-                        unset($line_tokens[$next_key]);
-                        unset($line_tokens[$second_key]);
-                        next($line_tokens);
+                        unset($line_tokens[$key + 1]);
+                        unset($line_tokens[$key + 2]);
                     }
                 }
                 // A for loop ends with Next i while a foreach ends with Next
@@ -114,7 +101,7 @@ class VBA extends PHP
     {
         $this->scopeOpeners[T_CLASS] =
         [
-            'start'  => [T_STRING=> T_STRING],
+            'start'  => [T_STRING => T_STRING],
             'end'    => [T_CLOSE_CURLY_BRACKET => T_CLOSE_CURLY_BRACKET],
             'strict' => true,
             'shared' => false,
@@ -122,33 +109,63 @@ class VBA extends PHP
         ];
         $this->scopeOpeners[T_IF] = 
         [
-            'start'  => [T_STATIC, T_STATIC],  // Should be T_THEN
+            'start'  => [T_INLINE_THEN => T_INLINE_THEN],
             'end'    => [
                 T_ENDIF               => T_ENDIF,
                 T_ELSE                => T_ELSE,
                 T_ELSEIF              => T_ELSEIF,
             ],
-            'strict' => false,
+            'strict' => true,
             'shared' => false,
             'with'   => [
                 T_ELSE   => T_ELSE,
                 T_ELSEIF => T_ELSEIF,
             ],
         ];
-        // T_ELSE
-        // T_ELSEIF
+        $this->scopeOpeners[T_ELSE] = 
+        [
+            'start'  => [
+                T_WHITESPACE => T_WHITESPACE,
+            ],
+            'end'    => [
+                T_ENDIF               => T_ENDIF,
+            ],
+            'strict' => true,
+            'shared' => false,
+            'with'   => [
+                T_IF     => T_IF,
+                T_ELSEIF => T_ELSEIF,
+            ],
+        ];
+        $this->scopeOpeners[T_ELSEIF] = 
+        [
+            'start'  => [
+                T_INLINE_THEN => T_INLINE_THEN,
+            ],
+            'end'    => [
+                T_ENDIF               => T_ENDIF,
+                T_ELSE                => T_ELSE,
+                T_ELSEIF              => T_ELSEIF,
+            ],
+            'strict' => true,
+            'shared' => false,
+            'with'   => [
+                T_IF   => T_IF,
+                T_ELSE => T_ELSE,
+            ],
+        ];
         $this->scopeOpeners[T_FUNCTION] = 
         [
             'start'  => [T_CLOSE_PARENTHESIS => T_CLOSE_PARENTHESIS],  //Should be newline
             'end'    => [T_ENDDECLARE => T_ENDDECLARE],
-            'strict' => false,
+            'strict' => true,
             'shared' => false,
             'with'   => [],
         ];
         $this->scopeOpeners[T_FOREACH] = 
         [
             'start'  => [
-                T_WHITESPACE=> T_WHITESPACE,
+                T_WHITESPACE=> T_WHITESPACE, //Should be line ending
             ],
             'end'    => [
                 T_CLOSE_CURLY_BRACKET => T_CLOSE_CURLY_BRACKET,
