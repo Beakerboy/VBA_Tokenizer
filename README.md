@@ -1,5 +1,5 @@
 # VBA_Tokenizer
-A PHP project to tokenize VBA files.
+A VBA Tokenizer and Coding Standard for PHP_CodeSniffer
 
 [![Build Status](https://travis-ci.org/Beakerboy/VBA_Tokenizer.svg?branch=master)](https://travis-ci.org/Beakerboy/VBA_Tokenizer)
 
