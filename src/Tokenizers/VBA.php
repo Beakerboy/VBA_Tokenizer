@@ -18,7 +18,7 @@ class VBA extends PHP
     protected function convertFile($string)
     {
         $string_array = explode("\r\n", $string);
-        $new_string = "<?php\r\n";
+        $new_string = "<?php ";
         foreach ($string_array as $line) {
             $line_tokens = token_get_all("<?php\r\n" . $line);
             array_shift($line_tokens);
@@ -42,8 +42,20 @@ class VBA extends PHP
                 else if ($token[0] === T_STRING && $token[1] == "OR") {
                     $token[1] = '||';
                 }
+                else if ($token[0] === T_IF) {
+                    $token = [T_STRING, 'if ('];
+                }
                 else if ($token[0] === T_STRING && $token[1] == "Then") {
-                    $token = '?';
+                    $token = [T_STRING, ') {'];
+                }
+                else if ($token[0] === T_ELSE) {
+                    $token = [T_STRING, '} else {'];
+                }
+                else if ($token[0] === T_ELSEIF) {
+                    $token = [T_STRING, '} elseif ('];
+                }
+                else if ($token[0] === T_STRING && $token[1] == "Is") {
+                    $token = [T_STRING, '==='];
                 }
                 else if ($token == ".") {
                     $token = [T_STRING, '->'];
@@ -58,7 +70,7 @@ class VBA extends PHP
                         unset($line_tokens[$key + 1]);
                         unset($line_tokens[$key + 2]);
                     } elseif ($next_tag == 'If') {
-                        $token[1] = "endif";
+                        $token[1] = "}";
                         unset($line_tokens[$key + 1]);
                         unset($line_tokens[$key + 2]);
                     }
@@ -109,11 +121,9 @@ class VBA extends PHP
         ];
         $this->scopeOpeners[T_IF] = 
         [
-            'start'  => [T_INLINE_THEN => T_INLINE_THEN],
+            'start'  => [T_OPEN_CURLY_BRACKET => T_OPEN_CURLY_BRACKET],
             'end'    => [
-                T_ENDIF               => T_ENDIF,
-                T_ELSE                => T_ELSE,
-                T_ELSEIF              => T_ELSEIF,
+                T_CLOSE_CURLY_BRACKET => T_CLOSE_CURLY_BRACKET,
             ],
             'strict' => true,
             'shared' => false,
@@ -124,11 +134,9 @@ class VBA extends PHP
         ];
         $this->scopeOpeners[T_ELSE] = 
         [
-            'start'  => [
-                T_WHITESPACE => T_WHITESPACE,
-            ],
+            'start'  => [T_OPEN_CURLY_BRACKET => T_OPEN_CURLY_BRACKET],
             'end'    => [
-                T_ENDIF               => T_ENDIF,
+                T_CLOSE_CURLY_BRACKET => T_CLOSE_CURLY_BRACKET,
             ],
             'strict' => true,
             'shared' => false,
@@ -139,13 +147,9 @@ class VBA extends PHP
         ];
         $this->scopeOpeners[T_ELSEIF] = 
         [
-            'start'  => [
-                T_INLINE_THEN => T_INLINE_THEN,
-            ],
+            'start'  => [T_OPEN_CURLY_BRACKET => T_OPEN_CURLY_BRACKET],
             'end'    => [
-                T_ENDIF               => T_ENDIF,
-                T_ELSE                => T_ELSE,
-                T_ELSEIF              => T_ELSEIF,
+                T_CLOSE_CURLY_BRACKET => T_CLOSE_CURLY_BRACKET,
             ],
             'strict' => true,
             'shared' => false,
