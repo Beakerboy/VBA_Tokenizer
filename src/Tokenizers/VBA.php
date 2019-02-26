@@ -15,12 +15,11 @@ class VBA extends PHP
         foreach ($string_array as $line) {
             $line_tokens = token_get_all("<?php\r\n" . $line);
             array_shift($line_tokens);
-            foreach ($line_tokens as $key=>&$token) {
+            foreach ($line_tokens as $key => &$token) {
                 if ($token[0] === T_ENCAPSED_AND_WHITESPACE) {
                     $token[1] = '//' . substr($token[1], 1);
-                }
-                // Turn Subs into Functions
-                elseif ($token[0] === T_STRING && ($token[1] == "Sub" || $token[1] == "Property")) {
+                } elseif ($token[0] === T_STRING && ($token[1] == "Sub" || $token[1] == "Property")) {
+                    // Turn Subs into Functions
                     $token[1] = "Function";
                 } elseif ($token[0] == T_BITWISE_AND) {
                     $token[1] = '.';
@@ -42,13 +41,12 @@ class VBA extends PHP
                     $token = [T_STRING, '==='];
                 } elseif ($token == ".") {
                     $token = [T_STRING, '->'];
-                }
-                // If a string with the value "End" is found, change it to a special enddeclare if it is
-                // followed by Property, Function, or Sub.
-                // If it is follow by "if", change it to "endif"
-                elseif ($token[0] === T_STRING && $token[1] === "End") {
+                } elseif ($token[0] === T_STRING && $token[1] === "End") {
+                    // If a string with the value "End" is found, change it to a special enddeclare if it is
+                    // followed by Property, Function, or Sub.
+                    // If it is follow by "if", change it to "endif"
                     $next_tag =  $line_tokens[$key + 2][1];
-                    if ($next_tag == "Function" || $next_tag == "Sub" || $next_tag == "Property") { 
+                    if ($next_tag == "Function" || $next_tag == "Sub" || $next_tag == "Property") {
                         $token[1] = "enddeclare";
                         unset($line_tokens[$key + 1]);
                         unset($line_tokens[$key + 2]);
@@ -64,10 +62,9 @@ class VBA extends PHP
                         unset($line_tokens[$key + 1]);
                         unset($line_tokens[$key + 2]);
                     }
-                }
-                // A for loop ends with Next i while a foreach ends with Next
-                elseif ($token[0] == T_STRING && $token[1] == "Next") {
-                        $token[1] = '}';
+                } elseif ($token[0] == T_STRING && $token[1] == "Next") {
+                    // A for loop ends with Next i while a foreach ends with Next
+                    $token[1] = '}';
                 }
                 // Write the token value back to the new string
                 if (isset($token[1])) {
@@ -76,7 +73,7 @@ class VBA extends PHP
                     $new_string .= $token;
                 }
             }
-            $new_string .= "\r\n";   
+            $new_string .= "\r\n";
         }
         return $new_string;
     }
