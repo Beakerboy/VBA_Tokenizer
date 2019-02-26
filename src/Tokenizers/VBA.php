@@ -1,11 +1,4 @@
 <?php
-/**
- * Tokenizes VBA code.
- *
- * @author    Kevin Nowaczyk
- * @copyright 
- * @license   
- */
 
 namespace PHP_CodeSniffer\Tokenizers;
 
@@ -24,7 +17,7 @@ class VBA extends PHP
             array_shift($line_tokens);
             foreach ($line_tokens as $key=>&$token) {
                 if ($token[0] === T_ENCAPSED_AND_WHITESPACE) {
-                    $token[1] = '//' . substr($token[1], 1);      
+                    $token[1] = '//' . substr($token[1], 1);
                 }
                 // Turn Subs into Functions
                 elseif ($token[0] === T_STRING && ($token[1] == "Sub" || $token[1] == "Property")) {
