@@ -37,6 +37,10 @@ class VBA extends PHP
                     $token = [T_STRING, '} else {'];
                 } elseif ($token[0] === T_ELSEIF) {
                     $token = [T_STRING, '} elseif ('];
+                } elseif ($token[0] === T_STRING && $token[1] == "Wend") {
+                    $token[1] = 'static';
+                } elseif ($token[0] === T_STRING && $token[1] == "Loop") {
+                    $token[1] = 'trait';
                 } elseif ($token[0] === T_STRING && $token[1] == "Is") {
                     $token = [T_STRING, '==='];
                 } elseif ($token == ".") {
@@ -105,7 +109,7 @@ class VBA extends PHP
                 T_CLOSE_CURLY_BRACKET => T_CLOSE_CURLY_BRACKET,
             ],
             'strict' => true,
-            'shared' => false,
+            'shared' => true,
             'with'   => [
                 T_ELSE   => T_ELSE,
                 T_ELSEIF => T_ELSEIF,
@@ -118,7 +122,7 @@ class VBA extends PHP
                 T_CLOSE_CURLY_BRACKET => T_CLOSE_CURLY_BRACKET,
             ],
             'strict' => true,
-            'shared' => false,
+            'shared' => true,
             'with'   => [
                 T_IF     => T_IF,
                 T_ELSEIF => T_ELSEIF,
@@ -131,7 +135,7 @@ class VBA extends PHP
                 T_CLOSE_CURLY_BRACKET => T_CLOSE_CURLY_BRACKET,
             ],
             'strict' => true,
-            'shared' => false,
+            'shared' => true,
             'with'   => [
                 T_IF   => T_IF,
                 T_ELSE => T_ELSE,
@@ -141,6 +145,14 @@ class VBA extends PHP
         [
             'start'  => [T_CLOSE_PARENTHESIS => T_CLOSE_PARENTHESIS],  //Should be newline
             'end'    => [T_ENDDECLARE => T_ENDDECLARE],
+            'strict' => true,
+            'shared' => false,
+            'with'   => [],
+        ];
+        $this->scopeOpeners[T_WHILE] =
+        [
+            'start'  => [T_WHITESPACE => T_WHITESPACE],  //Should be newline
+            'end'    => [T_STATIC => T_STATIC],
             'strict' => true,
             'shared' => false,
             'with'   => [],
