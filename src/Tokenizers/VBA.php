@@ -21,7 +21,7 @@ class VBA extends PHP
                 } elseif ($token[0] === T_STRING && ($token[1] == "Sub" || $token[1] == "Property")) {
                     // Turn Subs into Functions
                     $token[1] = "Function";
-                } elseif ($token[0] === T_STRING && $token[1] == 'Begin') {
+                } elseif ($token[0] === T_STRING && $token[1] == 'BEGIN') {
                     $token[1] = 'abstract';
                 } elseif ($token[0] == T_BITWISE_AND) {
                     $token[1] = '.';
@@ -60,9 +60,9 @@ class VBA extends PHP
                         $token[1] = "}";
                         unset($line_tokens[$key + 1]);
                         unset($line_tokens[$key + 2]);
-                    } else {
-                        $token[1] = 'clone';
                     }
+                } elseif ($token[1] == 'END') {
+                        $token[1] = 'clone';
                 } elseif ($token[0] == T_FOR) {
                     $next_tag =  $line_tokens[$key + 2][1];
                     if ($next_tag == "Each") {
