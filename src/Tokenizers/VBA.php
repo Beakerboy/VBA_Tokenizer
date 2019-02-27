@@ -113,7 +113,7 @@ class VBA extends PHP
                 T_CLOSE_CURLY_BRACKET => T_CLOSE_CURLY_BRACKET,
             ],
             'strict' => true,
-            'shared' => true,
+            'shared' => false,
             'with'   => [
                 T_ELSE   => T_ELSE,
                 T_ELSEIF => T_ELSEIF,
@@ -126,10 +126,8 @@ class VBA extends PHP
                 T_CLOSE_CURLY_BRACKET => T_CLOSE_CURLY_BRACKET,
             ],
             'strict' => true,
-            'shared' => true,
+            'shared' => false,
             'with'   => [
-                T_IF     => T_IF,
-                T_ELSEIF => T_ELSEIF,
             ],
         ];
         $this->scopeOpeners[T_ELSEIF] =
@@ -139,10 +137,8 @@ class VBA extends PHP
                 T_CLOSE_CURLY_BRACKET => T_CLOSE_CURLY_BRACKET,
             ],
             'strict' => true,
-            'shared' => true,
+            'shared' => false,
             'with'   => [
-                T_IF   => T_IF,
-                T_ELSE => T_ELSE,
             ],
         ];
         $this->scopeOpeners[T_FUNCTION] =
