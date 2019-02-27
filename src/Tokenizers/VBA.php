@@ -21,7 +21,7 @@ class VBA extends PHP
                 } elseif ($token[0] === T_STRING && ($token[1] == "Sub" || $token[1] == "Property")) {
                     // Turn Subs into Functions
                     $token[1] = "Function";
-                } elseif ($token[0] === T_STRING && $token[1] == "Begin) {
+                } elseif ($token[0] === T_STRING && $token[1] == 'Begin') {
                     $token[1] = 'abstract';
                 } elseif ($token[0] == T_BITWISE_AND) {
                     $token[1] = '.';
