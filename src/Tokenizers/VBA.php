@@ -6,7 +6,7 @@
  */
 namespace PHP_CodeSniffer\Tokenizers;
 
-Define('T_THEN' = 'PHPCS_THEN');
+define('T_THEN', 'PHPCS_T_THEN');
 
 use PHP_CodeSniffer\Util;
 use PHP_CodeSniffer\Exceptions\TokenizerException;
