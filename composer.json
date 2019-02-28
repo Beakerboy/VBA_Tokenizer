@@ -4,8 +4,10 @@
   "autoload": {
     "psr-4": { "PHP_CodeSniffer\\": "src/" }
   },
+  "require": {
+    "squizlabs/php_codesniffer": "3.*"
+  },
   "require-dev": {
-    "squizlabs/php_codesniffer": "2.*",
     "phpunit/phpunit": "^7.0"
   },
   "authors": [
