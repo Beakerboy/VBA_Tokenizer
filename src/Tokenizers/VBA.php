@@ -663,4 +663,21 @@ class VBA extends Tokenizer
         }
         return $finalTokens;
     }//end tokenize()
-}
+    
+        /**
+     * Performs additional processing after main tokenizing.
+     *
+     * This additional processing looks for properties, closures, labels and objects.
+     *
+     * @return void
+     */
+    public function processAdditional()
+    {
+        if (PHP_CODESNIFFER_VERBOSITY > 1) {
+            echo "\t*** START ADDITIONAL JS PROCESSING ***".PHP_EOL;
+        }
+        if (PHP_CODESNIFFER_VERBOSITY > 1) {
+            echo "\t*** END ADDITIONAL JS PROCESSING ***".PHP_EOL;
+        }
+    }//end processAdditional()
+}//end class
