@@ -24,13 +24,13 @@ class VBA extends Tokenizer
      */
     public $scopeOpeners = [
         T_IF       => [
-            'start'  => [T_THEN => T_THEN,
+            'start'  => [T_THEN => T_THEN],
             'end'    => [T_ENDIF => T_ENDIF],
             'strict' => false,
             'shared' => true,
             'with'   => [
                 T_ELSE => T_ELSE,
-                T_ELSEIF => T_ELSEIF
+                T_ELSEIF => T_ELSEIF,
             ],
         ],
         T_ELSE     => [
@@ -40,7 +40,7 @@ class VBA extends Tokenizer
             'shared' => true,
             'with'   => [
                 T_ELSE => T_ELSE,
-                T_ELSEIF => T_ELSEIF
+                T_ELSEIF => T_ELSEIF,
             ],
         ],
         T_FOR      => [
