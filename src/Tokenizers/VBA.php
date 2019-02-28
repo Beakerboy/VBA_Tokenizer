@@ -16,6 +16,7 @@ define('T_END_SELECT', 'PHPCS_T_END_SELECT');
 define('T_LOOP', 'PHPCS_T_LOOP');
 define('T_SELECT_CASE', 'PHPCS_T_SELECT_CASE');
 define('T_WEND', 'PHPCS_T_WEND');
+define('T_CASE_ELSE', 'PHPCS_T_CASE_ELSE');
 
 use PHP_CodeSniffer\Util;
 use PHP_CodeSniffer\Exceptions\TokenizerException;
