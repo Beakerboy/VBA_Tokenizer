@@ -4,7 +4,7 @@ A VBA Tokenizer and Coding Standard for PHP_CodeSniffer
 [![Build Status](https://travis-ci.org/Beakerboy/VBA_Tokenizer.svg?branch=master)](https://travis-ci.org/Beakerboy/VBA_Tokenizer)
 
 ## Installation
-Copy the project files to the corresponding PHP-CodeSniffer directories
+Copy the project files and move them to the corresponding PHP-CodeSniffer directories. Then sniff your files with:
 
 ## Running
 Go to the VBA source directory and type:
