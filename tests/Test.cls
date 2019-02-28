@@ -14,6 +14,20 @@ Option Explicit
 Implements iTest
 
 Private sTable As String
-Publoc oSQL As oObject
+Public oSQL As oObject
 
+' Function: Foo
+Public Function Foo(iVariable As Double) As Boolean
 
+End Function
+
+' Function: Bar
+Private Sub Bar(Optional sTest As String)
+if sTest = "somevalue" Then
+  iDoSomething = 5
+Elseif sTest = "something else" Then
+  iDoSomethong = 6
+Else
+  iDoSomething = 7
+End If
+End Sub
