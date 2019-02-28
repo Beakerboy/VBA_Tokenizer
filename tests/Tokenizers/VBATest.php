@@ -2,6 +2,7 @@
 namespace PHP_CodeSniffer\Tests\Tokenizer;
 
 use PHPCodeSniffer\Tokenizers\VBA;
+
 class VBATest extends \PHPUnit\Framework\TestCase
 {
     /**
