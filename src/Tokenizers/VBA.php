@@ -8,6 +8,7 @@ namespace PHP_CodeSniffer\Tokenizers;
 
 define('T_THEN', 'PHPCS_T_THEN');
 define('T_BEGIN', 'PHPCS_T_BEGIN');
+define('T_ATTRIBUTE', 'PHPCS_T_ATTRIBUTE');
 define('T_EOL', 'PHPCS_T_EOL');
 define('T_NEXT', 'PHPCS_T_NEXT');
 define('T_END_FUNCTION', 'PHPCS_T_END_FUNCTION');
