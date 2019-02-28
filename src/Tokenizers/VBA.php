@@ -7,6 +7,7 @@
 namespace PHP_CodeSniffer\Tokenizers;
 
 define('T_THEN', 'PHPCS_T_THEN');
+define('T_EOL', 'PHPCS_T_EOL');
 
 use PHP_CodeSniffer\Util;
 use PHP_CodeSniffer\Exceptions\TokenizerException;
