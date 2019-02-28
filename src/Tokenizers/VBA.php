@@ -10,9 +10,11 @@ define('T_THEN', 'PHPCS_T_THEN');
 define('T_EOL', 'PHPCS_T_EOL');
 define('T_NEXT', 'PHPCS_T_NEXT');
 define('T_END_FUNCTION', 'PHPCS_T_END_FUNCTION');
-define('T_END_PROPERTY', 'PHPCS_T_END_PROPERTY');
-define('T_LOOP', 'PHPCS_T_LOOP');
 define('T_END_SUB', 'PHPCS_T_END_SUB');
+define('T_END_PROPERTY', 'PHPCS_T_END_PROPERTY');
+define('T_END_SELECT', 'PHPCS_T_END_SELECT');
+define('T_LOOP', 'PHPCS_T_LOOP');
+define('T_SELECT_CASE', 'PHPCS_T_SELECT_CASE');
 define('T_WEND', 'PHPCS_T_WEND');
 
 use PHP_CodeSniffer\Util;
