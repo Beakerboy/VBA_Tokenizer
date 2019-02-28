@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit bootstrap="bootstrap.php" colors="true">
   <testsuites>
-    <testsuite name="Tokenizer">
-      <directory suffix="Test.php">Probability</directory>
+    <testsuite name="Tokenizers">
+      <directory suffix="Test.php">Tokenizers</directory>
     </testsuite>
   </testsuites>
   <filter>
