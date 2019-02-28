@@ -336,7 +336,7 @@ class VBA extends Tokenizer
                         $stringChar      = null;
                         continue;
                     }//end if
-                } else if ($inString === '') {
+                } elseif ($inString === '') {
                     $inString        = $char;
                     $stringChar      = $i;
                     $preStringBuffer = $buffer;
@@ -444,7 +444,7 @@ class VBA extends Tokenizer
                     }
                     $cleanBuffer = true;
                 }//end if
-            } else if (isset($this->tokenValues[strtolower($char)]) === true) {
+            } elseif (isset($this->tokenValues[strtolower($char)]) === true) {
                 // No matter what token we end up using, we don't
                 // need the content in the buffer any more because we have
                 // found a valid token.
@@ -541,7 +541,7 @@ class VBA extends Tokenizer
                         echo "\t\t* looking for end of comment *".PHP_EOL;
                     }
                 }//end if
-            } else if ($inComment !== '') {
+            } elseif ($inComment !== '') {
                 if ($this->commentTokens[$inComment] === null) {
                     // Comment ends at the next newline.
                     if (strpos($buffer, "\n") !== false) {
