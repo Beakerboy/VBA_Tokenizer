@@ -16,10 +16,19 @@ To run tests on Travis-CI, create a composer.json file with the following:
 
     {
       "require-dev": {
-        "php": ">=7.0.0",
-        "squizlabs/php_codesniffer": "2.*"
+        "beakerboy/vba_tokenizer": "dev-master"
       },
+      "repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/Beakerboy/VBA_Tokenizer"
+        }
     }
 
 Then add the following to your .travis.yml file:
 
+    language: vba
+    install:
+      - composer install
+    script:
+      - vendor/bin/phpcs --extensions=cls/vba,bas/vba --standard=vendor/beakerboy/vba_tokenizer/src/Standards/VBA $TRAVIS_BUILD_DIR/src
