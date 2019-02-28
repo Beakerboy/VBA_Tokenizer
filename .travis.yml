@@ -8,9 +8,7 @@ install:
 
 script: 
   - mkdir -p build/logs
-  - cd vendor/squizlabs/php_codesniffer/src/Standards\Generic\Sniffs\
-  - find
-#  - vendor/bin/phpunit --configuration tests/phpunit.xml --coverage-clover build/logs/clover.xml
+  - vendor/bin/phpunit --configuration tests/phpunit.xml --coverage-clover build/logs/clover.xml
   - vendor/bin/phpcs --ignore=vendor --standard=PSR2 .
 
 #after_success:
