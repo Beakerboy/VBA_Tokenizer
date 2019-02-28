@@ -5,7 +5,8 @@
     "psr-4": { "PHP_CodeSniffer\\": "src/" }
   },
   "require-dev": {
-      "squizlabs/php_codesniffer": "2.*"
+    "squizlabs/php_codesniffer": "2.*",
+    "phpunit/phpunit": "^7.0"
   },
   "authors": [
     {
