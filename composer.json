@@ -4,6 +4,9 @@
   "autoload": {
     "psr-4": { "PHP_CodeSniffer\\": "src/" }
   },
+  "autoload-dev": {
+    "psr-4": { "PHP_CodeSniffer\\Testing\\": "tests/" }
+},
   "require": {
     "squizlabs/php_codesniffer": "3.*"
   },
