@@ -624,12 +624,14 @@ class VBA extends Tokenizer
             Now that we have done some basic tokenizing, we need to
             modify the tokens to join some together and split some apart
             so they match what the PHP tokenizer does.
-        */$finalTokens = [];
+        */
+        $finalTokens = [];
         $newStackPtr = 0;
         $numTokens   = count($tokens);
         for ($stackPtr = 0; $stackPtr < $numTokens; $stackPtr++) {
             $token = $tokens[$stackPtr];
-
+            $finalTokens[$newStackPtr] = $token;
+            $newStackPtr++;
             // Convert numbers, including decimals.
             if ($token['code'] === T_STRING
                 || $token['code'] === T_OBJECT_OPERATOR
