@@ -10,7 +10,13 @@ define('T_THEN', 'PHPCS_T_THEN');
 define('T_BEGIN', 'PHPCS_T_BEGIN');
 define('T_ATTRIBUTE', 'PHPCS_T_ATTRIBUTE');
 define('T_OPTION', 'PHPCS_T_OPTION');
+define('T_LET','PHPCS_T_LET');
+define('T_SET','PHPCS_T_SET');
+define('T_SUB','PHPCS_T_SUB');
+define('T_DIM','PHPCS_T_DIM');
 define('T_EOL', 'PHPCS_T_EOL');
+define('T_IS', 'PHPCS_T_IS');
+define('T_NOTHING', 'PHPCS_T_NOTHING');
 define('T_NEXT', 'PHPCS_T_NEXT');
 define('T_END_FUNCTION', 'PHPCS_T_END_FUNCTION');
 define('T_END_SUB', 'PHPCS_T_END_SUB');
@@ -223,18 +229,9 @@ class VBA extends Tokenizer
         '\''  => null,
     ];
 
-    /**
-     * Creates an array of tokens when given some VBA code.
-     *
-     * Starts by using token_get_all() but does a lot of extra processing
-     * to insert information about the context of the token.
-     *
-     * @param string $string The string to tokenize.
-     *
-     * @return array
-     */
-    protected function tokenize($string)
+    protected function whitespace($string)
     {
+
         if (PHP_CODESNIFFER_VERBOSITY > 1) {
             echo "\t*** START VBA TOKENIZING ***".PHP_EOL;
         }
@@ -621,7 +618,22 @@ class VBA extends Tokenizer
             'type'    => 'T_CLOSE_TAG',
             'content' => '',
         ];
-        
+        return $tokens;
+    }
+
+    /**
+     * Creates an array of tokens when given some VBA code.
+     *
+     * Starts by using token_get_all() but does a lot of extra processing
+     * to insert information about the context of the token.
+     *
+     * @param string $string The string to tokenize.
+     *
+     * @return array
+     */
+    protected function tokenize($string)
+    {
+        $tokens = $this->whitespace($string);
         /*
             Now that we have done some basic tokenizing, we need to
             modify the tokens to join some together and split some apart
