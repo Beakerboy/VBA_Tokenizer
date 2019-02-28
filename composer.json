@@ -11,6 +11,9 @@
     "phpunit/phpunit" : "7.0",
     "php-coveralls/php-coveralls": "^2.0"
   },
+  "autoload-dev": {
+    "psr-4": { "PHP_CodeSniffer\\Tests\\": "tests/" }
+  },
   "authors": [
     {
       "name": "Kevin Nowaczyk",
