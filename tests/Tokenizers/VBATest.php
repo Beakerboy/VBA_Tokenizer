@@ -17,5 +17,4 @@ class VBATest extends \PHPUnit\Framework\TestCase
         $exitCode = $runner->runPHPCS();
         $this->assertEquals(0, $exit_code);
     }
-    
 }
