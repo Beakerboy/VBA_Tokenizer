@@ -31,13 +31,13 @@ class VBA extends PHP
                     } elseif ($token[1] == "OR") {
                         $token[1] = '||';
                     } elseif ($token[1] == "Then") {
-                        $token = [T_STRING, ') {']; 
+                        $token = [T_STRING, ') {'];
                     } elseif ($token[1] == "Wend") {
                         $token[1] = 'static';
                     } elseif ($token[1] == "Loop") {
                         $token[1] = 'trait';
                     } elseif ($token[1] == "Is") {
-                       $token = [T_STRING, '==='];
+                        $token = [T_STRING, '==='];
                     } elseif ($token[1] == 'END') {
                         $token[1] = 'clone';
                     } elseif ($token[1] == "Next") {
