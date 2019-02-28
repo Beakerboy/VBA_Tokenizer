@@ -17,6 +17,7 @@ define('T_LOOP', 'PHPCS_T_LOOP');
 define('T_SELECT_CASE', 'PHPCS_T_SELECT_CASE');
 define('T_WEND', 'PHPCS_T_WEND');
 define('T_CASE_ELSE', 'PHPCS_T_CASE_ELSE');
+define('T_CONCATENATE', 'PHPCS_T_CONCATENATE');
 
 use PHP_CodeSniffer\Util;
 use PHP_CodeSniffer\Exceptions\TokenizerException;
@@ -198,7 +199,7 @@ class VBA extends Tokenizer
         'And'       => 'T_BOOLEAN_AND',
         '='         => 'T_EQUAL',
         ':='        => 'T_ASSIGNMENT',
-        '&'         => 'T_CONCATINATE',
+        '&'         => 'T_CONCATENATE',
         '\''        => 'T_COMMENT',
     ];
 
