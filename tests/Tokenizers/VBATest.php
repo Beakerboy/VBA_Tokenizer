@@ -26,11 +26,9 @@ class VBATest extends \PHPUnit\Framework\TestCase
     
     public function dataProviderForTokenizer()
     {
-        // $input1 = "' Function: Foo\nPublic Function Foo(iVariable As Double) As Boolean\n    While iVariable Is 2\n        iVariable = iVariable + 1\n    Wend\nEnd Function\n";
         $input1 = "Public Function Foo(iVariable As Double) As Boolean";
         $output1 = [
             [T_OPEN_TAG, '<?php '],
-        //    [T_COMMENT, '// Function: Foo\n'],
             [T_PUBLIC, 'Public'], [T_WHITESPACE, ' '],
             [T_FUNCTION, 'Function'], [T_WHITESPACE, ' '],
             [T_STRING, 'Foo'],
@@ -40,17 +38,6 @@ class VBATest extends \PHPUnit\Framework\TestCase
             [T_AS, 'As'], [T_WHITESPACE, ' '],
             [T_STRING, 'Boolean'],
             [T_WHITESPACE, "\r\n"],
-        //    [T_WHILE, 'While'], [T_WHITESPACE, ' '],
-        //    [T_STRING, 'iVariable'], [T_WHITESPACE, ' '],
-        //    [T_IS_IDENTICAL, '==='], [T_WHITESPACE, ' '],
-        //    [T_LNUMBER, '2'], [T_WHITESPACE, '\n        '],
-        //    [T_STRING, 'iVariable'], [T_WHITESPACE, ' '],
-        //    [T_EQUAL, '='], [T_WHITESPACE, ' '],
-        //    [T_STRING, 'iVariable'], [T_WHITESPACE, ' '],
-        //    [T_PLUS, '+'], [T_WHITESPACE, ' '],
-        //    [T_LNUMBER, '1'], [T_WHITESPACE, '\n    '],
-        //    [T_STATIC, 'static'], [T_WHITESPACE, '\n'],
-        //    [T_ENDDECLARE, 'enddeclare'],
         ];
         return [
             [$input1, $this->expandArray($output1)],
