@@ -11,6 +11,8 @@ class GenericVBAExtension extends VBA
 
     public function __construct($content, $config, $eolChar = '\n')
     {
+        $this->eolChar = $eolChar;
+        $this->config = $config;
         $this->content = $content;
     }
     
