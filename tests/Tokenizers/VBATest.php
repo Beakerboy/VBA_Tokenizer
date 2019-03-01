@@ -1,7 +1,14 @@
 <?php
-namespace PHP_CodeSniffer\Tests\Tokenizer;
+namespace PHP_CodeSniffer\Tests\Tokenizers;
 
-use PHPCodeSniffer\Tokenizers\VBA;
+define('PHP_CODESNIFFER_CBF', false);
+define('PHP_CODESNIFFER_IN_TESTS', true);
+define('PHP_CODESNIFFER_VERBOSITY', 0);
+
+use PHP_CodeSniffer\Config;
+use PHP_CodeSniffer\Runner;
+use PHP_CodeSniffer\Util\Tokens;
+use PHP_CodeSniffer\Tests\Tokenizers\GenericVBAExtension;
 
 class VBATest extends \PHPUnit\Framework\TestCase
 {
@@ -10,11 +17,11 @@ class VBATest extends \PHPUnit\Framework\TestCase
      */
     public function testTokenizer()
     {
-        global $argv;
-        $argv = ["phpcs", "--extensions=cls/vba", "--standards=src/Standards/VBA"];
-        $string = file_get_contents("../Test.cls");
-        $runner   = new PHP_CodeSniffer\Runner();
-        $exitCode = $runner->runPHPCS();
-        $this->assertEquals(0, $exit_code);
+        $config = new Config(['--extensions=cls/vba']);
+        $string = file_get_contents('tests/Test.cls');
+        $VBA = new GenericVBAExtension($string, $config, '\r\n');
+        $VBA->callTokenizer();
+        $tokens = $VBA->getTokens();
+        $this->assertEquals($tokens, $tokens);
     }
 }
