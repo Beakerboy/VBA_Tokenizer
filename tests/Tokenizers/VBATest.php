@@ -2,6 +2,7 @@
 namespace PHP_CodeSniffer\Tests\Tokenizers;
 
 define('PHP_CODESNIFFER_CBF', false);
+define('PHP_CODESNIFFER_IN_TESTS', true);
 
 use PHP_CodeSniffer\Config;
 use PHP_CodeSniffer\Runner;
@@ -15,7 +16,7 @@ class VBATest extends \PHPUnit\Framework\TestCase
      */
     public function testTokenizer()
     {
-        $config = new Config(['--extensions=cls/vba']);
+        $config = new Config();
         $string = file_get_contents('tests/Test.cls');
         $VBA = new GenericVBAExtension($string, $config, '\r\n');
         $tokens = $VBA->getTokens();
