@@ -18,16 +18,16 @@ Public oSQL As oObject
 
 ' Function: Foo
 Public Function Foo(iVariable As Double) As Boolean
-    While iVariable = 2
+    While iVariable Is 2
         iVariable = iVariable + 1
     Wend
 End Function
 
 ' Function: Bar
 Private Sub Bar(Optional sTest As String)
-    if sTest = "somevalue" Then
+    If Not sTest = "somevalue" Then
         iDoSomething = 5
-    Elseif sTest = "something else" Then
+    Elseif sTest = "something else" Or sTest = "Something Else" Then
         iDoSomethong = 6
     Else
         iDoSomething = 7
