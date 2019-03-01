@@ -16,6 +16,6 @@ class GenericVBAExtension extends VBA
     
     public function callTokenizer()
     {
-       $this->tokens = parent::tokenizer($this->content);
+        $this->tokens = parent::tokenizer($this->content);
     }
 }
