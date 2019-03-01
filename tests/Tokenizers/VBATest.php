@@ -1,11 +1,11 @@
 <?php
-namespace PHP_CodeSniffer\Tests\Tokenizer;
+namespace PHP_CodeSniffer\Tests\Tokenizers;
 
 define('PHP_CODESNIFFER_CBF', false);
 
 use PHP_CodeSniffer\Config;
 use PHP_CodeSniffer\Runner;
-use PHP_CodeSniffer\Tokenizers\GenericVBAExtension;
+use PHP_CodeSniffer\Tests\Tokenizers\GenericVBAExtension;
 
 class VBATest extends \PHPUnit\Framework\TestCase
 {
