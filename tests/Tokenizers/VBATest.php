@@ -5,6 +5,7 @@ define('PHP_CODESNIFFER_CBF', false);
 
 use PHP_CodeSniffer\Config;
 use PHP_CodeSniffer\Runner;
+use PHP_CodeSniffer\Util\Tokens;
 use PHP_CodeSniffer\Tests\Tokenizers\GenericVBAExtension;
 
 class VBATest extends \PHPUnit\Framework\TestCase
