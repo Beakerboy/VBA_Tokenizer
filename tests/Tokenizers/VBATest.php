@@ -15,6 +15,6 @@ class VBATest extends \PHPUnit\Framework\TestCase
         $string = file_get_contents("tests/Test.cls");
         $runner   = new Runner();
         $exitCode = $runner->runPHPCS();
-        $this->assertEquals(0, $exit_code);
+        $this->assertEquals(0, $exitCode);
     }
 }
