@@ -45,4 +45,7 @@ Private Sub pSub ()
     For i = 1 To 6
         Lib.Save i
     Next i
+    For Each element In vArray
+        Lib2.Read
+    Next
 End Sub
