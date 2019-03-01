@@ -1,6 +1,6 @@
 <?php
 
-namespace PHP_CodeSniffer\Tokenizers;
+namespace PHP_CodeSniffer\Tests\Tokenizers;
 
 use PHP_CodeSniffer\Tokenizers\VBA;
 
