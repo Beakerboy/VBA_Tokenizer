@@ -65,9 +65,9 @@ End Function";
         $output = [];
         foreach ($input as $token) {
             $output[] = [
-                'code' => $input[0],
-                'type' => Tokens::tokenName($input[0]),
-                'content' => $input[1],
+                'code' => $token[0],
+                'type' => Tokens::tokenName($token[0]),
+                'content' => $token[1],
             ];
         }
         return $output;
