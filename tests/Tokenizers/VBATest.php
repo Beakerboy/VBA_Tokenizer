@@ -12,7 +12,7 @@ class VBATest extends \PHPUnit\Framework\TestCase
     {
         global $argv;
         $argv = ["phpcs", "--extensions=cls/vba", "--standards=../../src/Standards/VBA"];
-        $string = file_get_contents("../Test.cls");
+        $string = file_get_contents("tests/Test.cls");
         $runner   = new PHP_CodeSniffer\Runner();
         $exitCode = $runner->runPHPCS();
         $this->assertEquals(0, $exit_code);
