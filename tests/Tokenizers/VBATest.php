@@ -35,7 +35,7 @@ End Function";
         
         $output1 = [
             [T_COMMENT, '// Function: Foo\n'],
-            [T_PUBLIC, 'Public'], [T_WHITESPACE, ' '], 
+            [T_PUBLIC, 'Public'], [T_WHITESPACE, ' '],
             [T_FUNCTION, 'Function'], [T_WHITESPACE, ' '],
             [T_STRING, 'Foo'],
             [T_OPEN_PARENTHESIS, '('], [T_STRING, 'iVariable'], [T_WHITESPACE, ' '],
