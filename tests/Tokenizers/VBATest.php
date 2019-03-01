@@ -1,5 +1,5 @@
 <?php
-namespace VBA_Tokenizer\Tests\Tokenizer;
+namespace PHP_CodeSniffer\Tests\Tokenizer;
 
 use PHPCodeSniffer\Tokenizers\VBA;
 
