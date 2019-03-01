@@ -9,13 +9,13 @@ class GenericVBAExtension extends VBA
 
     protected $content;
 
-    public function __construct($content, $config, $eolChar='\n')
+    public function __construct($content, $config, $eolChar = '\n')
     {
         $this->content = $content;
     }
     
     public function callTokenizer()
-    }
-       parent::tokenizer($this->content);
+    {
+       $this->tokens = parent::tokenizer($this->content);
     }
 }
