@@ -18,7 +18,7 @@ class VBATest extends \PHPUnit\Framework\TestCase
     public function testTokenizer($string, $expected)
     {
         $config = new Config(['--extensions=cls/vba']);
-        $VBA = new GenericVBAExtension($string, $config, '\n');
+        $VBA = new GenericVBAExtension($string, $config, '\r\n');
         $VBA->callTokenizer();
         $tokens = $VBA->getTokens();
         $this->assertEquals($expected, $tokens);
