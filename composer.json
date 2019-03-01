@@ -5,7 +5,7 @@
     "psr-4": { "PHP_CodeSniffer\\": "src/" }
   },
   "autoload-dev": {
-    "psr-4": { "VBA_Tokenizer\\Tests\\": "tests/" }
+    "psr-4": { "PHP_CodeSniffer\\Tests\\": "tests/" }
   },
   "require": {
     "squizlabs/php_codesniffer": "3.*"
