@@ -1,6 +1,8 @@
 <?php
 namespace PHP_CodeSniffer\Tests\Tokenizer;
 
+define('PHP_CODESNIFFER_CBF', false);
+
 use PHP_CodeSniffer\Config;
 use PHP_CodeSniffer\Runner;
 use PHP_CodeSniffer\Tokenizers\GenericVBAExtension;
