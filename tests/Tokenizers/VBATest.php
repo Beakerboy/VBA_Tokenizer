@@ -26,7 +26,7 @@ class VBATest extends \PHPUnit\Framework\TestCase
     
     public function dataProviderForTokenizer()
     {
-        $input1 = "Public Function Foo(iVariable As Double) As Boolean";
+        $input1 = "Public Function Foo(iVariable As Double) As Boolean\r\nEnd Function";
         $output1 = [
             [T_OPEN_TAG, '<?php '],
             [T_PUBLIC, 'Public'], [T_WHITESPACE, ' '],
@@ -36,8 +36,8 @@ class VBATest extends \PHPUnit\Framework\TestCase
             [T_AS, 'As'],[T_WHITESPACE, ' '],
             [T_STRING, 'Double'], [T_CLOSE_PARENTHESIS, ')'], [T_WHITESPACE, ' '],
             [T_AS, 'As'], [T_WHITESPACE, ' '],
-            [T_STRING, 'Boolean'],
-            [T_WHITESPACE, "\r\n"],
+            [T_STRING, 'Boolean'], [T_WHITESPACE, "\r\n"],
+            [T_ENDDECLARE, 'enddeclare'], [T_WHITESPACE, "\r\n"],
         ];
         return [
             [$input1, $this->expandArray($output1)],
