@@ -11,7 +11,7 @@ class VBATest extends \PHPUnit\Framework\TestCase
     public function testTokenizer()
     {
         global $argv;
-        $argv = ["phpcs", "--extensions=cls/vba", "--standards=../../src/Standards/VBA"];
+        $argv = ["phpcs", "--extensions=cls/vba", "--standards=src/Standards/VBA"];
         $string = file_get_contents("../Test.cls");
         $runner   = new PHP_CodeSniffer\Runner();
         $exitCode = $runner->runPHPCS();
