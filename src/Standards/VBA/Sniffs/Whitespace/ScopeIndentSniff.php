@@ -1,6 +1,6 @@
 <?php
 
-namespace VBA_Tokenizer\Standards\VBA\Sniffs\WhiteSpace;
+namespace PHP_CodeSniffer\Standards\VBA\Sniffs\WhiteSpace;
 
 use PHP_CodeSniffer\Standards\Generic\Sniffs\WhiteSpace\ScopeIndentSniff as GenericScopeIndentSniff;
 
