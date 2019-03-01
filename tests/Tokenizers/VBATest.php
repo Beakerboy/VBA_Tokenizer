@@ -26,12 +26,7 @@ class VBATest extends \PHPUnit\Framework\TestCase
     
     public function dataProviderForTokenizer()
     {
-        $input1 = "' Function: Foo
-Public Function Foo(iVariable As Double) As Boolean
-    While iVariable Is 2
-        iVariable = iVariable + 1
-    Wend
-End Function";
+        $input1 = '\' Function: Foo\nPublic Function Foo(iVariable As Double) As Boolean\n    While iVariable Is 2\n        iVariable = iVariable + 1\n    Wend\nEnd Function";
         
         $output1 = [
             [T_OPEN_TAG, '<?php '],
