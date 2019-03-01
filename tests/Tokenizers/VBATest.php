@@ -34,6 +34,7 @@ Public Function Foo(iVariable As Double) As Boolean
 End Function";
         
         $output1 = [
+            [T_OPEN_TAG, '<?php '],
             [T_COMMENT, '// Function: Foo\n'],
             [T_PUBLIC, 'Public'], [T_WHITESPACE, ' '],
             [T_FUNCTION, 'Function'], [T_WHITESPACE, ' '],
@@ -41,7 +42,7 @@ End Function";
             [T_OPEN_PARENTHESIS, '('], [T_STRING, 'iVariable'], [T_WHITESPACE, ' '],
             [T_AS, 'As'],[T_WHITESPACE, ' '],
             [T_STRING, 'Double'], [T_CLOSE_PARENTHESIS, ')'], [T_WHITESPACE, ' '],
-            [T_AS], [T_WHITESPACE, ' '],
+            [T_AS, 'As'], [T_WHITESPACE, ' '],
             [T_STRING, 'Boolean'], [T_WHITESPACE, '\n    '],
             [T_WHILE, 'While'], [T_WHITESPACE, ' '],
             [T_STRING, 'iVariable'], [T_WHITESPACE, ' '],
