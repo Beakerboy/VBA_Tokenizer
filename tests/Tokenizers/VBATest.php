@@ -56,7 +56,7 @@ End Function";
             [T_ENDDECLARE, 'enddeclare'],
         ];
         return [
-            [$input1, $this->expandArray(output1)],
+            [$input1, $this->expandArray($output1)],
         ];
     }
     
