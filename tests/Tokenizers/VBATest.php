@@ -3,6 +3,7 @@ namespace PHP_CodeSniffer\Tests\Tokenizers;
 
 define('PHP_CODESNIFFER_CBF', false);
 define('PHP_CODESNIFFER_IN_TESTS', true);
+define('PHP_CODESNIFFER_VERBOSITY', 0);
 
 use PHP_CodeSniffer\Config;
 use PHP_CodeSniffer\Runner;
