@@ -36,4 +36,10 @@ End Sub
 
 Public Property Let (Baz)
     oSQL = Baz
-End Property 
+End Property
+
+Private Sub pSub ()
+    For i = 1 To 6
+        Lib.Save i
+    Next i
+End Sub
