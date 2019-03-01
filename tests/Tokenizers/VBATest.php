@@ -39,7 +39,7 @@ class VBATest extends \PHPUnit\Framework\TestCase
             [T_STRING, 'Double'], [T_CLOSE_PARENTHESIS, ')'], [T_WHITESPACE, ' '],
             [T_AS, 'As'], [T_WHITESPACE, ' '],
             [T_STRING, 'Boolean'],
-            [T_WHITESPACE, '\n'],
+            [T_WHITESPACE, '\r\n'],
         //    [T_WHILE, 'While'], [T_WHITESPACE, ' '],
         //    [T_STRING, 'iVariable'], [T_WHITESPACE, ' '],
         //    [T_IS_IDENTICAL, '==='], [T_WHITESPACE, ' '],
