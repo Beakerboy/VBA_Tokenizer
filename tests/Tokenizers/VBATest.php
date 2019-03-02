@@ -67,10 +67,10 @@ class VBATest extends \PHPUnit\Framework\TestCase
             "\r\n" .
             "Private Sub pSub ()\r\n" .
             "    For i = 1 To 6\r\n" .
-            /*"        Lib.Save i\r\n" .
-            /*"    Next i\r\n" .
-            /*"    For Each element In vArray\r\n" .
-            /*"        Lib2.Read\r\n" .*/
+            "        Lib.Save i\r\n" .
+            "    Next i\r\n" .
+            "    For Each element In vArray\r\n" .
+            "        Lib2.Read\r\n" .
             "    Next\r\n" .
             "End Sub";
         $output1 = [
@@ -183,10 +183,20 @@ class VBATest extends \PHPUnit\Framework\TestCase
             [T_EQUAL, '='], [T_WHITESPACE, ' '],
             [T_LNUMBER, '1'], [T_WHITESPACE, ' '],
             [T_STRING, 'To'], [T_WHITESPACE, ' '],
-            [T_LNUMBER, '6'], [T_WHITESPACE, "\r\n    "],
+            [T_LNUMBER, '6'], [T_WHITESPACE, "\r\n        "],
+            [T_STRING, 'Lib'], [T_CLASS_OPERATOR, '->'],
+            [T_STRING, 'Save'], [T_WHITESPACE, ' '],
+            [T_STRING, 'i'], [T_WHITESPACE, "\r\n    "],
+            [T_RIGHT_CURLY_BRACKET, '}'], [T_WHITESPACE, ' '],
+            [T_STRING, 'i'], [T_WHITESPACE, "\r\n    "],
+            [T_FOREACH, 'foreach'], [T_WHITESPACE, ' '],
+            [T_STRING, 'element'], [T_WHITESPACE, ' '],
+            [T_STRING, 'In'], [T_WHITESPACE, ' '],
+            [T_STRING, 'vArray'], [T_WHITESPACE, "\r\n        "],
+            [T_STRING, 'Lib2'], [T_CLASS_OPERATOR, '->'],
+            [T_STRING, 'Read'], [T_WHITESPACE, "\r\n    "],
             [T_RIGHT_CURLY_BRACKET, '}'], [T_WHITESPACE, "\r\n"],
-            [T_ENDDECLARE, 'enddeclare'], [T_WHITESPACE, "\r\n"],
-            //s don't know if the last line break should be there
+            [T_ENDDECLARE, 'enddeclare'],
         ];
         return [
             [$input1, $this->expandArray($output1)],
