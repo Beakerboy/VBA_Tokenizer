@@ -37,31 +37,31 @@ class VBATest extends \PHPUnit\Framework\TestCase
             "' A test class.\r\n" .
             "Implements iTest\r\n" .
             "\r\n" .
-            //"Private sTable As String" .
-            //"Public oSQL As oObject" .
-            //"\r\n" .
-            "Public Function Foo(iVariable As Double) As Boolean\r\n" .
-            "End Function";
+            "Private sTable As String" .
+            "Public oSQL As oObject" .
+            "\r\n";
         $output1 = [
             [T_OPEN_TAG, '<?php '],
             [T_STRING, 'VERSION'], [T_WHITESPACE, ' '],
             [T_DNUMBER, '1.0'], [T_WHITESPACE, ' '],
             [T_CLASS, 'CLASS'], [T_WHITESPACE, "\r\n  "],
             [T_ABSTRACT, 'abstract'], [T_WHITESPACE, "\r\n"],
-            [T_CLONE, 'clone'], [T_WHITESPACE, "\r\n"],
-            [T_STRING, 'Option'], [T_WHITESPACE, ' '], [T_STRING, 'Explicit'], [T_WHITESPACE, "\r\n\r\n"],
+            [T_CLONE, 'clone'], [T_WHITESPACE, "\r\n"],=
+            [T_STRING, 'Option'], [T_WHITESPACE, ' '],
+            [T_STRING, 'Explicit'], [T_WHITESPACE, "\r\n\r\n"],
             [T_COMMENT, "// Class: Test\r\n"],
             [T_COMMENT, "// A test class.\r\n"],
-            [T_IMPLEMENTS, 'Implements'], [T_WHITESPACE, ' '], [T_STRING, 'iTest'], [T_WHITESPACE, "\r\n\r\n"],
-            [T_PUBLIC, 'Public'], [T_WHITESPACE, ' '],
-            [T_FUNCTION, 'Function'], [T_WHITESPACE, ' '],
-            [T_STRING, 'Foo'],
-            [T_OPEN_PARENTHESIS, '('], [T_STRING, 'iVariable'], [T_WHITESPACE, ' '],
-            [T_AS, 'As'],[T_WHITESPACE, ' '],
-            [T_STRING, 'Double'], [T_CLOSE_PARENTHESIS, ')'], [T_WHITESPACE, ' '],
+            [T_IMPLEMENTS, 'Implements'], [T_WHITESPACE, ' '],
+            [T_STRING, 'iTest'], [T_WHITESPACE, "\r\n\r\n"],
+            [T_PRIVATE, 'Private'], [T_WHITESPACE, ' '],
+            [T_STRING, 'sTable'], [T_WHITESPACE, ' '],
             [T_AS, 'As'], [T_WHITESPACE, ' '],
-            [T_STRING, 'Boolean'], [T_WHITESPACE, "\r\n"],
-            [T_ENDDECLARE, 'enddeclare'], [T_WHITESPACE, "\r\n"],
+            [T_STRING, 'String'], [T_WHITESPACE, "\r\n"],
+            [T_STRING, 'iTest'], [T_WHITESPACE, "\r\n\r\n"],
+            [T_PUBLIC, 'Public'], [T_WHITESPACE, ' '],
+            [T_STRING, 'oSQL'], [T_WHITESPACE, ' '],
+            [T_AS, 'As'], [T_WHITESPACE, ' '],
+            [T_STRING, 'Object'], [T_WHITESPACE, "\r\n\r\n"],
         ];
         return [
             [$input1, $this->expandArray($output1)],
