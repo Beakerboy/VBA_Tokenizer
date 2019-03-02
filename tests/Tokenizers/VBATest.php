@@ -39,7 +39,40 @@ class VBATest extends \PHPUnit\Framework\TestCase
             "\r\n" .
             "Private sTable As String" .
             "Public oSQL As oObject" .
-            "\r\n";
+            "\r\n" .
+            "' Function: Foo\r\n" .
+            "Public Function Foo(iVariable As Double) As Boolean\r\n" .
+            /*"    While iVariable Is 2\r\n" .
+            "        iVariable = iVariable + 1\r\n" .
+            "    Wend\r\n" .
+            "End Function\r\n" .
+            "\r\n" .
+            "' Function: Bar\r\n" .
+            "Private Sub Bar(Optional sTest As String)\r\n" .
+            "    If Not sTest = "somevalue" And sTest > 2.6 Then\r\n" .
+            "        iDoSomething = 5\r\n" .
+            "    Elseif sTest = "something else" Or sTest = "Something Else" Then\r\n" .
+            "        iDoSomethong = 6\r\n" .
+            "    Else\r\n" .
+            "        iDoSomething = 7\r\n" .
+            "    End If
+            "End Sub\r\n" .
+            "\r\n" .
+            "Public Property Let (Baz)\r\n" .
+            "    oSQL = Baz\r\n" .
+            "    Do While 6 > 7\r\n" .
+            "        Bar(2)\r\n" .
+            "    Loop\r\n" .
+            "End Property\r\n" .
+            "\r\n" .
+            "Private Sub pSub ()\r\n" .
+            "    For i = 1 To 6\r\n" .
+            "        Lib.Save i\r\n" .
+            "    Next i\r\n" .
+            "    For Each element In vArray\r\n" .
+            "        Lib2.Read\r\n" . */
+      //      "    Next\r\n" .
+            "End Sub";
         $output1 = [
             [T_OPEN_TAG, '<?php '],
             [T_STRING, 'VERSION'], [T_WHITESPACE, ' '],
@@ -62,6 +95,18 @@ class VBATest extends \PHPUnit\Framework\TestCase
             [T_STRING, 'oSQL'], [T_WHITESPACE, ' '],
             [T_AS, 'As'], [T_WHITESPACE, ' '],
             [T_STRING, 'Object'], [T_WHITESPACE, "\r\n\r\n"],
+            [T_COMMENT, "' Function: Foo\r\n"],
+            [T_PUBLIC, 'Public'], [T_WHITESPACE, ' '],
+            [T_FUNCTION, 'Function'], [T_WHITESPACE, ' '],
+            [T_STRING, 'Foo'], [T_OPEN_PARENTHESIS, '('],
+            [T_STRING, 'iVariable'], [T_WHITESPACE, ' '],
+            [T_AS, 'As'], [T_WHITESPACE, ' '],
+            [T_STRING, 'Double'], [T_CLOSE_PARENTHESIS, ')'], [T_WHITESPACE, ' '],
+            [T_AS, 'As'], [T_WHITESPACE, ' '],
+            [T_STRING, 'Boolean'], [T_WHITESPACE, "\r\n"],
+  //          [T_RIGHT_CURLY_BRACKET, '}'], [T_WHITESPACE, "\r\n"],
+            [T_ENDDECLARE, 'enddeclare'], [T_WHITESPACE, "\r\n"],
+            // don't know if the last line break should be there
         ];
         return [
             [$input1, $this->expandArray($output1)],
