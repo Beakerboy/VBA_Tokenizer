@@ -55,7 +55,7 @@ class VBATest extends \PHPUnit\Framework\TestCase
             "        iDoSomethong = 6\r\n" .
             "    Else\r\n" .
             "        iDoSomething = 7\r\n" .
-            "    End If" .
+            "    End If\r\n" .
             "End Sub\r\n" .
             "\r\n" .
             /*"Public Property Let (Baz)\r\n" .
