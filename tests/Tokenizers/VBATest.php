@@ -42,9 +42,9 @@ class VBATest extends \PHPUnit\Framework\TestCase
             "\r\n" .
             "' Function: Foo\r\n" .
             "Public Function Foo(iVariable As Double) As Boolean\r\n" .
-            /*"    While iVariable Is 2\r\n" .
+            "    While iVariable Is 2\r\n" .
             "        iVariable = iVariable + 1\r\n" .
-            "    Wend\r\n" .
+            /*"    Wend\r\n" .
             "End Function\r\n" .
             "\r\n" .
             "' Function: Bar\r\n" .
@@ -93,8 +93,8 @@ class VBATest extends \PHPUnit\Framework\TestCase
             [T_PUBLIC, 'Public'], [T_WHITESPACE, ' '],
             [T_STRING, 'oSQL'], [T_WHITESPACE, ' '],
             [T_AS, 'As'], [T_WHITESPACE, ' '],
-            [T_STRING, 'Object'], [T_WHITESPACE, "\r\n\r\n"],
-            [T_COMMENT, "' Function: Foo\r\n"],
+            [T_STRING, 'oObject'], [T_WHITESPACE, "\r\n\r\n"],
+            [T_COMMENT, "// Function: Foo\r\n"],
             [T_PUBLIC, 'Public'], [T_WHITESPACE, ' '],
             [T_FUNCTION, 'Function'], [T_WHITESPACE, ' '],
             [T_STRING, 'Foo'], [T_OPEN_PARENTHESIS, '('],
@@ -102,10 +102,20 @@ class VBATest extends \PHPUnit\Framework\TestCase
             [T_AS, 'As'], [T_WHITESPACE, ' '],
             [T_STRING, 'Double'], [T_CLOSE_PARENTHESIS, ')'], [T_WHITESPACE, ' '],
             [T_AS, 'As'], [T_WHITESPACE, ' '],
-            [T_STRING, 'Boolean'], [T_WHITESPACE, "\r\n"],
+            [T_STRING, 'Boolean'], [T_WHITESPACE, "\r\n    "],
+            [T_WHILE, 'While'], [T_WHITESPACE, ' '],
+            [T_STRING, 'iVariable'], [T_WHITESPACE, ' '],
+            [T_IS_IDENTICAL, '==='], [T_WHITESPACE, ' '],
+            [T_LNUMBER, '2'], [T_WHITESPACE, "\r\n        "],
+            [T_STRING, 'iVariable'], [T_WHITESPACE, ' '],
+            [T_EQUAL, '='], [T_WHITESPACE, ' '],
+            [T_STRING, 'iVariable'], [T_WHITESPACE, ' '],
+            [T_PLUS, '+'], [T_WHITESPACE, ' '],
+            [T_LNUMBER, '1'], [T_WHITESPACE, "\r\n    "],
+            [T_STATIC, 'static'], [T_WHITESPACE, "\r\n"],
   //          [T_RIGHT_CURLY_BRACKET, '}'], [T_WHITESPACE, "\r\n"],
             [T_ENDDECLARE, 'enddeclare'], [T_WHITESPACE, "\r\n"],
-            // don't know if the last line break should be there
+            //s don't know if the last line break should be there
         ];
         return [
             [$input1, $this->expandArray($output1)],
