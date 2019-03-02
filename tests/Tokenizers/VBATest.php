@@ -37,8 +37,8 @@ class VBATest extends \PHPUnit\Framework\TestCase
             "' A test class.\r\n" .
             "Implements iTest\r\n" .
             "\r\n" .
-            "Private sTable As String" .
-            "Public oSQL As oObject" .
+            "Private sTable As String\r\n" .
+            "Public oSQL As oObject\r\n" .
             "\r\n" .
             "' Function: Foo\r\n" .
             "Public Function Foo(iVariable As Double) As Boolean\r\n" .
