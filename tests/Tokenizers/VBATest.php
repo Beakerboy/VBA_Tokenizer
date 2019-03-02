@@ -49,7 +49,7 @@ class VBATest extends \PHPUnit\Framework\TestCase
             "\r\n" .
             "' Function: Bar\r\n" .
             "Private Sub Bar(Optional sTest As String)\r\n" .
-            "    If Not sTest = "somevalue" And sTest > 2.6 Then\r\n" .
+            "    If Not sTest = \"somevalue\" And sTest > 2.6 Then\r\n" .
             /*"        iDoSomething = 5\r\n" .
             "    Elseif sTest = "something else" Or sTest = "Something Else" Then\r\n" .
             "        iDoSomethong = 6\r\n" .
