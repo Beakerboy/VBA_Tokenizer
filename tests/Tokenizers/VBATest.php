@@ -51,8 +51,8 @@ class VBATest extends \PHPUnit\Framework\TestCase
             "Private Sub Bar(Optional sTest As String)\r\n" .
             "    If Not sTest = \"somevalue\" And sTest > 2.6 Then\r\n" .
             "        iDoSomething = 5\r\n" .
-            /*"    Elseif sTest = "something else" Or sTest = "Something Else" Then\r\n" .
-            "        iDoSomethong = 6\r\n" .
+            "    Elseif sTest = "something else" Or sTest = "Something Else" Then\r\n" .
+            /*"        iDoSomethong = 6\r\n" .
             "    Else\r\n" .
             "        iDoSomething = 7\r\n" .
             "    End If" . */
@@ -135,6 +135,15 @@ class VBATest extends \PHPUnit\Framework\TestCase
             [T_STRING, 'iDoSomething'], [T_WHITESPACE, ' '],
             [T_EQUAL, '='], [T_WHITESPACE, ' '],
             [T_LNUMBER, '5'], [T_WHITESPACE, "\r\n"],
+            [T_ELSEIF, 'elseif'], [T_WHITESPACE, ' '],
+            [T_OPEN_PARENTHESIS, '('], [T_WHITESPACE, ' '],
+            [T_STRING, 'sTest'], [T_WHITESPACE, ' '],
+            [T_EQUAL, '='], [T_WHITESPACE, ' '],
+            [T_CONSTANT_ENCAPSED_STRING, '"something else"'], [T_WHITESPACE, ' '],
+            [T_LOGICAL_OR, 'Or'], [T_WHITESPACE, ' '],
+            [T_STRING, 'sTest'], [T_WHITESPACE, ' '],
+            [T_EQUAL, '='], [T_WHITESPACE, ' '],
+            [T_CONSTANT_ENCAPSED_STRING, '"Something Else"'], [T_WHITESPACE, ' '],
             //
             [T_ENDDECLARE, 'enddeclare'], [T_WHITESPACE, "\r\n\r\n"],
             //
