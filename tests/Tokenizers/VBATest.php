@@ -160,7 +160,7 @@ class VBATest extends \PHPUnit\Framework\TestCase
             [T_ENDDECLARE, 'enddeclare'], [T_WHITESPACE, "\r\n\r\n"],
             [T_PUBLIC, 'Public'], [T_WHITESPACE, ' '],
             [T_FUNCTION, 'function'], [T_WHITESPACE, ' '],
-            [T_STRING, 'Let'], [T_WHITESPACE, ' '],, [T_OPEN_PARENTHESIS, '('],
+            [T_STRING, 'Let'], [T_WHITESPACE, ' '], [T_OPEN_PARENTHESIS, '('],
             [T_STRING, 'Baz'], [T_CLOSE_PARENTHESIS, ')'],[T_WHITESPACE, "\r\n  "],
             [T_STRING, 'oSQL'], [T_WHITESPACE, ' '],
             [T_EQUAL, '='], [T_WHITESPACE, ' '],
