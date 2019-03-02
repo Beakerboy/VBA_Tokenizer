@@ -79,7 +79,7 @@ class VBATest extends \PHPUnit\Framework\TestCase
             [T_DNUMBER, '1.0'], [T_WHITESPACE, ' '],
             [T_CLASS, 'CLASS'], [T_WHITESPACE, "\r\n  "],
             [T_ABSTRACT, 'abstract'], [T_WHITESPACE, "\r\n"],
-            [T_CLONE, 'clone'], [T_WHITESPACE, "\r\n"],=
+            [T_CLONE, 'clone'], [T_WHITESPACE, "\r\n"],
             [T_STRING, 'Option'], [T_WHITESPACE, ' '],
             [T_STRING, 'Explicit'], [T_WHITESPACE, "\r\n\r\n"],
             [T_COMMENT, "// Class: Test\r\n"],
