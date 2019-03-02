@@ -90,7 +90,6 @@ class VBATest extends \PHPUnit\Framework\TestCase
             [T_STRING, 'sTable'], [T_WHITESPACE, ' '],
             [T_AS, 'As'], [T_WHITESPACE, ' '],
             [T_STRING, 'String'], [T_WHITESPACE, "\r\n"],
-            [T_STRING, 'iTest'], [T_WHITESPACE, "\r\n\r\n"],
             [T_PUBLIC, 'Public'], [T_WHITESPACE, ' '],
             [T_STRING, 'oSQL'], [T_WHITESPACE, ' '],
             [T_AS, 'As'], [T_WHITESPACE, ' '],
