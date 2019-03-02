@@ -122,7 +122,7 @@ class VBATest extends \PHPUnit\Framework\TestCase
             [T_AS, 'As'], [T_WHITESPACE, ' '],
             [T_STRING, 'String'], [T_CLOSE_PARENTHESIS, ')'], [T_WHITESPACE, "\r\n    "],
             [T_IF, 'if'], [T_WHITESPACE, ' '],
-            [T_OPEN_PARENTHESIS, '('], [T_BOOLEAN_NOT, '!'], [T_WHITESPACE, ' '],
+            [T_OPEN_PARENTHESIS, '('], [T_WHITESPACE, ' '], [T_BOOLEAN_NOT, '!'], [T_WHITESPACE, ' '],
             [T_STRING, 'sTest'], [T_WHITESPACE, ' '],
             [T_EQUAL, '='], [T_WHITESPACE, ' '],
             [T_STRING, '"somevalue"'], [T_WHITESPACE, ' '],
