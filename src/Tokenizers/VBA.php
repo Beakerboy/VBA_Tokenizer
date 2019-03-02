@@ -26,10 +26,6 @@ class VBA extends PHP
                         $token[1] = 'abstract';
                     } elseif ($token[1] == 'Not') {
                         $token[1] = '!';
-                    } elseif ($token[1] == 'And') {
-                        $token[1] = '&&';
-                    } elseif ($token[1] == 'Or') {
-                        $token[1] = '||';
                     } elseif ($token[1] == 'Then') {
                         $token = [T_STRING, ') {'];
                     } elseif ($token[1] == 'Wend') {
