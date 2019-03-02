@@ -50,8 +50,8 @@ class VBATest extends \PHPUnit\Framework\TestCase
             "' Function: Bar\r\n" .
             "Private Sub Bar(Optional sTest As String)\r\n" .
             "    If Not sTest = \"somevalue\" And sTest > 2.6 Then\r\n" .
-            /*"        iDoSomething = 5\r\n" .
-            "    Elseif sTest = "something else" Or sTest = "Something Else" Then\r\n" .
+            "        iDoSomething = 5\r\n" .
+            /*"    Elseif sTest = "something else" Or sTest = "Something Else" Then\r\n" .
             "        iDoSomethong = 6\r\n" .
             "    Else\r\n" .
             "        iDoSomething = 7\r\n" .
@@ -131,7 +131,10 @@ class VBATest extends \PHPUnit\Framework\TestCase
             [T_GREATER_THAN, '>'], [T_WHITESPACE, ' '],
             [T_DNUMBER, '2.6'], [T_WHITESPACE, ' '],
             [T_CLOSE_PARENTHESIS, ')'], [T_WHITESPACE, ' '],
-            [T_OPEN_CURLY_BRACKET, '{'], [T_WHITESPACE, "\r\n"],
+            [T_OPEN_CURLY_BRACKET, '{'], [T_WHITESPACE, "\r\n        "],
+            [T_STRING, 'iDoSomething'], [T_WHITESPACE, ' '],
+            [T_EQUAL, '='], [T_WHITESPACE, ' '],
+            [T_LNUMBER, '5'], [T_WHITESPACE, "\r\n"],
             //
             [T_ENDDECLARE, 'enddeclare'], [T_WHITESPACE, "\r\n\r\n"],
             //
