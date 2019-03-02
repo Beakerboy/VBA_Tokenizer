@@ -6,7 +6,6 @@ define('PHP_CODESNIFFER_IN_TESTS', true);
 define('PHP_CODESNIFFER_VERBOSITY', 0);
 
 use PHP_CodeSniffer\Config;
-use PHP_CodeSniffer\Runner;
 use PHP_CodeSniffer\Util\Tokens;
 use PHP_CodeSniffer\Tests\Tokenizers\GenericVBAExtension;
 
@@ -14,14 +13,206 @@ class VBATest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testCase     Tests that the tokenizer returns the correct array
+     * @dataProvider dataProviderForTokenizer
      */
-    public function testTokenizer()
+    public function testTokenizer($string, $expected)
     {
         $config = new Config(['--extensions=cls/vba']);
-        $string = file_get_contents('tests/Test.cls');
         $VBA = new GenericVBAExtension($string, $config, '\r\n');
         $VBA->callTokenizer();
         $tokens = $VBA->getTokens();
-        $this->assertEquals($tokens, $tokens);
+        $this->assertEquals($expected, $tokens);
+    }
+    
+    public function dataProviderForTokenizer()
+    {
+        $input1 = "VERSION 1.0 CLASS\r\n" .
+            "  BEGIN\r\n" .
+            //"MultiUse = -1  'True\r\n"
+            "END\r\n" .
+            //"Attribute VB_Name = \"Test\"\r\n" .
+            "Option Explicit\r\n" .
+            "\r\n" .
+            "' Class: Test\r\n" .
+            "' A test class.\r\n" .
+            "Implements iTest\r\n" .
+            "\r\n" .
+            "Private sTable As String\r\n" .
+            "Public oSQL As oObject\r\n" .
+            "\r\n" .
+            "' Function: Foo\r\n" .
+            "Public Function Foo(iVariable As Double) As Boolean\r\n" .
+            "    While iVariable Is 2\r\n" .
+            "        iVariable = iVariable + 1\r\n" .
+            "    Wend\r\n" .
+            "End Function\r\n" .
+            "\r\n" .
+            "' Function: Bar\r\n" .
+            "Private Sub Bar(Optional sTest As String)\r\n" .
+            "    If Not sTest = \"somevalue\" And sTest > 2.6 Then\r\n" .
+            "        iDoSomething = 5\r\n" .
+            "    Elseif sTest = \"something else\" Or sTest = \"Something Else\" Then\r\n" .
+            "        iDoSomethong = 6\r\n" .
+            "    Else\r\n" .
+            "        iDoSomething = 7\r\n" .
+            "    End If\r\n" .
+            "End Sub\r\n" .
+            "\r\n" .
+            "Public Property Let (Baz)\r\n" .
+            "    oSQL = Baz\r\n" .
+            "    Do While 6 > 7\r\n" .
+            "        Bar(2)\r\n" .
+            "    Loop\r\n" .
+            "End Property\r\n" .
+            "\r\n" .
+            "Private Sub pSub ()\r\n" .
+            "    For i = 1 To 6\r\n" .
+            "        Lib.Save i\r\n" .
+            "    Next i\r\n" .
+            "    For Each element In vArray\r\n" .
+            "        Lib2.Read\r\n" .
+            "    Next\r\n" .
+            "End Sub";
+        $output1 = [
+            [T_OPEN_TAG, '<?php '],
+            [T_STRING, 'VERSION'], [T_WHITESPACE, ' '],
+            [T_DNUMBER, '1.0'], [T_WHITESPACE, ' '],
+            [T_CLASS, 'CLASS'], [T_WHITESPACE, "\r\n  "],
+            [T_ABSTRACT, 'abstract'], [T_WHITESPACE, "\r\n"],
+            [T_CLONE, 'clone'], [T_WHITESPACE, "\r\n"],
+            [T_STRING, 'Option'], [T_WHITESPACE, ' '],
+            [T_STRING, 'Explicit'], [T_WHITESPACE, "\r\n\r\n"],
+            [T_COMMENT, "// Class: Test\r\n"],
+            [T_COMMENT, "// A test class.\r\n"],
+            [T_IMPLEMENTS, 'Implements'], [T_WHITESPACE, ' '],
+            [T_STRING, 'iTest'], [T_WHITESPACE, "\r\n\r\n"],
+            [T_PRIVATE, 'Private'], [T_WHITESPACE, ' '],
+            [T_STRING, 'sTable'], [T_WHITESPACE, ' '],
+            [T_AS, 'As'], [T_WHITESPACE, ' '],
+            [T_STRING, 'String'], [T_WHITESPACE, "\r\n"],
+            [T_PUBLIC, 'Public'], [T_WHITESPACE, ' '],
+            [T_STRING, 'oSQL'], [T_WHITESPACE, ' '],
+            [T_AS, 'As'], [T_WHITESPACE, ' '],
+            [T_STRING, 'oObject'], [T_WHITESPACE, "\r\n\r\n"],
+            [T_COMMENT, "// Function: Foo\r\n"],
+            [T_PUBLIC, 'Public'], [T_WHITESPACE, ' '],
+            [T_FUNCTION, 'Function'], [T_WHITESPACE, ' '],
+            [T_STRING, 'Foo'], [T_OPEN_PARENTHESIS, '('],
+            [T_STRING, 'iVariable'], [T_WHITESPACE, ' '],
+            [T_AS, 'As'], [T_WHITESPACE, ' '],
+            [T_STRING, 'Double'], [T_CLOSE_PARENTHESIS, ')'], [T_WHITESPACE, ' '],
+            [T_AS, 'As'], [T_WHITESPACE, ' '],
+            [T_STRING, 'Boolean'], [T_WHITESPACE, "\r\n    "],
+            [T_WHILE, 'While'], [T_WHITESPACE, ' '],
+            [T_STRING, 'iVariable'], [T_WHITESPACE, ' '],
+            [T_IS_IDENTICAL, '==='], [T_WHITESPACE, ' '],
+            [T_LNUMBER, '2'], [T_WHITESPACE, "\r\n        "],
+            [T_STRING, 'iVariable'], [T_WHITESPACE, ' '],
+            [T_EQUAL, '='], [T_WHITESPACE, ' '],
+            [T_STRING, 'iVariable'], [T_WHITESPACE, ' '],
+            [T_PLUS, '+'], [T_WHITESPACE, ' '],
+            [T_LNUMBER, '1'], [T_WHITESPACE, "\r\n    "],
+            [T_STATIC, 'static'], [T_WHITESPACE, "\r\n"],
+            [T_ENDDECLARE, 'enddeclare'], [T_WHITESPACE, "\r\n\r\n"],
+            [T_COMMENT, "// Function: Bar\r\n"],
+            [T_PRIVATE, 'Private'], [T_WHITESPACE, ' '],
+            [T_FUNCTION, 'function'], [T_WHITESPACE, ' '],
+            [T_STRING, 'Bar'], [T_OPEN_PARENTHESIS, '('], [T_STRING, 'Optional'], [T_WHITESPACE, ' '],
+            [T_STRING, 'sTest'], [T_WHITESPACE, ' '],
+            [T_AS, 'As'], [T_WHITESPACE, ' '],
+            [T_STRING, 'String'], [T_CLOSE_PARENTHESIS, ')'], [T_WHITESPACE, "\r\n    "],
+            [T_IF, 'if'], [T_WHITESPACE, ' '],
+            [T_OPEN_PARENTHESIS, '('], [T_WHITESPACE, ' '], [T_BOOLEAN_NOT, '!'], [T_WHITESPACE, ' '],
+            [T_STRING, 'sTest'], [T_WHITESPACE, ' '],
+            [T_EQUAL, '='], [T_WHITESPACE, ' '],
+            [T_CONSTANT_ENCAPSED_STRING, '"somevalue"'], [T_WHITESPACE, ' '],
+            [T_LOGICAL_AND, 'And'], [T_WHITESPACE, ' '],
+            [T_STRING, 'sTest'], [T_WHITESPACE, ' '],
+            [T_GREATER_THAN, '>'], [T_WHITESPACE, ' '],
+            [T_DNUMBER, '2.6'], [T_WHITESPACE, ' '],
+            [T_CLOSE_PARENTHESIS, ')'], [T_WHITESPACE, ' '],
+            [T_OPEN_CURLY_BRACKET, '{'], [T_WHITESPACE, "\r\n        "],
+            [T_STRING, 'iDoSomething'], [T_WHITESPACE, ' '],
+            [T_EQUAL, '='], [T_WHITESPACE, ' '],
+            [T_LNUMBER, '5'], [T_WHITESPACE, "\r\n    "],
+            [T_CLOSE_CURLY_BRACKET, '}'], [T_WHITESPACE, ' '],
+            [T_ELSEIF, 'elseif'], [T_WHITESPACE, ' '],
+            [T_OPEN_PARENTHESIS, '('], [T_WHITESPACE, ' '],
+            [T_STRING, 'sTest'], [T_WHITESPACE, ' '],
+            [T_EQUAL, '='], [T_WHITESPACE, ' '],
+            [T_CONSTANT_ENCAPSED_STRING, '"something else"'], [T_WHITESPACE, ' '],
+            [T_LOGICAL_OR, 'Or'], [T_WHITESPACE, ' '],
+            [T_STRING, 'sTest'], [T_WHITESPACE, ' '],
+            [T_EQUAL, '='], [T_WHITESPACE, ' '],
+            [T_CONSTANT_ENCAPSED_STRING, '"Something Else"'], [T_WHITESPACE, ' '],
+            [T_CLOSE_PARENTHESIS, ')'], [T_WHITESPACE, ' '],
+            [T_OPEN_CURLY_BRACKET, '{'], [T_WHITESPACE, "\r\n        "],
+            [T_STRING, 'iDoSomethong'], [T_WHITESPACE, ' '],
+            [T_EQUAL, '='], [T_WHITESPACE, ' '],
+            [T_LNUMBER, '6'], [T_WHITESPACE, "\r\n    "],
+            [T_CLOSE_CURLY_BRACKET, '}'], [T_WHITESPACE, ' '],
+            [T_ELSE, 'else'], [T_WHITESPACE, ' '],
+            [T_OPEN_CURLY_BRACKET, '{'], [T_WHITESPACE, "\r\n        "],
+            [T_STRING, 'iDoSomething'], [T_WHITESPACE, ' '],
+            [T_EQUAL, '='], [T_WHITESPACE, ' '],
+            [T_LNUMBER, '7'], [T_WHITESPACE, "\r\n    "],
+            [T_CLOSE_CURLY_BRACKET, '}'], [T_WHITESPACE, "\r\n"],
+            [T_ENDDECLARE, 'enddeclare'], [T_WHITESPACE, "\r\n\r\n"],
+            [T_PUBLIC, 'Public'], [T_WHITESPACE, ' '],
+            [T_FUNCTION, 'function'], [T_WHITESPACE, ' '],
+            [T_STRING, 'Let'], [T_WHITESPACE, ' '], [T_OPEN_PARENTHESIS, '('],
+            [T_STRING, 'Baz'], [T_CLOSE_PARENTHESIS, ')'],[T_WHITESPACE, "\r\n    "],
+            [T_STRING, 'oSQL'], [T_WHITESPACE, ' '],
+            [T_EQUAL, '='], [T_WHITESPACE, ' '],
+            [T_STRING, 'Baz'], [T_WHITESPACE, "\r\n    "],
+            [T_DO, 'Do'], [T_WHITESPACE, ' '],
+            [T_WHILE, 'While'], [T_WHITESPACE, ' '],
+            [T_LNUMBER, '6'], [T_WHITESPACE, ' '],
+            [T_GREATER_THAN, '>'], [T_WHITESPACE, ' '],
+            [T_LNUMBER, '7'], [T_WHITESPACE, "\r\n        "],
+            [T_STRING, 'Bar'], [T_OPEN_PARENTHESIS, '('], [T_LNUMBER, '2'],
+            [T_CLOSE_PARENTHESIS, ')'],[T_WHITESPACE, "\r\n    "],
+            [T_TRAIT, 'trait'], [T_WHITESPACE, "\r\n"],
+            [T_ENDDECLARE, 'enddeclare'], [T_WHITESPACE, "\r\n\r\n"],
+            [T_PRIVATE, 'Private'], [T_WHITESPACE, ' '],
+            [T_FUNCTION, 'function'], [T_WHITESPACE, ' '],
+            [T_STRING, 'pSub'], [T_WHITESPACE, ' '],
+            [T_OPEN_PARENTHESIS, '('], [T_CLOSE_PARENTHESIS, ')'],[T_WHITESPACE, "\r\n    "],
+            [T_FOR, 'For'], [T_WHITESPACE, ' '],
+            [T_STRING, 'i'], [T_WHITESPACE, ' '],
+            [T_EQUAL, '='], [T_WHITESPACE, ' '],
+            [T_LNUMBER, '1'], [T_WHITESPACE, ' '],
+            [T_STRING, 'To'], [T_WHITESPACE, ' '],
+            [T_LNUMBER, '6'], [T_WHITESPACE, "\r\n        "],
+            [T_STRING, 'Lib'], [T_OBJECT_OPERATOR, '->'],
+            [T_STRING, 'Save'], [T_WHITESPACE, ' '],
+            [T_STRING, 'i'], [T_WHITESPACE, "\r\n    "],
+            [T_CLOSE_CURLY_BRACKET, '}'], [T_WHITESPACE, ' '],
+            [T_STRING, 'i'], [T_WHITESPACE, "\r\n    "],
+            [T_FOREACH, 'foreach'], [T_WHITESPACE, ' '],
+            [T_STRING, 'element'], [T_WHITESPACE, ' '],
+            [T_STRING, 'In'], [T_WHITESPACE, ' '],
+            [T_STRING, 'vArray'], [T_WHITESPACE, "\r\n        "],
+            [T_STRING, 'Lib2'], [T_OBJECT_OPERATOR, '->'],
+            [T_STRING, 'Read'], [T_WHITESPACE, "\r\n    "],
+            [T_CLOSE_CURLY_BRACKET, '}'], [T_WHITESPACE, "\r\n"],
+            [T_ENDDECLARE, 'enddeclare'],
+        ];
+        return [
+            [$input1, $this->expandArray($output1)],
+        ];
+    }
+    
+    public function expandArray($input)
+    {
+        $output = [];
+        foreach ($input as $token) {
+            $output[] = [
+                'code' => $token[0],
+                'type' => Tokens::tokenName($token[0]),
+                'content' => $token[1],
+            ];
+        }
+        return $output;
     }
 }
