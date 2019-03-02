@@ -25,7 +25,7 @@ End Function
 
 ' Function: Bar
 Private Sub Bar(Optional sTest As String)
-    If Not sTest = "somevalue" Then
+    If Not sTest = "somevalue" And sTest > 2.6 Then
         iDoSomething = 5
     Elseif sTest = "something else" Or sTest = "Something Else" Then
         iDoSomethong = 6
@@ -36,4 +36,16 @@ End Sub
 
 Public Property Let (Baz)
     oSQL = Baz
-End Property 
+    Do While 6 > 7
+        Bar(2)
+    Loop
+End Property
+
+Private Sub pSub ()
+    For i = 1 To 6
+        Lib.Save i
+    Next i
+    For Each element In vArray
+        Lib2.Read
+    Next
+End Sub
