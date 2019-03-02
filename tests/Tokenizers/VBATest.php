@@ -165,7 +165,7 @@ class VBATest extends \PHPUnit\Framework\TestCase
             [T_STRING, 'oSQL'], [T_WHITESPACE, ' '],
             [T_EQUAL, '='], [T_WHITESPACE, ' '],
             [T_STRING, 'Baz'], [T_WHITESPACE, "\r\n    "],
-            [T_STRING, 'Do'], [T_WHITESPACE, ' '],
+            [T_DO, 'Do'], [T_WHITESPACE, ' '],
             [T_WHILE, 'While'], [T_WHITESPACE, ' '],
             [T_LNUMBER, '6'], [T_WHITESPACE, ' '],
             [T_GREATER_THAN, '>'], [T_WHITESPACE, ' '],
