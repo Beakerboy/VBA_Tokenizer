@@ -31,12 +31,14 @@ class VBATest extends \PHPUnit\Framework\TestCase
             //"MultiUse = -1  'True\r\n"
             "END\r\n" .
             //"Attribute VB_Name = \"Test\"\r\n" .
-             "Option Explicit\r\n" .
-             "\r\n" .
-             "' Class: Test\r\n" .
-             "' A test class.\r\n" .
-             "Implements iTest\r\n" .
-             "\r\n" .
+            "Option Explicit\r\n" .
+            "\r\n" .
+            "' Class: Test\r\n" .
+            "' A test class.\r\n" .
+            "Implements iTest\r\n" .
+            "\r\n" .
+            //"Private sTable As String" .
+            //"Public oSQL As oObject" .
             "Public Function Foo(iVariable As Double) As Boolean\r\n" .
             "End Function";
         $output1 = [
