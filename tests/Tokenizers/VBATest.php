@@ -131,7 +131,7 @@ class VBATest extends \PHPUnit\Framework\TestCase
             [T_GREATER_THAN, '>'], [T_WHITESPACE, ' '],
             [T_DNUMBER, '2.6'], [T_WHITESPACE, ' '],
             [T_CLOSE_PARENTHESIS, ')'], [T_WHITESPACE, ' '],
-            [T_LEFT_CURLY_BRACKET, '{'], [T_WHITESPACE, "\r\n"],
+            [T_OPEN_CURLY_BRACKET, '{'], [T_WHITESPACE, "\r\n"],
             //
             [T_ENDDECLARE, 'enddeclare'], [T_WHITESPACE, "\r\n\r\n"],
             //
