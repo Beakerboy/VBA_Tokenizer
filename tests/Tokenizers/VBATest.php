@@ -147,9 +147,9 @@ class VBATest extends \PHPUnit\Framework\TestCase
             [T_CONSTANT_ENCAPSED_STRING, '"Something Else"'], [T_WHITESPACE, ' '],
             [T_CLOSE_PARENTHESIS, ')'], [T_WHITESPACE, ' '],
             [T_OPEN_CURLY_BRACKET, '{'], [T_WHITESPACE, "\r\n        "],
-            [T_STRING, 'iDoSomething'], [T_WHITESPACE, ' '],
+            [T_STRING, 'iDoSomethong'], [T_WHITESPACE, ' '],
             [T_EQUAL, '='], [T_WHITESPACE, ' '],
-            [T_LNUMBER, '5'], [T_WHITESPACE, "\r\n"],
+            [T_LNUMBER, '6'], [T_WHITESPACE, "\r\n"],
             //
             [T_ENDDECLARE, 'enddeclare'], [T_WHITESPACE, "\r\n\r\n"],
             //
