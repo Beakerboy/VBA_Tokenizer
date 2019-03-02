@@ -39,6 +39,7 @@ class VBATest extends \PHPUnit\Framework\TestCase
             "\r\n" .
             //"Private sTable As String" .
             //"Public oSQL As oObject" .
+            //"\r\n" .
             "Public Function Foo(iVariable As Double) As Boolean\r\n" .
             "End Function";
         $output1 = [
