@@ -47,9 +47,9 @@ class VBATest extends \PHPUnit\Framework\TestCase
             "    Wend\r\n" .
             "End Function\r\n" .
             "\r\n" .
-            /*"' Function: Bar\r\n" .
+            "' Function: Bar\r\n" .
             "Private Sub Bar(Optional sTest As String)\r\n" .
-            "    If Not sTest = "somevalue" And sTest > 2.6 Then\r\n" .
+            /*"    If Not sTest = "somevalue" And sTest > 2.6 Then\r\n" .
             "        iDoSomething = 5\r\n" .
             "    Elseif sTest = "something else" Or sTest = "Something Else" Then\r\n" .
             "        iDoSomethong = 6\r\n" .
@@ -114,6 +114,13 @@ class VBATest extends \PHPUnit\Framework\TestCase
             [T_LNUMBER, '1'], [T_WHITESPACE, "\r\n    "],
             [T_STATIC, 'static'], [T_WHITESPACE, "\r\n"],
             [T_ENDDECLARE, 'enddeclare'], [T_WHITESPACE, "\r\n\r\n"],
+            [T_COMMENT, "// Function: Bar\r\n"],
+            [T_PUBLIC, 'Private'], [T_WHITESPACE, ' '],
+            [T_FUNCTION, 'Sub'], [T_WHITESPACE, ' '],
+            [T_STRING, 'Bar'], [T_OPEN_PARENTHESIS, '('], [T_WHITESPACE, ' '],
+            [T_STRING, 'sTest'], [T_WHITESPACE, ' '],
+            [T_AS, 'As'], [T_WHITESPACE, ' '],
+            [T_STRING, 'String'], [T_CLOSE_PARENTHESIS, ')'], [T_WHITESPACE, '\r\n']
             //
             [T_ENDDECLARE, 'enddeclare'], [T_WHITESPACE, "\r\n\r\n"],
   //          [T_RIGHT_CURLY_BRACKET, '}'], [T_WHITESPACE, "\r\n"],
