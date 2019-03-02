@@ -62,7 +62,7 @@ class VBATest extends \PHPUnit\Framework\TestCase
             "    oSQL = Baz\r\n" .
             "    Do While 6 > 7\r\n" .
             "        Bar(2)\r\n" .
-            "    Loop\r\n" .*/
+            "    Loop\r\n" .
             "End Property\r\n" .
             "\r\n" .
             /*"Private Sub pSub ()\r\n" .
