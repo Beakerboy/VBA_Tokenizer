@@ -49,7 +49,7 @@ class VBATest extends \PHPUnit\Framework\TestCase
             [T_STRING, 'Option'], [T_WHITESPACE, ' '], [T_STRING, 'Explicit'], [T_WHITESPACE, "\r\n\r\n"],
             [T_COMMENT, "// Class: Test\r\n"],
             [T_COMMENT, "// A test class.\r\n"],
-            [T_IMPLEMENTS, 'Implements'], [T_WHITESPACE, ' '], [T_STRING, "iTest\r\n\r\n"],
+            [T_IMPLEMENTS, 'Implements'], [T_WHITESPACE, ' '], [T_STRING, 'iTest'], [T_WHITESPACE, "\r\n\r\n"],
             [T_PUBLIC, 'Public'], [T_WHITESPACE, ' '],
             [T_FUNCTION, 'Function'], [T_WHITESPACE, ' '],
             [T_STRING, 'Foo'],
