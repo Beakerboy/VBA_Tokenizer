@@ -150,7 +150,10 @@ class VBA extends PHP
         $this->scopeOpeners[T_WHILE] =
         [
             'start'  => [T_WHITESPACE => T_WHITESPACE],  //Should be newline
-            'end'    => [T_STATIC => T_STATIC],
+            'end'    => [
+                T_STATIC => T_STATIC,
+                T_TRAIT  => T_TRAIT,
+            ],
             'strict' => true,
             'shared' => false,
             'with'   => [],
