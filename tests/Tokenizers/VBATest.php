@@ -27,11 +27,18 @@ class VBATest extends \PHPUnit\Framework\TestCase
     public function dataProviderForTokenizer()
     {
         $input1 = "VERSION 1.0 CLASS\r\n" .
-                  "  BEGIN\r\n" .
-               //   "MultiUse = -1  'True\r\n"
-                  "END\r\n" .
-                  "Public Function Foo(iVariable As Double) As Boolean\r\n" .
-                  "End Function";
+            "  BEGIN\r\n" .
+            //"MultiUse = -1  'True\r\n"
+            "END\r\n" .
+            //"Attribute VB_Name = \"Test\"\r\n" .
+             "Option Explicit\r\n" .
+             "\r\n" .
+            // "' Class: Test\r\n" .
+            // "' A test class.\r\n" .
+            // "Implements iTest\r\n" .
+             "\r\n" .
+            "Public Function Foo(iVariable As Double) As Boolean\r\n" .
+            "End Function";
         $output1 = [
             [T_OPEN_TAG, '<?php '],
             [T_STRING, 'VERSION'], [T_WHITESPACE, ' '],
@@ -39,6 +46,9 @@ class VBATest extends \PHPUnit\Framework\TestCase
             [T_CLASS, 'CLASS'], [T_WHITESPACE, "\r\n  "],
             [T_STRING, 'BEGIN'], [T_WHITESPACE, "\r\n"],
             [T_STRING, 'END'], [T_WHITESPACE, "\r\n"],
+            [T_STRING, 'Option'], [T_WHITESPACE, ' '], [T_STRING, 'Explicit'], [T_WHITESPACE, "\r\n"],
+            [T_WHITESPACE, "\r\n"],
+            [T_WHITESPACE, "\r\n"],
             [T_PUBLIC, 'Public'], [T_WHITESPACE, ' '],
             [T_FUNCTION, 'Function'], [T_WHITESPACE, ' '],
             [T_STRING, 'Foo'],
