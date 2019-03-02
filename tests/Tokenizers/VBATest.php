@@ -33,8 +33,8 @@ class VBATest extends \PHPUnit\Framework\TestCase
             //"Attribute VB_Name = \"Test\"\r\n" .
              "Option Explicit\r\n" .
              "\r\n" .
-            // "' Class: Test\r\n" .
-            // "' A test class.\r\n" .
+             "' Class: Test\r\n" .
+             "' A test class.\r\n" .
             // "Implements iTest\r\n" .
              "\r\n" .
             "Public Function Foo(iVariable As Double) As Boolean\r\n" .
@@ -44,10 +44,12 @@ class VBATest extends \PHPUnit\Framework\TestCase
             [T_STRING, 'VERSION'], [T_WHITESPACE, ' '],
             [T_DNUMBER, '1.0'], [T_WHITESPACE, ' '],
             [T_CLASS, 'CLASS'], [T_WHITESPACE, "\r\n  "],
-            [T_STRING, 'BEGIN'], [T_WHITESPACE, "\r\n"],
-            [T_STRING, 'END'], [T_WHITESPACE, "\r\n"],
+            [T_ABSTRACT, 'abstract'], [T_WHITESPACE, "\r\n"],
+            [T_CLONE, 'clone'], [T_WHITESPACE, "\r\n"],
             [T_STRING, 'Option'], [T_WHITESPACE, ' '], [T_STRING, 'Explicit'], [T_WHITESPACE, "\r\n"],
             [T_WHITESPACE, "\r\n"],
+            [T_COMMENT, "// Class: Test\r\n"],
+            [T_COMMENT, "// A test class.\r\n"],
             [T_WHITESPACE, "\r\n"],
             [T_PUBLIC, 'Public'], [T_WHITESPACE, ' '],
             [T_FUNCTION, 'Function'], [T_WHITESPACE, ' '],
