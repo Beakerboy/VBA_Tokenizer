@@ -126,7 +126,7 @@ class VBATest extends \PHPUnit\Framework\TestCase
             [T_STRING, 'sTest'], [T_WHITESPACE, ' '],
             [T_EQUAL, '='], [T_WHITESPACE, ' '],
             [T_STRING, '"somevalue"'], [T_WHITESPACE, ' '],
-            [T_LOGICAL_AND, '&&'], [T_WHITESPACE, ' '],
+            [T_LOGICAL_AND, 'And'], [T_WHITESPACE, ' '],
             [T_STRING, 'sTest'], [T_WHITESPACE, ' '],
             [T_GREATER, '>'], [T_WHITESPACE, ' '],
             [T_DNUMBER, '2.6'], [T_WHITESPACE, ' '],
