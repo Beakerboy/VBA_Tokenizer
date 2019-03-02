@@ -44,10 +44,10 @@ class VBATest extends \PHPUnit\Framework\TestCase
             "Public Function Foo(iVariable As Double) As Boolean\r\n" .
             "    While iVariable Is 2\r\n" .
             "        iVariable = iVariable + 1\r\n" .
-            /*"    Wend\r\n" .
+            "    Wend\r\n" .
             "End Function\r\n" .
             "\r\n" .
-            "' Function: Bar\r\n" .
+            /*"' Function: Bar\r\n" .
             "Private Sub Bar(Optional sTest As String)\r\n" .
             "    If Not sTest = "somevalue" And sTest > 2.6 Then\r\n" .
             "        iDoSomething = 5\r\n" .
@@ -62,10 +62,10 @@ class VBATest extends \PHPUnit\Framework\TestCase
             "    oSQL = Baz\r\n" .
             "    Do While 6 > 7\r\n" .
             "        Bar(2)\r\n" .
-            "    Loop\r\n" .
+            "    Loop\r\n" .*/
             "End Property\r\n" .
             "\r\n" .
-            "Private Sub pSub ()\r\n" .
+            /*"Private Sub pSub ()\r\n" .
             "    For i = 1 To 6\r\n" .
             "        Lib.Save i\r\n" .
             "    Next i\r\n" .
@@ -113,6 +113,9 @@ class VBATest extends \PHPUnit\Framework\TestCase
             [T_PLUS, '+'], [T_WHITESPACE, ' '],
             [T_LNUMBER, '1'], [T_WHITESPACE, "\r\n    "],
             [T_STATIC, 'static'], [T_WHITESPACE, "\r\n"],
+            [T_ENDDECLARE, 'enddeclare'], [T_WHITESPACE, "\r\n\r\n"],
+            //
+            [T_ENDDECLARE, 'enddeclare'], [T_WHITESPACE, "\r\n\r\n"],
   //          [T_RIGHT_CURLY_BRACKET, '}'], [T_WHITESPACE, "\r\n"],
             [T_ENDDECLARE, 'enddeclare'], [T_WHITESPACE, "\r\n"],
             //s don't know if the last line break should be there
