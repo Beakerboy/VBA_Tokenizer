@@ -60,7 +60,7 @@ class VBATest extends \PHPUnit\Framework\TestCase
             "\r\n" .
             "Public Property Let (Baz)\r\n" .
             "    oSQL = Baz\r\n" .
-            /*"    Do While 6 > 7\r\n" .
+            "    Do While 6 > 7\r\n" .
             /*"        Bar(2)\r\n" .
             /*"    Loop\r\n" .*/
             "End Property\r\n" .
@@ -164,7 +164,12 @@ class VBATest extends \PHPUnit\Framework\TestCase
             [T_STRING, 'Baz'], [T_CLOSE_PARENTHESIS, ')'],[T_WHITESPACE, "\r\n    "],
             [T_STRING, 'oSQL'], [T_WHITESPACE, ' '],
             [T_EQUAL, '='], [T_WHITESPACE, ' '],
-            [T_STRING, 'Baz'], [T_WHITESPACE, "\r\n"],
+            [T_STRING, 'Baz'], [T_WHITESPACE, "\r\n    "],
+            [T_STRING, 'Do'], [T_WHITESPACE, ' '],
+            [T_WHILE, 'While'], [T_WHITESPACE, ' '],
+            [T_LNUMBER, '6'], [T_WHITESPACE, ' '],
+            [T_GREATER_THAN, '>'], [T_WHITESPACE, ' '],
+            [T_LNUMBER, '7'], [T_WHITESPACE, "\r\n"],
             //
             [T_ENDDECLARE, 'enddeclare'], [T_WHITESPACE, "\r\n\r\n"],
   //          [T_RIGHT_CURLY_BRACKET, '}'], [T_WHITESPACE, "\r\n"],
