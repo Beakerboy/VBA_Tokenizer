@@ -53,16 +53,16 @@ class VBATest extends \PHPUnit\Framework\TestCase
             "        iDoSomething = 5\r\n" .
             "    Elseif sTest = \"something else\" Or sTest = \"Something Else\" Then\r\n" .
             "        iDoSomethong = 6\r\n" .
-            /*"    Else\r\n" .
+            "    Else\r\n" .
             "        iDoSomething = 7\r\n" .
             "    End If" . */
             "End Sub\r\n" .
             "\r\n" .
             /*"Public Property Let (Baz)\r\n" .
-            "    oSQL = Baz\r\n" .
-            "    Do While 6 > 7\r\n" .
-            "        Bar(2)\r\n" .
-            "    Loop\r\n" .*/
+            /*"    oSQL = Baz\r\n" .
+            /*"    Do While 6 > 7\r\n" .
+            /*"        Bar(2)\r\n" .
+            /*"    Loop\r\n" .*/
             "End Property\r\n" .
             "\r\n" .
             /*"Private Sub pSub ()\r\n" .
@@ -149,8 +149,14 @@ class VBATest extends \PHPUnit\Framework\TestCase
             [T_OPEN_CURLY_BRACKET, '{'], [T_WHITESPACE, "\r\n        "],
             [T_STRING, 'iDoSomethong'], [T_WHITESPACE, ' '],
             [T_EQUAL, '='], [T_WHITESPACE, ' '],
-            [T_LNUMBER, '6'], [T_WHITESPACE, "\r\n"],
-            //
+            [T_LNUMBER, '6'], [T_WHITESPACE, "\r\n    "],
+            [T_CLOSE_CURLY_BRACKET, '}'], [T_WHITESPACE, ' '],
+            [T_ELSE, 'else'], [T_WHITESPACE, ' '],
+            [T_OPEN_CURLY_BRACKET, '{'], [T_WHITESPACE, "\r\n        "],
+            [T_STRING, 'iDoSomething'], [T_WHITESPACE, ' '],
+            [T_EQUAL, '='], [T_WHITESPACE, ' '],
+            [T_LNUMBER, '7'], [T_WHITESPACE, "\r\n    "],
+            [T_CLOSE_CURLY_BRACKET, '}'], [T_WHITESPACE, "\r\n"],
             [T_ENDDECLARE, 'enddeclare'], [T_WHITESPACE, "\r\n\r\n"],
             //
             [T_ENDDECLARE, 'enddeclare'], [T_WHITESPACE, "\r\n\r\n"],
