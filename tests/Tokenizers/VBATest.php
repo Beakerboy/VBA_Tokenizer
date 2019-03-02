@@ -120,7 +120,7 @@ class VBATest extends \PHPUnit\Framework\TestCase
             [T_STRING, 'Bar'], [T_OPEN_PARENTHESIS, '('], [T_WHITESPACE, ' '],
             [T_STRING, 'sTest'], [T_WHITESPACE, ' '],
             [T_AS, 'As'], [T_WHITESPACE, ' '],
-            [T_STRING, 'String'], [T_CLOSE_PARENTHESIS, ')'], [T_WHITESPACE, '\r\n']
+            [T_STRING, 'String'], [T_CLOSE_PARENTHESIS, ')'], [T_WHITESPACE, '\r\n'],
             //
             [T_ENDDECLARE, 'enddeclare'], [T_WHITESPACE, "\r\n\r\n"],
   //          [T_RIGHT_CURLY_BRACKET, '}'], [T_WHITESPACE, "\r\n"],
