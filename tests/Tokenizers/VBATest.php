@@ -65,13 +65,13 @@ class VBATest extends \PHPUnit\Framework\TestCase
             "    Loop\r\n" .
             "End Property\r\n" .
             "\r\n" .
-            /*"Private Sub pSub ()\r\n" .
+            "Private Sub pSub ()\r\n" .
             "    For i = 1 To 6\r\n" .
-            "        Lib.Save i\r\n" .
-            "    Next i\r\n" .
-            "    For Each element In vArray\r\n" .
-            "        Lib2.Read\r\n" . */
-      //      "    Next\r\n" .
+            /*"        Lib.Save i\r\n" .
+            /*"    Next i\r\n" .
+            /*"    For Each element In vArray\r\n" .
+            /*"        Lib2.Read\r\n" .*/
+            "    Next\r\n" .
             "End Sub";
         $output1 = [
             [T_OPEN_TAG, '<?php '],
@@ -173,9 +173,18 @@ class VBATest extends \PHPUnit\Framework\TestCase
             [T_STRING, 'Bar'], [T_OPEN_PARENTHESIS, '('], [T_LNUMBER, '2'],
             [T_CLOSE_PARENTHESIS, ')'],[T_WHITESPACE, "\r\n    "],
             [T_TRAIT, 'trait'], [T_WHITESPACE, "\r\n"],
-            //
             [T_ENDDECLARE, 'enddeclare'], [T_WHITESPACE, "\r\n\r\n"],
-  //          [T_RIGHT_CURLY_BRACKET, '}'], [T_WHITESPACE, "\r\n"],
+            [T_PRIVATE, 'Private'], [T_WHITESPACE, ' '],
+            [T_FUNCTION, 'function'], [T_WHITESPACE, ' '],
+            [T_STRING, 'pSub'], [T_OPEN_PARENTHESIS, '('],
+            [T_CLOSE_PARENTHESIS, ')'],[T_WHITESPACE, "\r\n    "],
+            [T_FOR, 'For'], [T_WHITESPACE, ' '],
+            [T_STRING, 'i'], [T_WHITESPACE, ' '],
+            [T_EQUAL, '='], [T_WHITESPACE, ' '],
+            [T_LNUMBER, '1'], [T_WHITESPACE, ' '],
+            [T_STRING, 'To'], [T_WHITESPACE, ' '],
+            [T_LNUMBER, '6'], [T_WHITESPACE, "\r\n    "],
+            [T_RIGHT_CURLY_BRACKET, '}'], [T_WHITESPACE, "\r\n"],
             [T_ENDDECLARE, 'enddeclare'], [T_WHITESPACE, "\r\n"],
             //s don't know if the last line break should be there
         ];
