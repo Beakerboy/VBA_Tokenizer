@@ -81,8 +81,8 @@ class VBA extends PHP
             }
             $new_string .= "\r\n";
         }
-        // Remove the last line ending. 
-        return substr($new_string,0,-2);
+        // Remove the last line ending.
+        return substr($new_string, 0, -2);
     }
 
     /**
