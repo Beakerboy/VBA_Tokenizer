@@ -98,21 +98,20 @@ class VBA extends PHP
                 T_YIELD => T_YIELD,
             ],
             'strict' => true,
-            'shared' => false,
-            'with'   => [],
+            'shared' => true,
+            'with'   => [T_CASE => T_CASE],
         ],
         T_CASE => [
             'start'  => [
                 T_WHITESPACE=> T_WHITESPACE, //Should be line ending
             ],
             'end'    => [
-                T_YIELD => T_YIELD,
                 T_CLOSE_CURLY_BRACKET  => T_CLOSE_CURLY_BRACKET,
             ],
             'strict' => true,
             'shared' => false,
             'with'   => [
-                // T_SWITCH => T_SWITCH
+           //      T_SWITCH => T_SWITCH
             ],
         ],
     ];
