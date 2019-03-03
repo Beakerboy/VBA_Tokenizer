@@ -215,6 +215,18 @@ class VBA extends PHP
             'shared' => false,
             'with'   => [],
         ];
+        $this->scopeOpeners[T_CASE] =
+        [
+            'start'  => [
+                T_WHITESPACE=> T_WHITESPACE, //Should be line ending
+            ],
+            'end'    => [
+                T_YIELD => T_YIELD,
+            ],
+            'strict' => false,
+            'shared' => true,
+            'with'   => [T_SWITCH => T_SWITCH],
+        ];
         $new_string = $this->convertFile($string);
         return parent::tokenize($new_string);
     }
