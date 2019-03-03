@@ -222,6 +222,7 @@ class VBA extends PHP
             ],
             'end'    => [
                 T_YIELD => T_YIELD,
+                T_CASE  => T_CASE,
             ],
             'strict' => true,
             'shared' => true,
