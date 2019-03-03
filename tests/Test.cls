@@ -19,6 +19,10 @@ Public Function Foo(iVariable As Double) As Boolean
         iVariable = iVariable + 1
     Wend
     Select Case iVariable
+        Case iVariable Is 3
+            Foo = 3
+        Case Else
+            Foo = 4
     End Select
 End Function
 
