@@ -105,14 +105,7 @@ class VBA extends PHP
      */
     protected function tokenize($string)
     {
-        $this->scopeOpeners[T_CLASS] =
-        [
-            'start'  => [T_STRING => T_STRING],
-            'end'    => [T_CLOSE_CURLY_BRACKET => T_CLOSE_CURLY_BRACKET],
-            'strict' => true,
-            'shared' => false,
-            'with'   => [],
-        ];
+        unset($this->scopeOpeners[T_CLASS]);
         $this->scopeOpeners[T_IF] =
         [
             'start'  => [T_OPEN_CURLY_BRACKET => T_OPEN_CURLY_BRACKET],
