@@ -98,8 +98,8 @@ class VBA extends PHP
                 T_YIELD => T_YIELD,
             ],
             'strict' => true,
-            'shared' => true,
-            'with'   => [T_CASE => T_CASE],
+            'shared' => false,
+            'with'   => [],
         ],
         T_CASE => [
             'start'  => [
@@ -109,9 +109,10 @@ class VBA extends PHP
                 T_CLOSE_CURLY_BRACKET  => T_CLOSE_CURLY_BRACKET,
             ],
             'strict' => true,
-            'shared' => false,
+            'shared' => true,
             'with'   => [
-           //      T_SWITCH => T_SWITCH
+                T_CASE   => T_CASE,
+                T_SWITCH => T_SWITCH,
             ],
         ],
     ];
