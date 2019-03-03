@@ -26,56 +26,7 @@ class VBATest extends \PHPUnit\Framework\TestCase
     
     public function dataProviderForTokenizer()
     {
-        $input1 = "VERSION 1.0 CLASS\r\n" .
-            "BEGIN\r\n" .
-            "  MultiUse = -1  'True\r\n" .
-            "END\r\n" .
-            "Attribute VB_Name = \"Test\"\r\n" .
-            "Option Explicit\r\n" .
-            "\r\n" .
-            "' Class: Test\r\n" .
-            "' A test class.\r\n" .
-            "Implements iTest\r\n" .
-            "\r\n" .
-            "Private sTable As String\r\n" .
-            "Public oSQL As oObject\r\n" .
-            "\r\n" .
-            "' Function: Foo\r\n" .
-            "Public Function Foo(iVariable As Double) As Boolean\r\n" .
-            "    While iVariable Is 2\r\n" .
-            "        iVariable = iVariable + 1\r\n" .
-            "    Wend\r\n" .
-            "    Select Case iVariable\r\n" .
-            "    End Select\r\n" .
-            "End Function\r\n" .
-            "\r\n" .
-            "' Function: Bar\r\n" .
-            "Private Sub Bar(Optional sTest As String)\r\n" .
-            "    If Not sTest = \"somevalue\" And sTest > 2.6 Then\r\n" .
-            "        iDoSomething = 5\r\n" .
-            "    Elseif sTest = \"something else\" Or sTest = \"Something Else\" Then\r\n" .
-            "        iDoSomethong = 6\r\n" .
-            "    Else\r\n" .
-            "        iDoSomething = 7\r\n" .
-            "    End If\r\n" .
-            "End Sub\r\n" .
-            "\r\n" .
-            "Public Property Let (Baz)\r\n" .
-            "    oSQL = Baz\r\n" .
-            "    Do While 6 > 7\r\n" .
-            "        Bar(2)\r\n" .
-            "    Loop\r\n" .
-            "End Property\r\n" .
-            "\r\n" .
-            "Private Sub pSub ()\r\n" .
-            "    For i = 1 To 6\r\n" .
-            "        Lib.Save i\r\n" .
-            "    Next i\r\n" .
-            "    For Each element In vArray\r\n" .
-            "        Lib2.Read\r\n" .
-            "    Next\r\n" .
-            "End Sub";
-        //$input1 = file_get_contents('tests/Test.cls');
+        $input1 = file_get_contents('tests/Test.cls');
         $output1 = [
             [T_OPEN_TAG, '<?php '],
             [T_STRING, 'VERSION'], [T_WHITESPACE, ' '],
