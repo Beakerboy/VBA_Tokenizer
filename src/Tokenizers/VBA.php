@@ -211,7 +211,7 @@ class VBA extends PHP
             'end'    => [
                 T_YIELD => T_YIELD,
             ],
-            'strict' => false,
+            'strict' => true,
             'shared' => false,
             'with'   => [],
         ];
@@ -223,7 +223,7 @@ class VBA extends PHP
             'end'    => [
                 T_YIELD => T_YIELD,
             ],
-            'strict' => false,
+            'strict' => true,
             'shared' => true,
             'with'   => [T_SWITCH => T_SWITCH],
         ];
