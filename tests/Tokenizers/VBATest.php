@@ -84,7 +84,7 @@ class VBATest extends \PHPUnit\Framework\TestCase
             [T_ABSTRACT, 'abstract'], [T_WHITESPACE, "\r\n  "],
             [T_STRING, 'Multiuse'], [T_WHITESPACE, ' '],
             [T_EQUAL, '='], [T_WHITESPACE, ' '],
-            [T_LNUMBER, '-1'], [T_WHITESPACE, '  '],
+            [T_MINUS, '-'], [T_LNUMBER, '1'], [T_WHITESPACE, '  '],
             [T_COMMENT, "//True\r\n"],
             [T_CLONE, 'clone'], [T_WHITESPACE, "\r\n"],
             [T_STRING, 'Option'], [T_WHITESPACE, ' '],
