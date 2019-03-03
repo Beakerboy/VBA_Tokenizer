@@ -8,6 +8,55 @@ use PHP_CodeSniffer\Tokenizers\PHP;
 class VBA extends PHP
 {
     public $scopeOpeners = [
+        T_IF => [
+            'start'  => [T_OPEN_CURLY_BRACKET => T_OPEN_CURLY_BRACKET],
+            'end'    => [
+                T_CLOSE_CURLY_BRACKET => T_CLOSE_CURLY_BRACKET,
+            ],
+            'strict' => true,
+            'shared' => false,
+            'with'   => [
+                T_ELSE   => T_ELSE,
+                T_ELSEIF => T_ELSEIF,
+            ],
+        ],
+        T_ELSE => [
+            'start'  => [T_OPEN_CURLY_BRACKET => T_OPEN_CURLY_BRACKET],
+            'end'    => [
+                T_CLOSE_CURLY_BRACKET => T_CLOSE_CURLY_BRACKET,
+            ],
+            'strict' => true,
+            'shared' => false,
+            'with'   => [
+            ],
+        ],
+        T_ELSEIF => [
+            'start'  => [T_OPEN_CURLY_BRACKET => T_OPEN_CURLY_BRACKET],
+            'end'    => [
+                T_CLOSE_CURLY_BRACKET => T_CLOSE_CURLY_BRACKET,
+            ],
+            'strict' => true,
+            'shared' => false,
+            'with'   => [
+            ],
+        ],
+        T_FUNCTION => [
+            'start'  => [T_CLOSE_PARENTHESIS => T_CLOSE_PARENTHESIS],  //Should be newline
+            'end'    => [T_ENDDECLARE => T_ENDDECLARE],
+            'strict' => true,
+            'shared' => false,
+            'with'   => [],
+        ],
+        T_WHILE => [
+            'start'  => [T_WHITESPACE => T_WHITESPACE],  //Should be newline
+            'end'    => [
+                T_STATIC => T_STATIC,
+                T_TRAIT  => T_TRAIT,
+            ],
+            'strict' => true,
+            'shared' => false,
+            'with'   => [],
+        ],
         T_FOREACH => [
             'start'  => [
                 T_WHITESPACE=> T_WHITESPACE, //Should be line ending
