@@ -26,6 +26,8 @@ class VBA extends PHP
                         $token[1] = 'abstract';
                     } elseif ($token[1] == 'Select') {
                         $token[1] = 'switch';
+                        unset($line_tokens[$key + 1]);
+                        unset($line_tokens[$key + 2]);
                     } elseif ($token[1] == 'Not') {
                         $token[1] = '!';
                     } elseif ($token[1] == 'Then') {
