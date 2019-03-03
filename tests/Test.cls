@@ -18,6 +18,8 @@ Public Function Foo(iVariable As Double) As Boolean
     While iVariable Is 2
         iVariable = iVariable + 1
     Wend
+    Select Case iVariable
+    End Select
 End Function
 
 ' Function: Bar
