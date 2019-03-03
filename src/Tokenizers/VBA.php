@@ -24,6 +24,8 @@ class VBA extends PHP
                         $token[1] = 'function';
                     } elseif ($token[1] == 'BEGIN') {
                         $token[1] = 'abstract';
+                    } elseif ($token[1] == 'Select') {
+                        $token[1] = 'switch';    
                     } elseif ($token[1] == 'Not') {
                         $token[1] = '!';
                     } elseif ($token[1] == 'Then') {
@@ -50,6 +52,10 @@ class VBA extends PHP
                             unset($line_tokens[$key + 2]);
                         } elseif ($next_tag == 'If') {
                             $token[1] = '}';
+                            unset($line_tokens[$key + 1]);
+                            unset($line_tokens[$key + 2]);
+                        } elseif ($next_tag == 'Select') {
+                            $token[1] = 'yield';
                             unset($line_tokens[$key + 1]);
                             unset($line_tokens[$key + 2]);
                         }
@@ -190,6 +196,18 @@ class VBA extends PHP
             ],
             'end'    => [
                 T_CLONE => T_CLONE,
+            ],
+            'strict' => false,
+            'shared' => false,
+            'with'   => [],
+        ];
+        $this->scopeOpeners[T_SWITCH] =
+        [
+            'start'  => [
+                T_WHITESPACE=> T_WHITESPACE, //Should be line ending
+            ],
+            'end'    => [
+                T_YIELD => T_YIELD,
             ],
             'strict' => false,
             'shared' => false,
