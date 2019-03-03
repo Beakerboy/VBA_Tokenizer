@@ -28,7 +28,7 @@ class VBATest extends \PHPUnit\Framework\TestCase
     {
         $input1 = "VERSION 1.0 CLASS\r\n" .
             "BEGIN\r\n" .
-            "  MultiUse = -1  'True\r\n"
+            "  MultiUse = -1  'True\r\n" .
             "END\r\n" .
             //"Attribute VB_Name = \"Test\"\r\n" .
             "Option Explicit\r\n" .
