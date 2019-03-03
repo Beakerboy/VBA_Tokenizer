@@ -7,7 +7,7 @@ use PHP_CodeSniffer\Tokenizers\PHP;
 
 class VBA extends PHP
 {
-    $this->scopeOpeners =
+    $scopeOpeners = [
         [T_FOREACH] => [
             'start'  => [
                 T_WHITESPACE=> T_WHITESPACE, //Should be line ending
