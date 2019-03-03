@@ -45,6 +45,8 @@ class VBATest extends \PHPUnit\Framework\TestCase
             "    While iVariable Is 2\r\n" .
             "        iVariable = iVariable + 1\r\n" .
             "    Wend\r\n" .
+            "    Select Case iVariable\r\n" .
+            "    End Select\r\n" .
             "End Function\r\n" .
             "\r\n" .
             "' Function: Bar\r\n" .
@@ -112,7 +114,11 @@ class VBATest extends \PHPUnit\Framework\TestCase
             [T_STRING, 'iVariable'], [T_WHITESPACE, ' '],
             [T_PLUS, '+'], [T_WHITESPACE, ' '],
             [T_LNUMBER, '1'], [T_WHITESPACE, "\r\n    "],
-            [T_STATIC, 'static'], [T_WHITESPACE, "\r\n"],
+            [T_STATIC, 'static'], [T_WHITESPACE, "\r\n    "],
+            [T_SWITCH, 'switch'], [T_WHITESPACE, ' '],
+            [T_CASE, 'Case'], [T_WHITESPACE, ' '],
+            [T_STRING, 'iVariable'], [T_WHITESPACE, "\r\n    "],
+            [T_YIELD, 'yield'], [T_WHITESPACE, "\r\n"],
             [T_ENDDECLARE, 'enddeclare'], [T_WHITESPACE, "\r\n\r\n"],
             [T_COMMENT, "// Function: Bar\r\n"],
             [T_PRIVATE, 'Private'], [T_WHITESPACE, ' '],
