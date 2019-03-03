@@ -8,7 +8,7 @@ use PHP_CodeSniffer\Tokenizers\PHP;
 class VBA extends PHP
 {
     public $scopeOpeners = [
-        [T_FOREACH] => [
+        T_FOREACH => [
             'start'  => [
                 T_WHITESPACE=> T_WHITESPACE, //Should be line ending
             ],
@@ -19,7 +19,7 @@ class VBA extends PHP
             'shared' => false,
             'with'   => [],
         ],
-        [T_FOR] => [
+        T_FOR => [
             'start'  => [
                 T_WHITESPACE=> T_WHITESPACE,
             ],
@@ -30,7 +30,7 @@ class VBA extends PHP
             'shared' => false,
             'with'   => [],
         ],
-        [T_ABSTRACT] => [
+        T_ABSTRACT => [
             'start'  => [
                 T_WHITESPACE=> T_WHITESPACE, //Should be line ending
             ],
@@ -41,7 +41,7 @@ class VBA extends PHP
             'shared' => false,
             'with'   => [],
         ],
-        [T_SWITCH] => [
+        T_SWITCH => [
             'start'  => [
                 T_WHITESPACE=> T_WHITESPACE, //Should be line ending
             ],
@@ -52,7 +52,7 @@ class VBA extends PHP
             'shared' => false,
             'with'   => [],
         ],
-        [T_CASE] => [
+        T_CASE => [
             'start'  => [
                 T_WHITESPACE=> T_WHITESPACE, //Should be line ending
             ],
