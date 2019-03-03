@@ -30,7 +30,7 @@ class VBATest extends \PHPUnit\Framework\TestCase
             "BEGIN\r\n" .
             "  MultiUse = -1  'True\r\n" .
             "END\r\n" .
-            //"Attribute VB_Name = \"Test\"\r\n" .
+            "Attribute VB_Name = \"Test\"\r\n" .
             "Option Explicit\r\n" .
             "\r\n" .
             "' Class: Test\r\n" .
@@ -75,7 +75,7 @@ class VBATest extends \PHPUnit\Framework\TestCase
             "        Lib2.Read\r\n" .
             "    Next\r\n" .
             "End Sub";
-        $input1 = file_get_contents('tests/Test.cls');
+        //$input1 = file_get_contents('tests/Test.cls');
         $output1 = [
             [T_OPEN_TAG, '<?php '],
             [T_STRING, 'VERSION'], [T_WHITESPACE, ' '],
@@ -87,8 +87,12 @@ class VBATest extends \PHPUnit\Framework\TestCase
             [T_MINUS, '-'], [T_LNUMBER, '1'], [T_WHITESPACE, '  '],
             [T_COMMENT, "//True\r\n"],
             [T_CLONE, 'clone'], [T_WHITESPACE, "\r\n"],
+            [T_STRING, 'Attribute'], [T_WHITESPACE, ' '],
+            [T_STRING, 'VB_Name'], [T_WHITESPACE, ' '],
+            [T_EQUAL, '='], [T_WHITESPACE, ' '],
+            [T_CONSTANT_ENCAPSED_STRING, '"Test"'], [T_WHITESPACE, "\r\n"],
             [T_STRING, 'Option'], [T_WHITESPACE, ' '],
-            [T_STRING, 'Explicit'], [T_WHITESPACE, "\r\n\r\n"],
+            [T_STEING, 'Explicit'], [T_WHITESPACE, "\r\n\r\n"],
             [T_COMMENT, "// Class: Test\r\n"],
             [T_COMMENT, "// A test class.\r\n"],
             [T_IMPLEMENTS, 'Implements'], [T_WHITESPACE, ' '],
