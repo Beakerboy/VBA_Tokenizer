@@ -116,7 +116,6 @@ class VBATest extends \PHPUnit\Framework\TestCase
             [T_LNUMBER, '1'], [T_WHITESPACE, "\r\n    "],
             [T_STATIC, 'static'], [T_WHITESPACE, "\r\n    "],
             [T_SWITCH, 'switch'], [T_WHITESPACE, ' '],
-            [T_CASE, 'Case'], [T_WHITESPACE, ' '],
             [T_STRING, 'iVariable'], [T_WHITESPACE, "\r\n    "],
             [T_YIELD, 'yield'], [T_WHITESPACE, "\r\n"],
             [T_ENDDECLARE, 'enddeclare'], [T_WHITESPACE, "\r\n\r\n"],
