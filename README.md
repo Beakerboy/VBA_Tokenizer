@@ -2,6 +2,7 @@
 A VBA Tokenizer and Coding Standard for PHP_CodeSniffer version 3.x
 
 [![Build Status](https://travis-ci.org/Beakerboy/VBA_Tokenizer.svg?branch=master)](https://travis-ci.org/Beakerboy/VBA_Tokenizer)
+[![Coverage Status](https://coveralls.io/repos/github/Beakerboy/VBA_Tokenizer/badge.png?branch=master)](https://coveralls.io/github/Beakerboy/VBA_Tokenizer?branch=master)
 [![Coverage Status](https://coveralls.io/repos/github/Beakerboy/VBA_Tokenizer/badge.svg?branch=master)](https://coveralls.io/github/Beakerboy/VBA_Tokenizer?branch=master)
 
 ## Manual Installation
