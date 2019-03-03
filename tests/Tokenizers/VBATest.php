@@ -41,7 +41,7 @@ class VBATest extends \PHPUnit\Framework\TestCase
             [T_STRING, 'Attribute'], [T_WHITESPACE, ' '],
             [T_STRING, 'VB_Name'], [T_WHITESPACE, ' '],
             [T_EQUAL, '='], [T_WHITESPACE, ' '],
-            [T_CONSTANT_ENCAPSED_STRING, '"Test"'], [T_WHITESPACE, "\r\n"],
+            [T_CONSTANT_ENCAPSED_STRING, '"Test"'], [T_WHITESPACE, "\r\n\r\n"],
             [T_STRING, 'Option'], [T_WHITESPACE, ' '],
             [T_STRING, 'Explicit'], [T_WHITESPACE, "\r\n\r\n"],
             [T_COMMENT, "// Class: Test\r\n"],
@@ -161,7 +161,7 @@ class VBATest extends \PHPUnit\Framework\TestCase
             [T_STRING, 'Lib2'], [T_OBJECT_OPERATOR, '->'],
             [T_STRING, 'Read'], [T_WHITESPACE, "\r\n    "],
             [T_CLOSE_CURLY_BRACKET, '}'], [T_WHITESPACE, "\r\n"],
-            [T_ENDDECLARE, 'enddeclare'],
+            [T_ENDDECLARE, 'enddeclare'], [T_WHITESPACE, "\r\n"],
         ];
         return [
             [$input1, $this->expandArray($output1)],
