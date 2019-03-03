@@ -7,7 +7,65 @@ use PHP_CodeSniffer\Tokenizers\PHP;
 
 class VBA extends PHP
 {
-
+    $this->scopeOpeners =
+        [T_FOREACH] => [
+            'start'  => [
+                T_WHITESPACE=> T_WHITESPACE, //Should be line ending
+            ],
+            'end'    => [
+                T_CLOSE_CURLY_BRACKET => T_CLOSE_CURLY_BRACKET,
+            ],
+            'strict' => false,
+            'shared' => false,
+            'with'   => [],
+        ],
+        [T_FOR] => [
+            'start'  => [
+                T_WHITESPACE=> T_WHITESPACE,
+            ],
+            'end'    => [
+                T_CLOSE_CURLY_BRACKET => T_CLOSE_CURLY_BRACKET,
+            ],
+            'strict' => false,
+            'shared' => false,
+            'with'   => [],
+        ],
+        [T_ABSTRACT] => [
+            'start'  => [
+                T_WHITESPACE=> T_WHITESPACE, //Should be line ending
+            ],
+            'end'    => [
+                T_CLONE => T_CLONE,
+            ],
+            'strict' => false,
+            'shared' => false,
+            'with'   => [],
+        ],
+        [T_SWITCH] => [
+            'start'  => [
+                T_WHITESPACE=> T_WHITESPACE, //Should be line ending
+            ],
+            'end'    => [
+                T_YIELD => T_YIELD,
+            ],
+            'strict' => true,
+            'shared' => false,
+            'with'   => [],
+        ],
+        [T_CASE] => [
+            'start'  => [
+                T_WHITESPACE=> T_WHITESPACE, //Should be line ending
+            ],
+            'end'    => [
+                T_YIELD => T_YIELD,
+                T_CASE  => T_CASE,
+            ],
+            'strict' => true,
+            'shared' => true,
+            'with'   => [T_SWITCH => T_SWITCH],
+        ],
+    ];
+    
     protected function convertFile($string)
     {
         $string_array = explode("\r\n", $string);
@@ -105,123 +163,8 @@ class VBA extends PHP
      */
     protected function tokenize($string)
     {
-        unset($this->scopeOpeners[T_CLASS]);
-        $this->scopeOpeners[T_IF] =
-        [
-            'start'  => [T_OPEN_CURLY_BRACKET => T_OPEN_CURLY_BRACKET],
-            'end'    => [
-                T_CLOSE_CURLY_BRACKET => T_CLOSE_CURLY_BRACKET,
-            ],
-            'strict' => true,
-            'shared' => false,
-            'with'   => [
-                T_ELSE   => T_ELSE,
-                T_ELSEIF => T_ELSEIF,
-            ],
-        ];
-        $this->scopeOpeners[T_ELSE] =
-        [
-            'start'  => [T_OPEN_CURLY_BRACKET => T_OPEN_CURLY_BRACKET],
-            'end'    => [
-                T_CLOSE_CURLY_BRACKET => T_CLOSE_CURLY_BRACKET,
-            ],
-            'strict' => true,
-            'shared' => false,
-            'with'   => [
-            ],
-        ];
-        $this->scopeOpeners[T_ELSEIF] =
-        [
-            'start'  => [T_OPEN_CURLY_BRACKET => T_OPEN_CURLY_BRACKET],
-            'end'    => [
-                T_CLOSE_CURLY_BRACKET => T_CLOSE_CURLY_BRACKET,
-            ],
-            'strict' => true,
-            'shared' => false,
-            'with'   => [
-            ],
-        ];
-        $this->scopeOpeners[T_FUNCTION] =
-        [
-            'start'  => [T_CLOSE_PARENTHESIS => T_CLOSE_PARENTHESIS],  //Should be newline
-            'end'    => [T_ENDDECLARE => T_ENDDECLARE],
-            'strict' => true,
-            'shared' => false,
-            'with'   => [],
-        ];
-        $this->scopeOpeners[T_WHILE] =
-        [
-            'start'  => [T_WHITESPACE => T_WHITESPACE],  //Should be newline
-            'end'    => [
-                T_STATIC => T_STATIC,
-                T_TRAIT  => T_TRAIT,
-            ],
-            'strict' => true,
-            'shared' => false,
-            'with'   => [],
-        ];
-        $this->scopeOpeners[T_FOREACH] =
-        [
-            'start'  => [
-                T_WHITESPACE=> T_WHITESPACE, //Should be line ending
-            ],
-            'end'    => [
-                T_CLOSE_CURLY_BRACKET => T_CLOSE_CURLY_BRACKET,
-            ],
-            'strict' => false,
-            'shared' => false,
-            'with'   => [],
-        ];
-        $this->scopeOpeners[T_FOR] =
-        [
-            'start'  => [
-                T_WHITESPACE=> T_WHITESPACE,
-            ],
-            'end'    => [
-                T_CLOSE_CURLY_BRACKET => T_CLOSE_CURLY_BRACKET,
-            ],
-            'strict' => false,
-            'shared' => false,
-            'with'   => [],
-        ];
-        $this->scopeOpeners[T_ABSTRACT] =
-        [
-            'start'  => [
-                T_WHITESPACE=> T_WHITESPACE, //Should be line ending
-            ],
-            'end'    => [
-                T_CLONE => T_CLONE,
-            ],
-            'strict' => false,
-            'shared' => false,
-            'with'   => [],
-        ];
-        $this->scopeOpeners[T_SWITCH] =
-        [
-            'start'  => [
-                T_WHITESPACE=> T_WHITESPACE, //Should be line ending
-            ],
-            'end'    => [
-                T_YIELD => T_YIELD,
-            ],
-            'strict' => true,
-            'shared' => false,
-            'with'   => [],
-        ];
-        $this->scopeOpeners[T_CASE] =
-        [
-            'start'  => [
-                T_WHITESPACE=> T_WHITESPACE, //Should be line ending
-            ],
-            'end'    => [
-                T_YIELD => T_YIELD,
-                T_CASE  => T_CASE,
-            ],
-            'strict' => true,
-            'shared' => true,
-            'with'   => [T_SWITCH => T_SWITCH],
-        ];
         $new_string = $this->convertFile($string);
+        
         return parent::tokenize($new_string);
     }
 }
