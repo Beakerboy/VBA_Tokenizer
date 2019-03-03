@@ -107,11 +107,13 @@ class VBA extends PHP
             ],
             'end'    => [
                 T_YIELD => T_YIELD,
-                T_CASE  => T_CASE,
+                T_CLOSE_CURLY_BRACKET  => T_CLOSE_CURLY_BRACKET,
             ],
             'strict' => true,
-            'shared' => true,
-            'with'   => [T_SWITCH => T_SWITCH],
+            'shared' => false,
+            'with'   => [
+                // T_SWITCH => T_SWITCH
+            ],
         ],
     ];
     
@@ -175,8 +177,8 @@ class VBA extends PHP
                     $token = [T_STRING, '} else {'];
                 } elseif ($token[0] === T_ELSEIF) {
                     $token = [T_STRING, '} elseif ('];
-          //      } elseif ($token[0] == T_BITWISE_AND) {
-          //          $token[1] = '.';
+                } elseif ($token[0] == T_CASE) {
+                    $token[1] = '} Case';
                 } elseif ($token == '.') {
                     $token = [T_STRING, '->'];
                 } elseif ($token[0] == T_FOR) {
