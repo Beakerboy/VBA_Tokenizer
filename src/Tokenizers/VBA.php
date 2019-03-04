@@ -112,6 +112,7 @@ class VBA extends PHP
             'with'   => [
                 T_CASE   => T_CASE,
                 T_SWITCH => T_SWITCH,
+                T_DEFAULT => T_DEFAULT,
             ],
         ],
     ];
@@ -176,6 +177,12 @@ class VBA extends PHP
                     $token = [T_STRING, '} else {'];
                 } elseif ($token[0] === T_ELSEIF) {
                     $token = [T_STRING, '} elseif ('];
+                } elseif ($token[0] === T_CASE) {
+                    if ($line_tokens[$key + 2][0] === T_ELSE) {
+                        $token[1] = 'default';
+                        unset($line_tokens[$key + 1]);
+                        unset($line_tokens[$key + 2]);
+                    }
                 } elseif ($token == '.') {
                     $token = [T_STRING, '->'];
                 } elseif ($token[0] == T_FOR) {
