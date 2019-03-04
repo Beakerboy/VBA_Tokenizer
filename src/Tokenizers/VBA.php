@@ -106,7 +106,6 @@ class VBA extends PHP
                 T_WHITESPACE=> T_WHITESPACE, //Should be line ending
             ],
             'end'    => [
-                T_CLOSE_CURLY_BRACKET  => T_CLOSE_CURLY_BRACKET,
             ],
             'strict' => true,
             'shared' => true,
