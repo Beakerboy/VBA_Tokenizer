@@ -106,6 +106,7 @@ class VBA extends PHP
                 T_WHITESPACE=> T_WHITESPACE, //Should be line ending
             ],
             'end'    => [
+                T_BREAK => T_BREAK,
             ],
             'strict' => true,
             'shared' => true,
@@ -120,6 +121,7 @@ class VBA extends PHP
                 T_WHITESPACE=> T_WHITESPACE, //Should be line ending
             ],
             'end'    => [
+                T_BREAK => T_BREAK,
             ],
             'strict' => true,
             'shared' => true,
