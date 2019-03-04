@@ -84,7 +84,7 @@ class VBATest extends \PHPUnit\Framework\TestCase
             [T_STRING, 'Foo'], [T_WHITESPACE, ' '],
             [T_EQUAL, '='], [T_WHITESPACE, ' '],
             [T_LNUMBER, '3'], [T_WHITESPACE, "\r\n        "],
-            [T_DEFAULT, 'default'], [T_WHITESPACE, ' '],
+            [T_DEFAULT, 'default'], [T_WHITESPACE, "\r\n            "],
             [T_STRING, 'Foo'], [T_WHITESPACE, ' '],
             [T_EQUAL, '='], [T_WHITESPACE, ' '],
             [T_LNUMBER, '4'], [T_WHITESPACE, "\r\n    "],
