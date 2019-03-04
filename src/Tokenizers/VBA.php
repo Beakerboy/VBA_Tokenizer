@@ -105,7 +105,7 @@ class VBA extends PHP
             'start'  => [
                 T_WHITESPACE=> T_WHITESPACE, //Should be line ending
             ],
-            'end'    => [ 
+            'end'    => [
                 T_BREAK => T_BREAK,
             ],
             'strict' => true,
