@@ -86,7 +86,7 @@ class VBATest extends \PHPUnit\Framework\TestCase
             [T_EQUAL, '='], [T_WHITESPACE, ' '],
             [T_LNUMBER, '3'], [T_WHITESPACE, "\r\n        "],
     //        [T_CLOSE_CURLY_BRACKET, '}'], [T_WHITESPACE, ' '],
-            [T_CASE, 'Case'], [T_WHITESPACE, ' '],
+            [T_DEFAULT, 'default'], [T_WHITESPACE, ' '],
      //       [T_CLOSE_CURLY_BRACKET, '}'], [T_WHITESPACE, ' '],
        //     [T_ELSE, 'else'], [T_WHITESPACE, ' '],
        //     [T_OPEN_CURLY_BRACKET, '{'], [T_WHITESPACE, "\r\n            "],
