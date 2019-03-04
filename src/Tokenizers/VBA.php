@@ -115,6 +115,19 @@ class VBA extends PHP
                 T_DEFAULT => T_DEFAULT,
             ],
         ],
+        T_DEFAULT => [
+            'start'  => [
+                T_WHITESPACE=> T_WHITESPACE, //Should be line ending
+            ],
+            'end'    => [
+            ],
+            'strict' => true,
+            'shared' => true,
+            'with'   => [
+                T_CASE   => T_CASE,
+                T_SWITCH => T_SWITCH,
+            ],
+        ],
     ];
     
     protected function convertFile($string)
