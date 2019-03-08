@@ -50,7 +50,7 @@ class VBA extends PHP
         T_WHILE => [
             'start'  => [T_WHITESPACE => T_WHITESPACE],  //Should be newline
             'end'    => [
-                T_STATIC => T_STATIC,
+                T_ENDWHILE => T_ENDWHILE,
                 T_TRAIT  => T_TRAIT,
             ],
             'strict' => true,
@@ -95,7 +95,7 @@ class VBA extends PHP
                 T_WHITESPACE=> T_WHITESPACE, //Should be line ending
             ],
             'end'    => [
-                T_YIELD => T_YIELD,
+                T_ENDSWITCH => T_ENDSWITCH,
             ],
             'strict' => true,
             'shared' => false,
@@ -131,7 +131,25 @@ class VBA extends PHP
             ],
         ],
     ];
-    
+
+  /**
+     * A list of tokens that end the scope.
+     *
+     * This array is just a unique collection of the end tokens
+     * from the scopeOpeners array. The data is duplicated here to
+     * save time during parsing of the file.
+     *
+     * @var array
+     */
+    public $endScopeTokens = [
+        T_CLOSE_CURLY_BRACKET => T_CLOSE_CURLY_BRACKET,
+        T_ENDIF               => T_ENDIF,
+        T_ENDFOR              => T_ENDFOR,
+        T_ENDFOREACH          => T_ENDFOREACH,
+        T_ENDWHILE            => T_ENDWHILE,
+        T_ENDSWITCH           => T_ENDSWITCH,
+    ];
+
     protected function convertFile($string)
     {
         $string_array = explode("\r\n", $string);
@@ -157,7 +175,7 @@ class VBA extends PHP
                     } elseif ($token[1] == 'Then') {
                         $token = [T_STRING, ') {'];
                     } elseif ($token[1] == 'Wend') {
-                        $token[1] = 'static';
+                        $token[1] = 'endwhile';
                     } elseif ($token[1] == 'Loop') {
                         $token[1] = 'trait';
                     } elseif ($token[1] == 'Is') {
@@ -181,7 +199,7 @@ class VBA extends PHP
                             unset($line_tokens[$key + 1]);
                             unset($line_tokens[$key + 2]);
                         } elseif ($next_tag == 'Select') {
-                            $token[1] = 'yield';
+                            $token[1] = 'endswitch';
                             unset($line_tokens[$key + 1]);
                             unset($line_tokens[$key + 2]);
                         }
