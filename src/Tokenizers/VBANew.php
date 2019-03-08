@@ -26,10 +26,13 @@ define('T_SELECT_CASE', 'PHPCS_T_SELECT_CASE');
 define('T_WEND', 'PHPCS_T_WEND');
 define('T_CASE_ELSE', 'PHPCS_T_CASE_ELSE');
 define('T_CONCATENATE', 'PHPCS_T_CONCATENATE');
+
 use PHP_CodeSniffer\Util;
 use PHP_CodeSniffer\Exceptions\TokenizerException;
 use PHP_CodeSniffer\Config;
-class VBANew extends Tokenizer
+use PHP_CodeSniffer\Tokenizers\LanguageTokenizerBase
+
+class VBANew extends LanguageTokenizerBase
 {
     /**
      * A list of tokens that are allowed to open a scope.
@@ -132,8 +135,14 @@ class VBANew extends Tokenizer
      * @var array
      */
     public $endScopeTokens = [
-        T_CLOSE_CURLY_BRACKET => T_CLOSE_CURLY_BRACKET,
-        T_BREAK               => T_BREAK,
+        T_WEND         => T_WEND,
+        T_BREAK        => T_BREAK,
+        T_ELSE         => T_ELSE,
+        T_END_SELECT   => T_END_SELECT,
+        T_END_FUNCTION => T_END_FUNCTION,
+        T_END_SUB      => T_END_SUB,
+        T_END_PROPERTY => T_END_PROPERTY,
+        T_LOOP         => T_LOOP,
     ];
     /**
      * A list of special VBA tokens and their types.
