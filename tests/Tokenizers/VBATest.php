@@ -330,7 +330,7 @@ class VBATest extends \PHPUnit\Framework\TestCase
             [T_STRING, 'Lib'], [T_OBJECT_OPERATOR, '->'],
             [T_STRING, 'Save'], [T_WHITESPACE, ' '],
             [T_STRING, 'i'], [T_WHITESPACE, "\r\n    "],
-            [T_Next, 'Next'], [T_WHITESPACE, ' '],
+            [T_NEXT, 'Next'], [T_WHITESPACE, ' '],
             [T_STRING, 'i'], [T_WHITESPACE, "\r\n    "],
             [T_FOREACH, 'foreach'], [T_WHITESPACE, ' '],
             [T_STRING, 'element'], [T_WHITESPACE, ' '],
