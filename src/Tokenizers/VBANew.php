@@ -215,7 +215,7 @@ class VBANew extends LanguageTokenizerBase
         '='         => 'T_EQUAL',
         ':='        => 'T_ASSIGNMENT',
         '&'         => 'T_CONCATENATE',
-        '\''        => 'T_COMMENT',
+        "'"         => 'T_COMMENT',
     ];
     /**
      * A list string delimiters.
@@ -565,7 +565,7 @@ class VBANew extends LanguageTokenizerBase
                     $tokens[] = [
                         'code'    => T_STRING,
                         'type'    => 'T_STRING',
-                        'content' => str_replace("\n", $this->eolChar, $buffer),
+                        'content' => $buffer,
                     ];
                     if (PHP_CODESNIFFER_VERBOSITY > 1) {
                         $content = Util\Common::prepareForOutput($buffer);
@@ -586,7 +586,7 @@ class VBANew extends LanguageTokenizerBase
                 $tokens[] = [
                     'code'    => T_STRING,
                     'type'    => 'T_STRING',
-                    'content' => str_replace("\n", $this->eolChar, $buffer),
+                    'content' => $buffer,
                 ];
                 if (PHP_CODESNIFFER_VERBOSITY > 1) {
                     $content = Util\Common::prepareForOutput($buffer);
@@ -597,7 +597,7 @@ class VBANew extends LanguageTokenizerBase
                 $tokens[] = [
                     'code'    => T_WHITESPACE,
                     'type'    => 'T_WHITESPACE',
-                    'content' => str_replace("\n", $this->eolChar, $buffer),
+                    'content' => $buffer,
                 ];
                 if (PHP_CODESNIFFER_VERBOSITY > 1) {
                     $content = Util\Common::prepareForOutput($buffer);
