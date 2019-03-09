@@ -5,6 +5,7 @@
  * @author    Kevin Nowaczyk
  */
 namespace PHP_CodeSniffer\Tokenizers;
+
 define('T_THEN', 'PHPCS_T_THEN');
 define('T_BEGIN', 'PHPCS_T_BEGIN');
 define('T_ATTRIBUTE', 'PHPCS_T_ATTRIBUTE');
@@ -30,7 +31,7 @@ define('T_CONCATENATE', 'PHPCS_T_CONCATENATE');
 use PHP_CodeSniffer\Util;
 use PHP_CodeSniffer\Exceptions\TokenizerException;
 use PHP_CodeSniffer\Config;
-use PHP_CodeSniffer\Tokenizers\LanguageTokenizerBase
+use PHP_CodeSniffer\Tokenizers\LanguageTokenizerBase;
 
 class VBANew extends LanguageTokenizerBase
 {
