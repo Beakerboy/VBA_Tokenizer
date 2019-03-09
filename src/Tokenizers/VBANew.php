@@ -631,7 +631,7 @@ class VBANew extends LanguageTokenizerBase
      *
      * @return array
      */
-    protected function tokenize($string)
+    public function tokenize($string)
     {
         $tokens = $this->whitespace($string);
         /*
