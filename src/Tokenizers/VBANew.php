@@ -299,7 +299,7 @@ class VBANew extends LanguageTokenizerBase
                     $tokens[] = [
                         'code'    => T_STRING,
                         'type'    => 'T_STRING',
-                        'content' => str_replace("\n", $this->eolChar, $buffer),
+                        'content' => $buffer,
                     ];
                     if (PHP_CODESNIFFER_VERBOSITY > 1) {
                         $content = Util\Common::prepareForOutput($buffer);
@@ -327,7 +327,7 @@ class VBANew extends LanguageTokenizerBase
                         $tokens[] = [
                             'code'    => T_CONSTANT_ENCAPSED_STRING,
                             'type'    => 'T_CONSTANT_ENCAPSED_STRING',
-                            'content' => str_replace("\n", $this->eolChar, $buffer).$char,
+                            'content' => $buffer.$char,
                         ];
                         if (PHP_CODESNIFFER_VERBOSITY > 1) {
                             echo "\t\t* found end of string *".PHP_EOL;
