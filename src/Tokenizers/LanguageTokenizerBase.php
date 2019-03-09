@@ -87,11 +87,6 @@ class LanguageTokenizerBase extends Tokenizer
         $cleanBuffer     = false;
         $commentTokenizer = new Comment();
     }
-   
-    protected function processAdditional()
-    {
-        
-    }
     
     /**
      * Performs additional processing after main tokenizing.
@@ -99,4 +94,7 @@ class LanguageTokenizerBase extends Tokenizer
      * @return void
      */
     protected function processAdditional();
+    {
+        $test = 2;
+    }
 }
