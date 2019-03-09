@@ -93,7 +93,7 @@ class LanguageTokenizerBase extends Tokenizer
      *
      * @return void
      */
-    protected function processAdditional();
+    protected function processAdditional()
     {
         $test = 2;
     }
