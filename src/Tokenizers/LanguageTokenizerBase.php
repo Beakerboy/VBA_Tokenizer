@@ -65,7 +65,8 @@ class LanguageTokenizerBase extends Tokenizer
      *
      * @return array
      */
-    public function tokenize($string) {
+    public function tokenize($string)
+    {
         if (PHP_CODESNIFFER_VERBOSITY > 1) {
             echo "\t*** START VBA TOKENIZING ***".PHP_EOL;
         }
@@ -85,11 +86,10 @@ class LanguageTokenizerBase extends Tokenizer
         $preStringBuffer = '';
         $cleanBuffer     = false;
         $commentTokenizer = new Comment();
-       
-        
     }
    
-    protected funcrion processAdditional() {
+    protected function processAdditional()
+    {
         
     }
     
