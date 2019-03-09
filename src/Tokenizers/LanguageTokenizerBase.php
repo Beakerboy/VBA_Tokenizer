@@ -98,5 +98,5 @@ class LanguageTokenizerBase extends Tokenizer
      *
      * @return void
      */
-    abstract protected function processAdditional();
+    protected function processAdditional();
 }
