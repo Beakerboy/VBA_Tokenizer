@@ -8,6 +8,7 @@ define('PHP_CODESNIFFER_VERBOSITY', 0);
 use PHP_CodeSniffer\Config;
 use PHP_CodeSniffer\Util\Tokens;
 use PHP_CodeSniffer\Tests\Tokenizers\GenericVBAExtension;
+use PHP_CodeSniffer\Tokenizers\VBANew;
 
 class VBATest extends \PHPUnit\Framework\TestCase
 {
