@@ -89,4 +89,14 @@ class LanguageTokenizerBase extends Tokenizer
         
     }
    
+    protected funcrion processAdditional() {
+        
+    }
+    
+    /**
+     * Performs additional processing after main tokenizing.
+     *
+     * @return void
+     */
+    abstract protected function processAdditional();
 }
