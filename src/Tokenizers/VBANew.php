@@ -255,16 +255,6 @@ class VBANew extends LanguageTokenizerBase
         $cleanBuffer     = false;
         $commentTokenizer = new Comment();
         
-        $tokens[] = [
-            'code'    => T_OPEN_TAG,
-            'type'    => 'T_OPEN_TAG',
-            'content' => '',
-        ];
-        
-        // Convert newlines to single characters for ease of
-        // processing. We will change them back later.
-        $string = str_replace($this->eolChar, "\n", $string);
-        
         $chars    = str_split($string);
         $numChars = count($chars);
         for ($i = 0; $i < $numChars; $i++) {
@@ -274,7 +264,6 @@ class VBANew extends LanguageTokenizerBase
                 $content       = Util\Common::prepareForOutput($char);
                 $bufferContent = Util\Common::prepareForOutput($buffer);
                 
-                // Don't know what these do.
                 if ($inString !== '') {
                     echo "\t";
                 }
@@ -292,7 +281,7 @@ class VBANew extends LanguageTokenizerBase
                     $tokens[] = [
                         'code'    => T_WHITESPACE,
                         'type'    => 'T_WHITESPACE',
-                        'content' => str_replace("\n", $this->eolChar, $buffer),
+                        'content' => $buffer,
                     ];
                     if (PHP_CODESNIFFER_VERBOSITY > 1) {
                         $content = Util\Common::prepareForOutput($buffer);
@@ -616,11 +605,6 @@ class VBANew extends LanguageTokenizerBase
                 }
             }//end if
         }//end if
-        $tokens[] = [
-            'code'    => T_CLOSE_TAG,
-            'type'    => 'T_CLOSE_TAG',
-            'content' => '',
-        ];
         return $tokens;
     }
     /**
