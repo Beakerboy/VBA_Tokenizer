@@ -319,7 +319,7 @@ class VBANew extends LanguageTokenizerBase
                     // is not escaped first.
                     $escapes = 0;
                     for ($x = ($i - 1); $x >= 0; $x--) {
-                        if ($chars[$x] !== $escapeCharacter) {
+                        if ($chars[$x] !== $this->escapeCharacter) {
                             break;
                         }
                         $escapes++;
