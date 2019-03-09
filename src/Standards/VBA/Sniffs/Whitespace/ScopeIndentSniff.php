@@ -15,11 +15,4 @@ class ScopeIndentSniff extends GenericScopeIndentSniff
     public $supportedTokenizers = [
         'VBA',
     ];
-
-    /**
-     * Any scope openers that should not cause an indent.
-     *
-     * @var int[]
-     */
-    protected $nonIndentingScopes = [T_SWITCH];
 }//end class

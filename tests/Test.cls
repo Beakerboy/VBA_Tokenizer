@@ -3,10 +3,7 @@ BEGIN
   MultiUse = -1  'True
 END
 Attribute VB_Name = "Test"
-Attribute VB_GlobalNameSpace = False
-Attribute VB_Creatable = False
-Attribute VB_PredeclaredId = False
-Attribute VB_Exposed = True
+
 Option Explicit
 
 ' Class: Test
@@ -21,6 +18,12 @@ Public Function Foo(iVariable As Double) As Boolean
     While iVariable Is 2
         iVariable = iVariable + 1
     Wend
+    Select Case iVariable
+        Case iVariable Is 3
+            Foo = 3
+        Case Else
+            Foo = 4
+    End Select
 End Function
 
 ' Function: Bar

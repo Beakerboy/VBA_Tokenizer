@@ -26,60 +26,22 @@ class VBATest extends \PHPUnit\Framework\TestCase
     
     public function dataProviderForTokenizer()
     {
-        $input1 = "VERSION 1.0 CLASS\r\n" .
-            "  BEGIN\r\n" .
-            //"MultiUse = -1  'True\r\n"
-            "END\r\n" .
-            //"Attribute VB_Name = \"Test\"\r\n" .
-            "Option Explicit\r\n" .
-            "\r\n" .
-            "' Class: Test\r\n" .
-            "' A test class.\r\n" .
-            "Implements iTest\r\n" .
-            "\r\n" .
-            "Private sTable As String\r\n" .
-            "Public oSQL As oObject\r\n" .
-            "\r\n" .
-            "' Function: Foo\r\n" .
-            "Public Function Foo(iVariable As Double) As Boolean\r\n" .
-            "    While iVariable Is 2\r\n" .
-            "        iVariable = iVariable + 1\r\n" .
-            "    Wend\r\n" .
-            "End Function\r\n" .
-            "\r\n" .
-            "' Function: Bar\r\n" .
-            "Private Sub Bar(Optional sTest As String)\r\n" .
-            "    If Not sTest = \"somevalue\" And sTest > 2.6 Then\r\n" .
-            "        iDoSomething = 5\r\n" .
-            "    Elseif sTest = \"something else\" Or sTest = \"Something Else\" Then\r\n" .
-            "        iDoSomethong = 6\r\n" .
-            "    Else\r\n" .
-            "        iDoSomething = 7\r\n" .
-            "    End If\r\n" .
-            "End Sub\r\n" .
-            "\r\n" .
-            "Public Property Let (Baz)\r\n" .
-            "    oSQL = Baz\r\n" .
-            "    Do While 6 > 7\r\n" .
-            "        Bar(2)\r\n" .
-            "    Loop\r\n" .
-            "End Property\r\n" .
-            "\r\n" .
-            "Private Sub pSub ()\r\n" .
-            "    For i = 1 To 6\r\n" .
-            "        Lib.Save i\r\n" .
-            "    Next i\r\n" .
-            "    For Each element In vArray\r\n" .
-            "        Lib2.Read\r\n" .
-            "    Next\r\n" .
-            "End Sub";
+        $input1 = file_get_contents('tests/Test.cls');
         $output1 = [
             [T_OPEN_TAG, '<?php '],
             [T_STRING, 'VERSION'], [T_WHITESPACE, ' '],
             [T_DNUMBER, '1.0'], [T_WHITESPACE, ' '],
-            [T_CLASS, 'CLASS'], [T_WHITESPACE, "\r\n  "],
-            [T_ABSTRACT, 'abstract'], [T_WHITESPACE, "\r\n"],
+            [T_CLASS, 'CLASS'], [T_WHITESPACE, "\r\n"],
+            [T_ABSTRACT, 'abstract'], [T_WHITESPACE, "\r\n  "],
+            [T_STRING, 'MultiUse'], [T_WHITESPACE, ' '],
+            [T_EQUAL, '='], [T_WHITESPACE, ' '],
+            [T_MINUS, '-'], [T_LNUMBER, '1'], [T_WHITESPACE, '  '],
+            [T_COMMENT, "//True\r\n"],
             [T_CLONE, 'clone'], [T_WHITESPACE, "\r\n"],
+            [T_STRING, 'Attribute'], [T_WHITESPACE, ' '],
+            [T_STRING, 'VB_Name'], [T_WHITESPACE, ' '],
+            [T_EQUAL, '='], [T_WHITESPACE, ' '],
+            [T_CONSTANT_ENCAPSED_STRING, '"Test"'], [T_WHITESPACE, "\r\n\r\n"],
             [T_STRING, 'Option'], [T_WHITESPACE, ' '],
             [T_STRING, 'Explicit'], [T_WHITESPACE, "\r\n\r\n"],
             [T_COMMENT, "// Class: Test\r\n"],
@@ -112,7 +74,21 @@ class VBATest extends \PHPUnit\Framework\TestCase
             [T_STRING, 'iVariable'], [T_WHITESPACE, ' '],
             [T_PLUS, '+'], [T_WHITESPACE, ' '],
             [T_LNUMBER, '1'], [T_WHITESPACE, "\r\n    "],
-            [T_STATIC, 'static'], [T_WHITESPACE, "\r\n"],
+            [T_ENDWHILE, 'endwhile'], [T_WHITESPACE, "\r\n    "],
+            [T_SWITCH, 'switch'], [T_WHITESPACE, ' '],
+            [T_STRING, 'iVariable'], [T_WHITESPACE, "\r\n        "],
+            [T_CASE, 'Case'], [T_WHITESPACE, ' '],
+            [T_STRING, 'iVariable'], [T_WHITESPACE, ' '],
+            [T_IS_IDENTICAL, '==='], [T_WHITESPACE, ' '],
+            [T_LNUMBER, '3'], [T_WHITESPACE, "\r\n            "],
+            [T_STRING, 'Foo'], [T_WHITESPACE, ' '],
+            [T_EQUAL, '='], [T_WHITESPACE, ' '],
+            [T_LNUMBER, '3'], [T_WHITESPACE, "\r\n        "],
+            [T_DEFAULT, 'default'], [T_WHITESPACE, "\r\n            "],
+            [T_STRING, 'Foo'], [T_WHITESPACE, ' '],
+            [T_EQUAL, '='], [T_WHITESPACE, ' '],
+            [T_LNUMBER, '4'], [T_WHITESPACE, "\r\n    "],
+            [T_ENDSWITCH, 'endswitch'], [T_WHITESPACE, "\r\n"],
             [T_ENDDECLARE, 'enddeclare'], [T_WHITESPACE, "\r\n\r\n"],
             [T_COMMENT, "// Function: Bar\r\n"],
             [T_PRIVATE, 'Private'], [T_WHITESPACE, ' '],
@@ -196,7 +172,7 @@ class VBATest extends \PHPUnit\Framework\TestCase
             [T_STRING, 'Lib2'], [T_OBJECT_OPERATOR, '->'],
             [T_STRING, 'Read'], [T_WHITESPACE, "\r\n    "],
             [T_CLOSE_CURLY_BRACKET, '}'], [T_WHITESPACE, "\r\n"],
-            [T_ENDDECLARE, 'enddeclare'],
+            [T_ENDDECLARE, 'enddeclare'], [T_WHITESPACE, "\r\n"],
         ];
         return [
             [$input1, $this->expandArray($output1)],
