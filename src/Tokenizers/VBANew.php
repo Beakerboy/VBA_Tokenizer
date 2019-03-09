@@ -233,6 +233,9 @@ class VBANew extends LanguageTokenizerBase
     protected $commentTokens = [
         '\''  => null,
     ];
+    
+    protected $escapeCharacter = '"';
+    
     protected function whitespace($string)
     {
         if (PHP_CODESNIFFER_VERBOSITY > 1) {
@@ -316,7 +319,7 @@ class VBANew extends LanguageTokenizerBase
                     // is not escaped first.
                     $escapes = 0;
                     for ($x = ($i - 1); $x >= 0; $x--) {
-                        if ($chars[$x] !== '\\') {
+                        if ($chars[$x] !== $escapeCharacter) {
                             break;
                         }
                         $escapes++;
