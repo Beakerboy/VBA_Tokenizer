@@ -19,6 +19,7 @@ define('T_EOL', 'PHPCS_T_EOL');
 define('T_IS', 'PHPCS_T_IS');
 define('T_NOTHING', 'PHPCS_T_NOTHING');
 define('T_NEXT', 'PHPCS_T_NEXT');
+define('T_SELECT', 'PHPCS_T_SELECT');
 define('T_END_FUNCTION', 'PHPCS_T_END_FUNCTION');
 define('T_END_SUB', 'PHPCS_T_END_SUB');
 define('T_END_PROPERTY', 'PHPCS_T_END_PROPERTY');
