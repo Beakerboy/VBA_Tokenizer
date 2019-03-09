@@ -197,7 +197,6 @@ class VBATest extends \PHPUnit\Framework\TestCase
     {
         $input1 = file_get_contents('tests/Test.cls');
         $output1 = [
-            [T_OPEN_TAG, '<?php '],
             [T_STRING, 'VERSION'], [T_WHITESPACE, ' '],
             [T_DNUMBER, '1.0'], [T_WHITESPACE, ' '],
             [T_CLASS, 'CLASS'], [T_WHITESPACE, "\r\n"],
