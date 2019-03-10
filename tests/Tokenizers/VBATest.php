@@ -210,7 +210,7 @@ class VBATest extends \PHPUnit\Framework\TestCase
             [T_STRING, 'VB_Name'], [T_WHITESPACE, ' '],
             [T_EQUAL, '='], [T_WHITESPACE, ' '],
             [T_CONSTANT_ENCAPSED_STRING, '"Test"'], [T_WHITESPACE, "\r\n\r\n"],
-            [T_STRING, 'Option'], [T_WHITESPACE, ' '],
+            [T_OPTION, 'Option'], [T_WHITESPACE, ' '],
             [T_STRING, 'Explicit'], [T_WHITESPACE, "\r\n\r\n"],
             [T_COMMENT, "' Class: Test\r\n"],
             [T_COMMENT, "' A test class.\r\n"],
