@@ -252,7 +252,7 @@ class VBANew extends LanguageTokenizerBase
         $tokens          = [];
         $inString        = '';
         $stringChar      = null;
-        $inComment       = '';
+        $inComment       = '';        // The token that started the comment
         $buffer          = '';
         $preStringBuffer = '';
         $cleanBuffer     = false;
