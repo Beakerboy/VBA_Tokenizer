@@ -155,7 +155,7 @@ class VBANew extends LanguageTokenizerBase
     protected $tokenValues = [
         'class'     => 'T_CLASS',
         'begin'     => 'T_BEGIN',
-  //      'END'       => 'T_END',
+        'end'       => 'T_END',
         'function'  => 'T_FUNCTION',
         'attribute' => 'T_ATTRIBUTE',
         'option'    => 'T_OPTION',
