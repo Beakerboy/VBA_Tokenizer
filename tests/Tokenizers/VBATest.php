@@ -206,7 +206,7 @@ class VBATest extends \PHPUnit\Framework\TestCase
             [T_MINUS, '-'], [T_LNUMBER, '1'], [T_WHITESPACE, '  '],
             [T_COMMENT, "'"], [T_TRUE, "True"], [T_STRING, "\r\n"],
             [T_END, 'END'], [T_WHITESPACE, "\r\n"],
-            [T_ATTEIBUTE, 'Attribute'], [T_WHITESPACE, ' '],
+            [T_ATTRIBUTE, 'Attribute'], [T_WHITESPACE, ' '],
             [T_STRING, 'VB_Name'], [T_WHITESPACE, ' '],
             [T_EQUAL, '='], [T_WHITESPACE, ' '],
             [T_CONSTANT_ENCAPSED_STRING, '"Test"'], [T_WHITESPACE, "\r\n\r\n"],
