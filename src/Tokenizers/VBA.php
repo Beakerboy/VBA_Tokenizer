@@ -148,6 +148,9 @@ class VBA extends PHP
         T_ENDFOREACH          => T_ENDFOREACH,
         T_ENDWHILE            => T_ENDWHILE,
         T_ENDSWITCH           => T_ENDSWITCH,
+        T_BREAK               => T_BREAK,
+        T_CLONE               => T_CLONE,
+        T_TRAIT               => T_TRAIT,
     ];
 
     protected function convertFile($string)
