@@ -26,6 +26,15 @@ Public Function Foo(iVariable As Double) As Boolean
     End Select
 End Function
 
+Private Sub pSub ()
+    For i = 1 To 6
+        Lib.Save i
+    Next i
+    For Each element In vArray
+        Lib2.Read
+    Next
+End Sub
+
 ' Function: Bar
 Private Sub Bar(Optional sTest As String)
     If Not sTest = "somevalue" And sTest > 2.6 Then
@@ -43,12 +52,3 @@ Public Property Let (Baz)
         Bar(2)
     Loop
 End Property
-
-Private Sub pSub ()
-    For i = 1 To 6
-        Lib.Save i
-    Next i
-    For Each element In vArray
-        Lib2.Read
-    Next
-End Sub
