@@ -64,7 +64,7 @@ class VBA extends PHP
             'end'    => [
                 T_CLOSE_CURLY_BRACKET => T_CLOSE_CURLY_BRACKET,
             ],
-            'strict' => false,
+            'strict' => true,
             'shared' => false,
             'with'   => [],
         ],
@@ -75,7 +75,7 @@ class VBA extends PHP
             'end'    => [
                 T_CLOSE_CURLY_BRACKET => T_CLOSE_CURLY_BRACKET,
             ],
-            'strict' => false,
+            'strict' => true,
             'shared' => false,
             'with'   => [],
         ],
