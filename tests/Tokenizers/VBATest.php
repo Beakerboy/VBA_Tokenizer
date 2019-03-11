@@ -172,7 +172,7 @@ class VBATest extends \PHPUnit\Framework\TestCase
             [T_STRING, 'Bar'], [T_OPEN_PARENTHESIS, '('], [T_LNUMBER, '2'],
             [T_CLOSE_PARENTHESIS, ')'],[T_WHITESPACE, "\r\n    "],
             [T_TRAIT, 'trait'], [T_WHITESPACE, "\r\n"],
-            [T_ENDDECLARE, 'enddeclare'], [T_WHITESPACE, "\r\n\r\n"],
+            [T_ENDDECLARE, 'enddeclare'], [T_WHITESPACE, "\r\n"],
         ];
         return [
             [$input1, $this->expandArray($output1)],
