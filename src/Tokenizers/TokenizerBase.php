@@ -121,15 +121,15 @@ class TokenizerBase extends Tokenizer
             if ($inString === '' && $inComment === '' && $buffer !== '') {
                 // If the buffer only has whitespace and we are about to
                 // add a character, store the whitespace first.
-                if (!isWhitespace($char) && isWhitespace($buffer)) {
+                if (!$this->isWhitespace($char) && $this->isWhitespace($buffer)) {
                     $tokens[] = $this->simpleToken('T_WHITESPACE', $buffer);
                     $buffer = '';
-                } elseif (!isString($char) && isString($buffer)) {
+                } elseif (!$this->isString($char) && $this->isString($buffer)) {
                     // If the buffer is not whitespace and we are about to
                     // add a whitespace character, store the content first.
                     $tokens[] = $this->simpleToken('T_STRING', $buffer);
                     $buffer = '';
-                } elseif (!isEol($char) && isEol($buffer)) {
+                } elseif (!$this->isEol($char) && $this->isEol($buffer)) {
                     $tokens[] = $this->simpleToken('T_EOL', $buffer);
                     $buffer = '';
                 }
