@@ -35,7 +35,7 @@ use PHP_CodeSniffer\Exceptions\TokenizerException;
 use PHP_CodeSniffer\Config;
 use PHP_CodeSniffer\Tokenizers\TokenizerBase;
 
-class VBANew extends TokenizerBase
+class VBA extends TokenizerBase
 {
     /**
      * A list of tokens that are allowed to open a scope.
