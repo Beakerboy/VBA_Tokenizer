@@ -110,44 +110,21 @@ class TokenizerBase extends Tokenizer
         $numChars = count($chars);
         for ($i = 0; $i < $numChars; $i++) {
             $char = $chars[$i];
-            
-            if (PHP_CODESNIFFER_VERBOSITY > 1) {
-                $content       = Util\Common::prepareForOutput($char);
-                $bufferContent = Util\Common::prepareForOutput($buffer);
-                
-                if ($inString !== '') {
-                    echo "\t";
-                }
-                if ($inComment !== '') {
-                    echo "\t";
-                }
-                echo "\tProcess char $i => $content (buffer: $bufferContent)".PHP_EOL;
-            }//end if
-            
+            $content       = Util\Common::prepareForOutput($char);
+            $bufferContent = Util\Common::prepareForOutput($buffer);
+            $tabs = str_repeat("\t", count(array_filter($inString !== '', $inComment !== '')));
+            $this->verboseOutput($tabs . "\tProcess char $i => $content (buffer: $bufferContent)");
             // We separate the buffer into either strings or whitespace
             if ($inString === '' && $inComment === '' && $buffer !== '') {
                 // If the buffer only has whitespace and we are about to
                 // add a character, store the whitespace first.
                 if (trim($char) !== '' && trim($buffer) === '') {
-                    $tokens[] = simpleToken('T_WHITESPACE', $buffer);
-                    if (PHP_CODESNIFFER_VERBOSITY > 1) {
-                        $content = Util\Common::prepareForOutput($buffer);
-                        echo "\t=> Added token T_WHITESPACE ($content)".PHP_EOL;
-                    }
+                    $tokens[] = $this->simpleToken('T_WHITESPACE', $buffer);
                     $buffer = '';
-                }
-                // If the buffer is not whitespace and we are about to
-                // add a whitespace character, store the content first.
-                if ($inString === ''
-                    && $inComment === ''
-                    && trim($char) === ''
-                    && trim($buffer) !== ''
-                ) {
-                    $tokens[] = simpleToken('T_STRING', $buffer);
-                    if (PHP_CODESNIFFER_VERBOSITY > 1) {
-                        $content = Util\Common::prepareForOutput($buffer);
-                        echo "\t=> Added token T_STRING ($content)".PHP_EOL;
-                    }
+                } else if (trim($char) === '' && trim($buffer) !== '') {
+                    // If the buffer is not whitespace and we are about to
+                    // add a whitespace character, store the content first.
+                    $tokens[] = $this->simpleToken('T_STRING', $buffer);
                     $buffer = '';
                 }
             }//end if
@@ -167,16 +144,9 @@ class TokenizerBase extends Tokenizer
                     if ($escapes === 0 || ($escapes % 2) === 0) {
                         // There is an even number escape chars,
                         // so this is not escaped, it is the end of the string.
-                        $tokens[] = [
-                            'code'    => T_CONSTANT_ENCAPSED_STRING,
-                            'type'    => 'T_CONSTANT_ENCAPSED_STRING',
-                            'content' => $buffer.$char,
-                        ];
-                        if (PHP_CODESNIFFER_VERBOSITY > 1) {
-                            echo "\t\t* found end of string *".PHP_EOL;
-                            $content = Util\Common::prepareForOutput($buffer.$char);
-                            echo "\t=> Added token T_CONSTANT_ENCAPSED_STRING ($content)".PHP_EOL;
-                        }
+                        $this->verboseOutput("\t\t* found end of string *");
+                        $tokens[] = $this->simpleToken('T_CONSTANT_ENCAPSED_STRING'. $buffer.$char);
+
                         $buffer          = '';
                         $preStringBuffer = '';
                         $inString        = '';
@@ -187,9 +157,7 @@ class TokenizerBase extends Tokenizer
                     $inString        = $char;
                     $stringChar      = $i;
                     $preStringBuffer = $buffer;
-                    if (PHP_CODESNIFFER_VERBOSITY > 1) {
-                        echo "\t\t* looking for string closer *".PHP_EOL;
-                    }
+                    $this->verboseOutput("\t\t* looking for string closer *");
                 }//end if
             }//end if
             
@@ -204,9 +172,7 @@ class TokenizerBase extends Tokenizer
                     $inString        = '';
                     $stringChar      = null;
                     $char            = $chars[$i];
-                    if (PHP_CODESNIFFER_VERBOSITY > 1) {
-                        echo "\t\t* found newline before end of string, bailing *".PHP_EOL;
-                    }
+                    $this->verboseOutput("\t\t* found newline before end of string, bailing *");
                 }
             }
             
@@ -232,19 +198,15 @@ class TokenizerBase extends Tokenizer
                     // to look ahead at the next chars to see if this is
                     // actually part of a larger token. For example,
                     // FOR and FOREACH.
-                    if (PHP_CODESNIFFER_VERBOSITY > 1) {
-                        echo "\t\t* buffer possibly contains token, looking ahead $lookAheadLength chars *".PHP_EOL;
-                    }
+                    $this->verboseOutput("\t\t* buffer possibly contains token, looking ahead $lookAheadLength chars *");
                     $charBuffer = $buffer;
                     for ($x = 1; $x <= $lookAheadLength; $x++) {
                         if (isset($chars[($i + $x)]) === false) {
                             break;
                         }
                         $charBuffer .= $chars[($i + $x)];
-                        if (PHP_CODESNIFFER_VERBOSITY > 1) {
-                            $content = Util\Common::prepareForOutput($charBuffer);
-                            echo "\t\t=> Looking ahead $x chars => $content".PHP_EOL;
-                        }
+                        $content = Util\Common::prepareForOutput($charBuffer);
+                        $this->verboseOutput("\t\t=> Looking ahead $x chars => $content");
                         if (isset($this->tokenValues[strtolower($charBuffer)]) === true) {
                             // We've found something larger that matches
                             // so we can ignore this char.
@@ -252,9 +214,7 @@ class TokenizerBase extends Tokenizer
                             // or an open doc_comment and a slash. Bigger is not always more correct.
                             $oldType = $this->tokenValues[strtolower($buffer)];
                             $newType = $this->tokenValues[strtolower($charBuffer)];
-                            if (PHP_CODESNIFFER_VERBOSITY > 1) {
-                                echo "\t\t* look ahead found more specific token ($newType), ignoring $i *".PHP_EOL;
-                            }
+                            $this->verboseOutput("\t\t* look ahead found more specific token ($newType), ignoring $i *");
                             $matchedToken = true;
                             break;
                         }//end if
@@ -262,32 +222,22 @@ class TokenizerBase extends Tokenizer
                 }//end if
                 
                 if ($matchedToken === false) {
-                    if (PHP_CODESNIFFER_VERBOSITY > 1 && $lookAheadLength > 0) {
-                        echo "\t\t* look ahead found nothing *".PHP_EOL;
+                    if ($lookAheadLength > 0) {
+                        $this->verboseOutput("\t\t* look ahead found nothing *");
                     }
                     $value = $this->tokenValues[strtolower($buffer)];
-                    $tokens[] = simpleToken($value, $buffer);
-                    if (PHP_CODESNIFFER_VERBOSITY > 1) {
-                        $content = Util\Common::prepareForOutput($buffer);
-                        echo "\t=> Added token $value ($content)".PHP_EOL;
-                    }
+                    $tokens[] = $this->simpleToken($value, $buffer);
                     $cleanBuffer = true;
                 }//end if
             } elseif (isset($this->tokenValues[strtolower($char)]) === true) {
                 // No matter what token we end up using, we don't
                 // need the content in the buffer any more because we have
                 // found a valid token.
-                $newContent = substr(str_replace("\n", $this->eolChar, $buffer), 0, -1);
+                $newContent = substr($buffer, 0, -1);
                 if ($newContent !== '') {
-                    $tokens[] = simpleToken('T_STRING', $newContent);
-                    if (PHP_CODESNIFFER_VERBOSITY > 1) {
-                        $content = Util\Common::prepareForOutput(substr($buffer, 0, -1));
-                        echo "\t=> Added token T_STRING ($content)".PHP_EOL;
-                    }
+                    $tokens[] = $this->simpleToken('T_STRING', $newContent);
                 }
-                if (PHP_CODESNIFFER_VERBOSITY > 1) {
-                    echo "\t\t* char is token, looking ahead ".($maxTokenLength - 1).' chars *'.PHP_EOL;
-                }
+                $this->verboseOutput("\t\t* char is token, looking ahead ".($maxTokenLength - 1).' chars *');
                 // The char is a token type, but we need to look ahead at the
                 // next chars to see if this is actually part of a larger token.
                 // For example, = and ===.
@@ -298,29 +248,21 @@ class TokenizerBase extends Tokenizer
                         break;
                     }
                     $charBuffer .= $chars[($i + $x)];
-                    if (PHP_CODESNIFFER_VERBOSITY > 1) {
-                        $content = Util\Common::prepareForOutput($charBuffer);
-                        echo "\t\t=> Looking ahead $x chars => $content".PHP_EOL;
-                    }
+                    $content = Util\Common::prepareForOutput($charBuffer);
+                    $this-verboseOutput("\t\t=> Looking ahead $x chars => $content");
                     if (isset($this->tokenValues[strtolower($charBuffer)]) === true) {
                         // We've found something larger that matches
                         // so we can ignore this char.
-                        if (PHP_CODESNIFFER_VERBOSITY > 1) {
-                            $type = $this->tokenValues[strtolower($charBuffer)];
-                            echo "\t\t* look ahead found more specific token ($type), ignoring $i *".PHP_EOL;
-                        }
+                        $type = $this->tokenValues[strtolower($charBuffer)];
+                        $this->verboseOutput("\t\t* look ahead found more specific token ($type), ignoring $i *");
                         $matchedToken = true;
                         break;
                     }
                 }//end for
                 if ($matchedToken === false) {
                     $value    = $this->tokenValues[strtolower($char)];
-                    $tokens[] = simpleToken($value, $char);
-                    if (PHP_CODESNIFFER_VERBOSITY > 1) {
-                        echo "\t\t* look ahead found nothing *".PHP_EOL;
-                        $content = Util\Common::prepareForOutput($char);
-                        echo "\t=> Added token $value ($content)".PHP_EOL;
-                    }
+                    $this->verboseOutput("\t\t* look ahead found nothing *");
+                    $tokens[] = $this->simpleToken($value, $char);
                     $cleanBuffer = true;
                 } else {
                     $buffer = $char;
@@ -346,17 +288,11 @@ class TokenizerBase extends Tokenizer
                         $lastChar = $lastChars[$x];
                         $value    = $this->tokenValues[strtolower($lastChar)];
                         $tokens[] = simpleToken($value, $lastChar);
-                        if (PHP_CODESNIFFER_VERBOSITY > 1) {
-                            $content = Util\Common::prepareForOutput($lastChar);
-                            echo "\t=> Added token $value ($content)".PHP_EOL;
-                        }
                     }
                 } else {
                     // We have started a comment.
                     $inComment = $buffer;
-                    if (PHP_CODESNIFFER_VERBOSITY > 1) {
-                        echo "\t\t* looking for end of comment *".PHP_EOL;
-                    }
+                    $this->verboseOutput("\t\t* looking for end of comment *");
                 }//end if
             } elseif ($inComment !== '') {
                 if ($this->commentTokens[$inComment] === null) {
@@ -369,17 +305,11 @@ class TokenizerBase extends Tokenizer
                         $inComment = '';
                     }
                 }
-                if (PHP_CODESNIFFER_VERBOSITY > 1) {
-                    if ($inComment === '') {
-                        echo "\t\t* found end of comment *".PHP_EOL;
-                    }
+                if ($inComment === '') {
+                    $this->verboseOutput("\t\t* found end of comment *");
                 }
                 if ($inComment === '' && $cleanBuffer === false) {
-                    $tokens[] = simpleToken('T_STRING', $buffer);
-                    if (PHP_CODESNIFFER_VERBOSITY > 1) {
-                        $content = Util\Common::prepareForOutput($buffer);
-                        echo "\t=> Added token T_STRING ($content)".PHP_EOL;
-                    }
+                    $tokens[] = $this->simpleToken('T_STRING', $buffer);
                     $buffer = '';
                 }
             }//end if
@@ -392,18 +322,10 @@ class TokenizerBase extends Tokenizer
             if ($inString !== '') {
                 // The string did not end before the end of the file,
                 // which means there was probably a syntax error somewhere.
-                $tokens[] = simpleToken('T_STRING', $buffer);
-                if (PHP_CODESNIFFER_VERBOSITY > 1) {
-                    $content = Util\Common::prepareForOutput($buffer);
-                    echo "\t=> Added token T_STRING ($content)".PHP_EOL;
-                }
+                $tokens[] = $this->simpleToken('T_STRING', $buffer);
             } else {
                 // Buffer contains whitespace from the end of the file.
-                $tokens[] = simpleToken('T_WHITESPACE', $buffer);
-                if (PHP_CODESNIFFER_VERBOSITY > 1) {
-                    $content = Util\Common::prepareForOutput($buffer);
-                    echo "\t=> Added token T_WHITESPACE ($content)".PHP_EOL;
-                }
+                $tokens[] = $this->simpleToken('T_WHITESPACE', $buffer);
             }//end if
         }//end if
         return $tokens;
@@ -466,14 +388,32 @@ class TokenizerBase extends Tokenizer
                 $token['content'] = $newContent.$tokenContent;
             }
         }//end if
-        
-        protected function simpleToken($type, $content)
-        {
-            return [
-                'code'    => constant($type),
-                'type'    => $type,
-                'content' => $content,
-            ];
-        }
     }
+
+    /**
+     * Create a simple token.
+     *
+     * @param string $type The token type.
+     * @param string $content The token text.
+     *
+     * @return array
+     */
+    protected function simpleToken($type, $content)
+    {
+        $output = Util\Common::prepareForOutput($content);
+        $this->verboseOutput("\t=> Added token $type ($output)");
+        }
+        return [
+            'code'    => constant($type),
+            'type'    => $type,
+            'content' => $content,
+        ];
+    }
+    
+    protected function verboseOutput($string)
+    {
+        if (PHP_CODESNIFFER_VERBOSITY > 1) {
+            echo $string.PHP_EOL;
+        }
+    }    
 }
