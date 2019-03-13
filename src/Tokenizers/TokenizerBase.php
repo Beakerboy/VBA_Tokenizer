@@ -3,6 +3,7 @@
 namespace PHP_CodeSniffer\Tokenizers;
 
 use PHP_CodeSniffer\Tokenizers\Tokenizer;
+use PHP_CodeSniffer\Util;
 
 class TokenizerBase extends Tokenizer
 {
