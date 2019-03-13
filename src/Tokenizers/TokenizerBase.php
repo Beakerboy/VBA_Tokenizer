@@ -148,7 +148,7 @@ class TokenizerBase extends Tokenizer
                         // There is an even number escape chars,
                         // so this is not escaped, it is the end of the string.
                         $this->verboseOutput("\t\t* found end of string *");
-                        $tokens[] = $this->simpleToken('T_CONSTANT_ENCAPSED_STRING'. $buffer.$char);
+                        $tokens[] = $this->simpleToken('T_CONSTANT_ENCAPSED_STRING', $buffer.$char);
 
                         $buffer          = '';
                         $preStringBuffer = '';
