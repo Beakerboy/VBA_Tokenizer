@@ -1,247 +1,241 @@
 <?php
-
+/**
+ * Tokenizes VBA code.
+ *
+ * @author    Kevin Nowaczyk
+ */
 namespace PHP_CodeSniffer\Tokenizers;
 
-use PHP_CodeSniffer\Util;
-use PHP_CodeSniffer\Tokenizers\PHP;
+define('T_THEN', 'PHPCS_T_THEN');
+define('T_BEGIN', 'PHPCS_T_BEGIN');
+define('T_END', 'PHPCS_T_END');
+define('T_ATTRIBUTE', 'PHPCS_T_ATTRIBUTE');
+define('T_OPTION', 'PHPCS_T_OPTION');
+define('T_LET', 'PHPCS_T_LET');
+define('T_SET', 'PHPCS_T_SET');
+define('T_SUB', 'PHPCS_T_SUB');
+define('T_DIM', 'PHPCS_T_DIM');
+define('T_EOL', 'PHPCS_T_EOL');
+define('T_IS', 'PHPCS_T_IS');
+define('T_NOTHING', 'PHPCS_T_NOTHING');
+define('T_NEXT', 'PHPCS_T_NEXT');
+define('T_SELECT', 'PHPCS_T_SELECT');
+define('T_END_FUNCTION', 'PHPCS_T_END_FUNCTION');
+define('T_END_SUB', 'PHPCS_T_END_SUB');
+define('T_END_PROPERTY', 'PHPCS_T_END_PROPERTY');
+define('T_END_SELECT', 'PHPCS_T_END_SELECT');
+define('T_LOOP', 'PHPCS_T_LOOP');
+define('T_SELECT_CASE', 'PHPCS_T_SELECT_CASE');
+define('T_WEND', 'PHPCS_T_WEND');
+define('T_CASE_ELSE', 'PHPCS_T_CASE_ELSE');
+define('T_CONCATENATE', 'PHPCS_T_CONCATENATE');
 
-class VBA extends PHP
+use PHP_CodeSniffer\Util;
+use PHP_CodeSniffer\Exceptions\TokenizerException;
+use PHP_CodeSniffer\Config;
+use PHP_CodeSniffer\Tokenizers\LanguageTokenizerBase;
+
+class VBANew extends LanguageTokenizerBase
 {
+    /**
+     * A list of tokens that are allowed to open a scope.
+     *
+     * This array also contains information about what kind of token the scope
+     * opener uses to open and close the scope, if the token strictly requires
+     * an opener, if the token can share a scope closer, and who it can be shared
+     * with. An example of a token that shares a scope closer is a CASE scope.
+     *
+     * @var array
+     */
     public $scopeOpeners = [
-        T_IF => [
-            'start'  => [T_OPEN_CURLY_BRACKET => T_OPEN_CURLY_BRACKET],
-            'end'    => [
-                T_CLOSE_CURLY_BRACKET => T_CLOSE_CURLY_BRACKET,
-            ],
-            'strict' => true,
-            'shared' => false,
+        T_IF       => [
+            'start'  => [T_THEN => T_THEN],
+            'end'    => [T_ENDIF => T_ENDIF],
+            'strict' => false,
+            'shared' => true,
             'with'   => [
-                T_ELSE   => T_ELSE,
+                T_ELSE => T_ELSE,
                 T_ELSEIF => T_ELSEIF,
             ],
         ],
-        T_ELSE => [
-            'start'  => [T_OPEN_CURLY_BRACKET => T_OPEN_CURLY_BRACKET],
-            'end'    => [
-                T_CLOSE_CURLY_BRACKET => T_CLOSE_CURLY_BRACKET,
-            ],
-            'strict' => true,
-            'shared' => false,
+        T_ELSE     => [
+            'start'  => [T_EOL => T_EOL],
+            'end'    => [T_ENDIF => T_ENDIF],
+            'strict' => false,
+            'shared' => true,
             'with'   => [
+                T_ELSE => T_ELSE,
+                T_ELSEIF => T_ELSEIF,
             ],
         ],
-        T_ELSEIF => [
-            'start'  => [T_OPEN_CURLY_BRACKET => T_OPEN_CURLY_BRACKET],
-            'end'    => [
-                T_CLOSE_CURLY_BRACKET => T_CLOSE_CURLY_BRACKET,
-            ],
-            'strict' => true,
-            'shared' => false,
-            'with'   => [
-            ],
-        ],
-        T_FUNCTION => [
-            'start'  => [T_CLOSE_PARENTHESIS => T_CLOSE_PARENTHESIS],  //Should be newline
-            'end'    => [T_ENDDECLARE => T_ENDDECLARE],
-            'strict' => true,
-            'shared' => false,
-            'with'   => [],
-        ],
-        T_WHILE => [
-            'start'  => [T_WHITESPACE => T_WHITESPACE],  //Should be newline
-            'end'    => [
-                T_ENDWHILE => T_ENDWHILE,
-                T_TRAIT  => T_TRAIT,
-            ],
-            'strict' => true,
-            'shared' => false,
-            'with'   => [],
-        ],
-        T_FOREACH => [
-            'start'  => [
-                T_WHITESPACE=> T_WHITESPACE, //Should be line ending
-            ],
-            'end'    => [
-                T_CLOSE_CURLY_BRACKET => T_CLOSE_CURLY_BRACKET,
-            ],
-            'strict' => true,
-            'shared' => false,
-            'with'   => [],
-        ],
-        T_FOR => [
-            'start'  => [
-                T_WHITESPACE=> T_WHITESPACE,
-            ],
-            'end'    => [
-                T_CLOSE_CURLY_BRACKET => T_CLOSE_CURLY_BRACKET,
-            ],
-            'strict' => true,
-            'shared' => false,
-            'with'   => [],
-        ],
-        T_ABSTRACT => [
-            'start'  => [
-                T_WHITESPACE=> T_WHITESPACE, //Should be line ending
-            ],
-            'end'    => [
-                T_CLONE => T_CLONE,
-            ],
+        T_FOR      => [
+            'start'  => [T_EOL => T_EOL],
+            'end'    => [T_NEXT => T_NEXT],
             'strict' => false,
             'shared' => false,
             'with'   => [],
         ],
-        T_SWITCH => [
-            'start'  => [
-                T_WHITESPACE=> T_WHITESPACE, //Should be line ending
-            ],
-            'end'    => [
-                T_ENDSWITCH => T_ENDSWITCH,
-            ],
+        T_FUNCTION => [
+            'start'  => [T_EOL=> T_EOL],
+            'end'    => [T_END_FUNCTION => T_END_FUNCTION],
+            'strict' => false,
+            'shared' => false,
+            'with'   => [],
+        ],
+        T_WHILE    => [
+            'start'  => [T_EOL => T_EOL],
+            'end'    => [T_WEND => T_WEND],
+            'strict' => false,
+            'shared' => false,
+            'with'   => [],
+        ],
+        T_DO       => [
+            'start'  => [T_EOL => T_EOL],
+            'end'    => [T_LOOP => T_LOOP],
             'strict' => true,
             'shared' => false,
             'with'   => [],
         ],
-        T_CASE => [
-            'start'  => [
-                T_WHITESPACE=> T_WHITESPACE, //Should be line ending
-            ],
+        T_SELECT_CASE   => [
+            'start'  => [T_EOL => T_EOL],
+            'end'    => [T_END_SELECT => T_END_SELECT],
+            'strict' => true,
+            'shared' => true,
+            'with'   => [T_CASE => T_CASE],
+        ],
+        T_CASE     => [
+            'start'  => [T_EOL => T_EOL],
             'end'    => [
-                T_BREAK => T_BREAK,
+                T_END_SELECT    => T_END_SELECT,
             ],
             'strict' => true,
             'shared' => true,
             'with'   => [
-                T_CASE   => T_CASE,
-                T_SWITCH => T_SWITCH,
-                T_DEFAULT => T_DEFAULT,
+                T_ELSE => T_ELSE,
+                T_END_SELECT    => T_END_SELECT,
             ],
         ],
-        T_DEFAULT => [
-            'start'  => [
-                T_WHITESPACE=> T_WHITESPACE, //Should be line ending
-            ],
+        T_CASE_ELSE     => [
+            'start'  => [T_EOL => T_EOL],
             'end'    => [
-                T_BREAK => T_BREAK,
+                T_END_SELECT    => T_END_SELECT,
             ],
             'strict' => true,
             'shared' => true,
             'with'   => [
-                T_CASE   => T_CASE,
-                T_SWITCH => T_SWITCH,
+                T_ELSE => T_ELSE,
+                T_END_SELECT    => T_END_SELECT,
             ],
         ],
     ];
-
-  /**
+    /**
      * A list of tokens that end the scope.
      *
      * This array is just a unique collection of the end tokens
-     * from the scopeOpeners array. The data is duplicated here to
+     * from the _scopeOpeners array. The data is duplicated here to
      * save time during parsing of the file.
      *
      * @var array
      */
     public $endScopeTokens = [
-        T_CLOSE_CURLY_BRACKET => T_CLOSE_CURLY_BRACKET,
-        T_ENDIF               => T_ENDIF,
-        T_ENDFOR              => T_ENDFOR,
-        T_ENDFOREACH          => T_ENDFOREACH,
-        T_ENDWHILE            => T_ENDWHILE,
-        T_ENDSWITCH           => T_ENDSWITCH,
-        T_BREAK               => T_BREAK,
-        T_CLONE               => T_CLONE,
-        T_TRAIT               => T_TRAIT,
+        T_WEND         => T_WEND,
+        T_BREAK        => T_BREAK,
+        T_ELSE         => T_ELSE,
+        T_END_SELECT   => T_END_SELECT,
+        T_END_FUNCTION => T_END_FUNCTION,
+        T_END_SUB      => T_END_SUB,
+        T_END_PROPERTY => T_END_PROPERTY,
+        T_LOOP         => T_LOOP,
     ];
-
-    protected function convertFile($string)
-    {
-        $string_array = explode("\r\n", $string);
-        $new_string = "<?php ";
-        foreach ($string_array as $line) {
-            $line_tokens = token_get_all('<?php ' . $line);
-            array_shift($line_tokens);
-            foreach ($line_tokens as $key => &$token) {
-                if ($token[0] === T_ENCAPSED_AND_WHITESPACE) {
-                    $token[1] = '//' . substr($token[1], 1);
-                } elseif ($token[0] === T_STRING) {
-                    if ($token[1] == 'Sub' || $token[1] == 'Property') {
-                        // Turn Subs into Functions
-                        $token[1] = 'function';
-                    } elseif ($token[1] == 'BEGIN') {
-                        $token[1] = 'abstract';
-                    } elseif ($token[1] == 'Select') {
-                        $token[1] = 'switch';
-                        unset($line_tokens[$key + 1]);
-                        unset($line_tokens[$key + 2]);
-                    } elseif ($token[1] == 'Not') {
-                        $token[1] = '!';
-                    } elseif ($token[1] == 'Then') {
-                        $token = [T_STRING, ') {'];
-                    } elseif ($token[1] == 'Wend') {
-                        $token[1] = 'endwhile';
-                    } elseif ($token[1] == 'Loop') {
-                        $token[1] = 'trait';
-                    } elseif ($token[1] == 'Is') {
-                        $token = [T_STRING, '==='];
-                    } elseif ($token[1] == 'END') {
-                        $token[1] = 'clone';
-                    } elseif ($token[1] == 'Next') {
-                        // A for loop ends with Next i while a foreach ends with Next
-                        $token[1] = '}';
-                    } elseif ($token[1] === 'End') {
-                        // If a string with the value "End" is found, change it to a special enddeclare if it is
-                        // followed by Property, Function, or Sub.
-                        // If it is follow by "if", change it to "endif"
-                        $next_tag =  $line_tokens[$key + 2][1];
-                        if ($next_tag == 'Function' || $next_tag == 'Sub' || $next_tag == 'Property') {
-                            $token[1] = 'enddeclare';
-                            unset($line_tokens[$key + 1]);
-                            unset($line_tokens[$key + 2]);
-                        } elseif ($next_tag == 'If') {
-                            $token[1] = '}';
-                            unset($line_tokens[$key + 1]);
-                            unset($line_tokens[$key + 2]);
-                        } elseif ($next_tag == 'Select') {
-                            $token[1] = 'endswitch';
-                            unset($line_tokens[$key + 1]);
-                            unset($line_tokens[$key + 2]);
-                        }
-                    }
-                } elseif ($token[0] === T_IF) {
-                    $token = [T_STRING, 'if ('];
-                } elseif ($token[0] === T_ELSE) {
-                    $token = [T_STRING, '} else {'];
-                } elseif ($token[0] === T_ELSEIF) {
-                    $token = [T_STRING, '} elseif ('];
-                } elseif ($token[0] === T_CASE) {
-                    if ($line_tokens[$key + 2][0] === T_ELSE) {
-                        $token[1] = 'default';
-                        unset($line_tokens[$key + 1]);
-                        unset($line_tokens[$key + 2]);
-                    }
-                } elseif ($token == '.') {
-                    $token = [T_STRING, '->'];
-                } elseif ($token[0] == T_FOR) {
-                    $next_tag =  $line_tokens[$key + 2][1];
-                    if ($next_tag == 'Each') {
-                        $token[1] = 'foreach';
-                        unset($line_tokens[$key + 1]);
-                        unset($line_tokens[$key + 2]);
-                    }
-                }
-                // Write the token value back to the new string
-                if (isset($token[1])) {
-                    $new_string .= $token[1];
-                } else {
-                    $new_string .= $token;
-                }
-            }
-            $new_string .= "\r\n";
-        }
-        // Remove the last line ending.
-        return substr($new_string, 0, -2);
-    }
-
+    /**
+     * A list of special VBA tokens and their types.
+     *
+     * @var array
+     */
+    protected $tokenValues = [
+        'class'     => 'T_CLASS',
+        'begin'     => 'T_BEGIN',
+        'end'       => 'T_END',
+        'function'  => 'T_FUNCTION',
+        'attribute' => 'T_ATTRIBUTE',
+        'option'    => 'T_OPTION',
+        'implements'=> 'T_IMPLEMENTS',
+        'public'    => 'T_PUBLIC',
+        'private'   => 'T_PRIVATE',
+        'dim'       => 'T_DIM',
+        'set'       => 'T_SET',
+        'let'       => 'T_LET',
+        'property'  => 'T_PROPERTY',
+        'end property'    => 'T_END_PROPERTY',
+        'sub'       => 'T_SUB',
+        'end sub'   => 'T_END_SUB',
+        'end function'        => 'T_END_FUNCTION',
+        'select case'     => 'T_SELECT_CASE',
+        'end select'=> 'T_END_SELECT',
+        'if'        => 'T_IF',
+        'then'      => 'T_THEN',
+        'else'      => 'T_ELSE',
+        'else if'   => 'T_ELSE_IF',
+        'where'     => 'T_WHERE',
+        'wend'      => 'T_WEND',
+        'do'        => 'T_DO',
+        'loop'      => 'T_LOOP',
+        'for'       => 'T_FOR',
+        'for each'  => 'T_FOR_EACH',
+        'next'      => 'T_NEXT',
+        'as'        => 'T_AS',
+        'is'        => 'T_IS',
+        'nothing'   => 'T_NOTHING',
+        'true'      => 'T_TRUE',
+        'false'     => 'T_FALSE',
+        '('         => 'T_OPEN_PARENTHESIS',
+        ')'         => 'T_CLOSE_PARENTHESIS',
+        '{'         => 'T_OPEN_CURLY_BRACKET',
+        '}'         => 'T_CLOSE_CURLY_BRACKET',
+        '['         => 'T_OPEN_SQUARE_BRACKET',
+        ']'         => 'T_CLOSE_SQUARE_BRACKET',
+        '.'         => 'T_OBJECT_OPERATOR',
+        '+'         => 'T_PLUS',
+        '-'         => 'T_MINUS',
+        '*'         => 'T_MULTIPLY',
+        '%'         => 'T_MODULUS',
+        '/'         => 'T_DIVIDE',
+        '^'         => 'T_EXPONENT',
+        ','         => 'T_COMMA',
+        ';'         => 'T_SEMICOLON',
+        ':'         => 'T_COLON',
+        '<'         => 'T_LESS_THAN',
+        '>'         => 'T_GREATER_THAN',
+        '<='        => 'T_IS_SMALLER_OR_EQUAL',
+        '>='        => 'T_IS_GREATER_OR_EQUAL',
+        '<>'        => 'T_IS_NOT_EQUAL',
+        'not'       => 'T_BOOLEAN_NOT',
+        'or'        => 'T_BOOLEAN_OR',
+        'and'       => 'T_BOOLEAN_AND',
+        '='         => 'T_EQUAL',
+        ':='        => 'T_ASSIGNMENT',
+        '&'         => 'T_CONCATENATE',
+        "'"         => 'T_COMMENT',
+    ];
+    /**
+     * A list string delimiters.
+     *
+     * @var array
+     */
+    protected $stringTokens = [
+        '"'  => '"',
+    ];
+    /**
+     * A list tokens that start and end comments.
+     *
+     * @var array
+     */
+    protected $commentTokens = [
+        '\''  => null,
+    ];
+    
+    protected $escapeCharacter = '"';
+   
     /**
      * Creates an array of tokens when given some VBA code.
      *
@@ -252,10 +246,66 @@ class VBA extends PHP
      *
      * @return array
      */
-    protected function tokenize($string)
+    public function tokenize($string)
     {
-        $new_string = $this->convertFile($string);
-        
-        return parent::tokenize($new_string);
+        $tokens = $this->tokensFromCharacterStream($string);
+
+        /*
+            Now that we have done some basic tokenizing, we need to
+            modify the tokens to join some together and split some apart
+            so they match what the PHP tokenizer does.
+        */
+        $finalTokens = [];
+        $newStackPtr = 0;
+        $numTokens   = count($tokens);
+        for ($stackPtr = 0; $stackPtr < $numTokens; $stackPtr++) {
+            $token = $tokens[$stackPtr];
+            $finalTokens[$newStackPtr] = $token;
+            $newStackPtr++;
+            // Convert numbers, including decimals.
+            if ($token['code'] === T_STRING
+                || $token['code'] === T_OBJECT_OPERATOR
+            ) {
+                $newContent  = '';
+                $oldStackPtr = $stackPtr;
+                while (preg_match('|^[0-9\.]+$|', $tokens[$stackPtr]['content']) !== 0) {
+                    $newContent .= $tokens[$stackPtr]['content'];
+                    $stackPtr++;
+                }
+                if ($newContent !== '' && $newContent !== '.') {
+                    $finalTokens[($newStackPtr - 1)]['content'] = $newContent;
+                    if (ctype_digit($newContent) === true) {
+                        $finalTokens[($newStackPtr - 1)]['code'] = constant('T_LNUMBER');
+                        $finalTokens[($newStackPtr - 1)]['type'] = 'T_LNUMBER';
+                    } else {
+                        $finalTokens[($newStackPtr - 1)]['code'] = constant('T_DNUMBER');
+                        $finalTokens[($newStackPtr - 1)]['type'] = 'T_DNUMBER';
+                    }
+                    $stackPtr--;
+                    continue;
+                } else {
+                    $stackPtr = $oldStackPtr;
+                }
+            }//end if
+            // Convert the token after an object operator into a string, in most cases.
+            if ($token['code'] === T_OBJECT_OPERATOR) {
+                for ($i = ($stackPtr + 1); $i < $numTokens; $i++) {
+                    if (isset(Util\Tokens::$emptyTokens[$tokens[$i]['code']]) === true) {
+                        continue;
+                    }
+                    if ($tokens[$i]['code']    !== T_LNUMBER
+                        && $tokens[$i]['code'] !== T_DNUMBER
+                    ) {
+                        $tokens[$i]['code'] = T_STRING;
+                        $tokens[$i]['type'] = 'T_STRING';
+                    }
+                    break;
+                }
+            }
+        }//end for
+        if (PHP_CODESNIFFER_VERBOSITY > 1) {
+            echo "\t*** END TOKENIZING ***".PHP_EOL;
+        }
+        return $finalTokens;
     }
 }
