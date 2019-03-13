@@ -121,10 +121,10 @@ class TokenizerBase extends Tokenizer
             if ($inString === '' && $inComment === '' && $buffer !== '') {
                 // If the buffer only has whitespace and we are about to
                 // add a character, store the whitespace first.
-                if (trim($char) !== '' && trim($buffer) === '') {
+                if (!isWhitespace($char) && isWhitespace($buffer)) {
                     $tokens[] = $this->simpleToken('T_WHITESPACE', $buffer);
                     $buffer = '';
-                } elseif (trim($char) === '' && trim($buffer) !== '') {
+                } elseif (!isString($char) && isString($buffer)) {
                     // If the buffer is not whitespace and we are about to
                     // add a whitespace character, store the content first.
                     $tokens[] = $this->simpleToken('T_STRING', $buffer);
@@ -407,5 +407,20 @@ class TokenizerBase extends Tokenizer
         if (PHP_CODESNIFFER_VERBOSITY > 1) {
             echo $string.PHP_EOL;
         }
+    }
+    
+    private function isWhitespace($char)
+    {
+        return trim($char, " \t\0\x0B") === '';
+    }
+    
+    private function isEol($char)
+    {
+        return trim($char, "\r\n") === '';
+    }
+    
+    private function isString($char)
+    {
+        return trim ($char, " \t\n\r\0\x0B") !== '';
     }
 }
