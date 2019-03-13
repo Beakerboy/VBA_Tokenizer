@@ -121,7 +121,7 @@ class TokenizerBase extends Tokenizer
                 if (trim($char) !== '' && trim($buffer) === '') {
                     $tokens[] = $this->simpleToken('T_WHITESPACE', $buffer);
                     $buffer = '';
-                } else if (trim($char) === '' && trim($buffer) !== '') {
+                } elseif (trim($char) === '' && trim($buffer) !== '') {
                     // If the buffer is not whitespace and we are about to
                     // add a whitespace character, store the content first.
                     $tokens[] = $this->simpleToken('T_STRING', $buffer);
@@ -198,7 +198,8 @@ class TokenizerBase extends Tokenizer
                     // to look ahead at the next chars to see if this is
                     // actually part of a larger token. For example,
                     // FOR and FOREACH.
-                    $this->verboseOutput("\t\t* buffer possibly contains token, looking ahead $lookAheadLength chars *");
+                    $string = "\t\t* look ahead found more specific token ($type), ignoring $i *";
+                    $this->verboseOutput($string);
                     $charBuffer = $buffer;
                     for ($x = 1; $x <= $lookAheadLength; $x++) {
                         if (isset($chars[($i + $x)]) === false) {
@@ -214,7 +215,8 @@ class TokenizerBase extends Tokenizer
                             // or an open doc_comment and a slash. Bigger is not always more correct.
                             $oldType = $this->tokenValues[strtolower($buffer)];
                             $newType = $this->tokenValues[strtolower($charBuffer)];
-                            $this->verboseOutput("\t\t* look ahead found more specific token ($newType), ignoring $i *");
+                            $string = "\t\t* look ahead found more specific token ($newType), ignoring $i *"
+                            $this->verboseOutput($string);
                             $matchedToken = true;
                             break;
                         }//end if
@@ -300,10 +302,8 @@ class TokenizerBase extends Tokenizer
                     if (strpos($buffer, "\n") !== false) {
                         $inComment = '';
                     }
-                } else {
-                    if ($this->commentTokens[$inComment] === $buffer) {
-                        $inComment = '';
-                    }
+                } elseif ($this->commentTokens[$inComment] === $buffer) {
+                    $inComment = '';
                 }
                 if ($inComment === '') {
                     $this->verboseOutput("\t\t* found end of comment *");
@@ -415,5 +415,5 @@ class TokenizerBase extends Tokenizer
         if (PHP_CODESNIFFER_VERBOSITY > 1) {
             echo $string.PHP_EOL;
         }
-    }    
+    }
 }
