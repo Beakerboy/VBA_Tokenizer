@@ -402,7 +402,7 @@ class TokenizerBase extends Tokenizer
     {
         $output = Util\Common::prepareForOutput($content);
         $this->verboseOutput("\t=> Added token $type ($output)");
-        }
+
         return [
             'code'    => constant($type),
             'type'    => $type,
