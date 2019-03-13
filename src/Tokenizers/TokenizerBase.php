@@ -201,7 +201,7 @@ class TokenizerBase extends Tokenizer
                     // to look ahead at the next chars to see if this is
                     // actually part of a larger token. For example,
                     // FOR and FOREACH.
-                    $string = "\t\t* look ahead found more specific token ($type), ignoring $i *";
+                    $string = "\t\t* buffer possibly contains token, looking ahead $lookAheadLength chars *";
                     $this->verboseOutput($string);
                     $charBuffer = $buffer;
                     for ($x = 1; $x <= $lookAheadLength; $x++) {
