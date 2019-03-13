@@ -129,6 +129,9 @@ class TokenizerBase extends Tokenizer
                     // add a whitespace character, store the content first.
                     $tokens[] = $this->simpleToken('T_STRING', $buffer);
                     $buffer = '';
+                } elseif (!isEol($char) && isEol($buffer)) {
+                    $tokens[] = $this->simpleToken('T_EOL', $buffer);
+                    $buffer = '';
                 }
             }//end if
             
