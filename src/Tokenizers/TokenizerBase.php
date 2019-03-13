@@ -31,7 +31,8 @@ class TokenizerBase extends Tokenizer
     protected $endScopeTokens = [];
     
     /**
-     * A list of special VBA tokens and their types.
+     * A list of special tokens and their types.
+     * The necessary tokens are T_String, T_WHITESPACE, T_ENCAPSED_STRING
      *
      * @var array
      */
@@ -279,11 +280,9 @@ class TokenizerBase extends Tokenizer
                 if (isset($chars[($i - 2)]) === true && $chars[($i - 2)] === '\\') {
                     $lastToken   = array_pop($tokens);
                     $lastContent = $lastToken['content'];
-                    if (PHP_CODESNIFFER_VERBOSITY > 1) {
-                        $value   = $this->tokenValues[strtolower($lastContent)];
-                        $content = Util\Common::prepareForOutput($lastContent);
-                        echo "\t=> Removed token $value ($content)".PHP_EOL;
-                    }
+                    $value   = $this->tokenValues[strtolower($lastContent)];
+                    $content = Util\Common::prepareForOutput($lastContent);
+                    $this->verboseOutput("\t=> Removed token $value ($content)");
                     $lastChars    = str_split($lastContent);
                     $lastNumChars = count($lastChars);
                     for ($x = 0; $x < $lastNumChars; $x++) {
@@ -375,18 +374,9 @@ class TokenizerBase extends Tokenizer
                 }
                 $tokenContent = $tokens[$stackPtr]['content'];
             }//end while
-            if ($token['code'] === T_DOC_COMMENT) {
-                $commentTokens = $commentTokenizer->tokenizeString($newContent.$tokenContent, $this->eolChar, $newStackPtr);
-                foreach ($commentTokens as $commentToken) {
-                    $finalTokens[$newStackPtr] = $commentToken;
-                    $newStackPtr++;
-                }
-                continue;
-            } else {
-                // Save the new content in the current token so
-                // the code below can chop it up on newlines.
-                $token['content'] = $newContent.$tokenContent;
-            }
+            // Save the new content in the current token so
+            // the code below can chop it up on newlines.
+            $token['content'] = $newContent.$tokenContent;
         }//end if
     }
 
