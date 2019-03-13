@@ -33,9 +33,9 @@ define('T_CONCATENATE', 'PHPCS_T_CONCATENATE');
 use PHP_CodeSniffer\Util;
 use PHP_CodeSniffer\Exceptions\TokenizerException;
 use PHP_CodeSniffer\Config;
-use PHP_CodeSniffer\Tokenizers\LanguageTokenizerBase;
+use PHP_CodeSniffer\Tokenizers\TokenizerBase;
 
-class VBANew extends LanguageTokenizerBase
+class VBANew extends TokenizerBase
 {
     /**
      * A list of tokens that are allowed to open a scope.
