@@ -4,7 +4,7 @@ namespace PHP_CodeSniffer\Tokenizers;
 
 use PHP_CodeSniffer\Tokenizer;
 
-class LanguageTokenizerBase extends Tokenizer
+abstract class LanguageTokenizerBase extends Tokenizer
 {
 
     /**
