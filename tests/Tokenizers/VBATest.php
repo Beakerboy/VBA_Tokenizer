@@ -13,7 +13,7 @@ class VBATest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testCase     Tests that the tokenizer returns the correct array
-     * @dataProvider dataProviderForNewTokenizer
+     * @dataProvider dataProviderForTokenizer
      */
     public function testTokenizer($string, $expected)
     {
