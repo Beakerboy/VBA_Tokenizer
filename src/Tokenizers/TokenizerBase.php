@@ -65,7 +65,8 @@ class TokenizerBase extends Tokenizer
      *
      * @return array
      */
-    public function tokenize($string){
+    public function tokenize($string)
+    {
         $this->tokens = tokensFromCharacterStream($string);
     }
     
@@ -76,7 +77,7 @@ class TokenizerBase extends Tokenizer
      */
     protected function processAdditional()
     {
-         if (PHP_CODESNIFFER_VERBOSITY > 1) {
+        if (PHP_CODESNIFFER_VERBOSITY > 1) {
             echo "\t*** START ADDITIONAL " . get_class($this) . " PROCESSING ***".PHP_EOL;
         }
         if (PHP_CODESNIFFER_VERBOSITY > 1) {
