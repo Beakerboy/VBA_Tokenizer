@@ -115,7 +115,7 @@ class TokenizerBase extends Tokenizer
             $char = $chars[$i];
             $content       = Util\Common::prepareForOutput($char);
             $bufferContent = Util\Common::prepareForOutput($buffer);
-            $tabs = str_repeat("\t", count(array_filter($inString !== '', $inComment !== '')));
+            $tabs = str_repeat("\t", count(array_filter([$inString !== '', $inComment !== ''])));
             $this->verboseOutput($tabs . "\tProcess char $i => $content (buffer: $bufferContent)");
             // We separate the buffer into either strings or whitespace
             if ($inString === '' && $inComment === '' && $buffer !== '') {
