@@ -254,7 +254,7 @@ class TokenizerBase extends Tokenizer
                     }
                     $charBuffer .= $chars[($i + $x)];
                     $content = Util\Common::prepareForOutput($charBuffer);
-                    $this-verboseOutput("\t\t=> Looking ahead $x chars => $content");
+                    $this->verboseOutput("\t\t=> Looking ahead $x chars => $content");
                     if (isset($this->tokenValues[strtolower($charBuffer)]) === true) {
                         // We've found something larger that matches
                         // so we can ignore this char.
