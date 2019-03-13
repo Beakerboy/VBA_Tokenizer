@@ -215,7 +215,7 @@ class TokenizerBase extends Tokenizer
                             // or an open doc_comment and a slash. Bigger is not always more correct.
                             $oldType = $this->tokenValues[strtolower($buffer)];
                             $newType = $this->tokenValues[strtolower($charBuffer)];
-                            $string = "\t\t* look ahead found more specific token ($newType), ignoring $i *"
+                            $string = "\t\t* look ahead found more specific token ($newType), ignoring $i *";
                             $this->verboseOutput($string);
                             $matchedToken = true;
                             break;
