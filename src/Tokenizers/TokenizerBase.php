@@ -32,7 +32,8 @@ class TokenizerBase extends Tokenizer
     
     /**
      * A list of special tokens and their types.
-     * The necessary tokens are T_String, T_WHITESPACE, T_ENCAPSED_STRING
+     * The necessary tokens are T_STRING, T_WHITESPACE,
+     * T_CONSTANT_ENCAPSED_STRING, and T_COMMENT.
      *
      * @var array
      */
@@ -336,7 +337,7 @@ class TokenizerBase extends Tokenizer
         /*
             Look for comments and join the tokens together.
         */
-        if ($token['code'] === T_COMMENT || $token['code'] === T_DOC_COMMENT) {
+        if ($token['code'] === T_COMMENT) {
             $newContent   = '';
             $tokenContent = $token['content'];
             $endContent = null;
