@@ -259,7 +259,7 @@ class VBA extends TokenizerBase
         $newStackPtr = 0;
         $numTokens   = count($tokens);
         for ($stackPtr = 0; $stackPtr < $numTokens; $stackPtr++) {
-            $token = this->combineComments($tokens, $stackPtr);
+            $token = $this->combineComments($tokens, $stackPtr);
             $finalTokens[$newStackPtr] = $token;
             $newStackPtr++;
             // Convert numbers, including decimals.
