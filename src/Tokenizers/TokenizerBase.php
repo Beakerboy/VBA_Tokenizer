@@ -350,7 +350,7 @@ class TokenizerBase extends Tokenizer
             }
             while ($tokenContent !== $endContent) {
                 if ($endContent === null
-                    && strpos($tokenContent, $this->eolChar) !== false
+                    && $this->hasEolChar($tokenContent)
                 ) {
                     // A null end token means the comment ends at the end of
                     // the line so we look for newlines and split the token.
@@ -425,5 +425,10 @@ class TokenizerBase extends Tokenizer
     private function isString($char)
     {
         return trim ($char, " \t\n\r\0\x0B") !== '';
+    }
+    
+    private function hasEolChar($string)
+    {
+        return strpos($string, "\r") !== false || strpos($string, "\n") !== false;
     }
 }
