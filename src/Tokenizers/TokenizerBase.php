@@ -424,7 +424,7 @@ class TokenizerBase extends Tokenizer
     
     private function isString($char)
     {
-        return trim ($char, " \t\n\r\0\x0B") !== '';
+        return trim($char, " \t\n\r\0\x0B") !== '';
     }
     
     private function hasEolChar($string)
