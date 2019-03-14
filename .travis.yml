@@ -9,7 +9,7 @@ install:
 script: 
   - mkdir -p build/logs
   - vendor/bin/phpunit --configuration tests/phpunit.xml --coverage-clover build/logs/clover.xml
-  - vendor/bin/phpcs -pvvv --extensions=cls/vba --standard=src/Standards/VBA tests/Test.cls
+  - vendor/bin/phpcs --extensions=cls/vba --standard=src/Standards/VBA tests/Test.cls
   - vendor/bin/phpcs --ignore=vendor --standard=PSR2 .
 
 after_success:
