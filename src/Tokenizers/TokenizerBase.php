@@ -335,7 +335,7 @@ class TokenizerBase extends Tokenizer
         return $tokens;
     }
     
-    protected function combineComments(&$tokens, $stackPtr)
+    protected function combineComments($tokens, &$stackPtr)
     {
         $token = $tokens[$stackPtr];
         /*
@@ -383,6 +383,7 @@ class TokenizerBase extends Tokenizer
             // the code below can chop it up on newlines.
             $token['content'] = $newContent.$tokenContent;
         }//end if
+        return $token;
     }
 
     /**
