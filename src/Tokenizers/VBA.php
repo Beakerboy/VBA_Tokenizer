@@ -161,7 +161,7 @@ class VBA extends TokenizerBase
         'class'        => 'T_CLASS',
         'dim'          => 'T_DIM',
         'do'           => 'T_DO',
-        'each'         => 'T_EACH'
+        'each'         => 'T_EACH',
         'else'         => 'T_ELSE',
         'elseif'       => 'T_ELSEIF',
         'end'          => 'T_END',
@@ -245,10 +245,10 @@ class VBA extends TokenizerBase
             'T_FUNCTION',
             'T_SUB',
         ],
-        'T_FOR' => [ 
+        'T_FOR' => [
             'T_EACH',
         ],
-        'T_SELECT' => [ 
+        'T_SELECT' => [
             'T_CASE',
         ],
     ];
@@ -281,7 +281,6 @@ class VBA extends TokenizerBase
             if (isset($multiToken[$token['type']])
                 && $tokens[$stackPtr + 1]['content'] === ' '
                 && in_array($tokens[$stackPtr + 2]['type'], $multiToken[$token['type']])) {
-                
                 $content = $token['content'] . ' ' . $tokens[$stackPtr + 2]['content'];
                 $finalTokens[$newStackPtr] = $this->simpleToken($tokenValues[strtolower($content)], $content);
             }
