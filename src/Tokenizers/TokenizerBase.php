@@ -149,7 +149,7 @@ class TokenizerBase extends Tokenizer
             // This works for single-character comment starters, where comments end
             // with EOL.
             // If we found a comment start characcter, set $inComment
-            if ($inComment !== '' && isset($this->commentTokens[$char]) === true) {
+            if ($inComment === '' && $inString === '' && isset($this->commentTokens[$char]) === true) {
                 $inComment = $char;
             }
             // Process strings.
