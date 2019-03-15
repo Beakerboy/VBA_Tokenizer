@@ -18,7 +18,7 @@ class TokenizerBase extends Tokenizer
      *
      * @var array
      */
-    protected $scopeOpeners = [];
+    public $scopeOpeners = [];
     
     /**
      * A list of tokens that end the scope.
@@ -29,7 +29,7 @@ class TokenizerBase extends Tokenizer
      *
      * @var array
      */
-    protected $endScopeTokens = [];
+    public $endScopeTokens = [];
     
     /**
      * A list of special tokens and their types.
