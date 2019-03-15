@@ -235,7 +235,15 @@ class VBA extends TokenizerBase
     ];
     
     protected $escapeCharacter = '"';
-   
+
+    protected $multiToken = [
+        'T_END' => [
+            'T_SELECT',
+            'T_PROPERTY',
+            'T_FUNCTION',
+            'T_SUB',
+        ],
+    ];
     /**
      * Creates an array of tokens when given some VBA code.
      *
@@ -259,32 +267,14 @@ class VBA extends TokenizerBase
         $newStackPtr = 0;
         $numTokens   = count($tokens);
         for ($stackPtr = 0; $stackPtr < $numTokens; $stackPtr++) {
-            $token = $this->combineComments($tokens, $stackPtr);
-            if ($token['type'] == 'T_COMMENT') {
-                // COmments are the only type that can contain newlines
-                $winExplode = explode("\r\n", $token['content']);
-                $winExplodeCount = count($winExplode);
-                if ($winExplodeCount > 1) {
-                    // All debris must be commnent tokena excwpt the last if it is empty
-                    for ($i = 0; $i < count($winExplode) - 1; $i++) {
-                        $finalTokens[$newStackPtr] = $this->simpleToken('T_COMMENT', $winExplode[$i]);
-                        $newStackPtr++;
-                        $finalTokens[$newStackPtr] = $this->simpleToken('T_EOL', "\r\n");
-                        $newStackPtr++;
-                    }
-                    $finalDebris = $winExplode[$winExplodeCount - 1];
-                    if ($finalDebris !== '') {
-                        // If the last token has content, add it.
-                        $finalTokens[$newStackPtr] = $this->simpleToken('T_COMMENT', $finalDebris);
-                        $newStackPtr++;
-                    }
-                } else {
-                    $finalTokens[$newStackPtr] = $token;
-                    $newStackPtr++;
-                }
-            } else {
-                $finalTokens[$newStackPtr] = $token;
-                $newStackPtr++;
+            $token = $tokens[$stackPtr];
+            // Convert multi-word tokens from token-whitespace-token
+            // to the correct single token.
+            if (isset($multiToken[$token['type']])
+                && $tokens[$stackPtr + 1]['content'] === ' '
+                && in_array($tokens[$stackPtr + 2]['type'], $multiToken[$token['type']])) {
+                $content = $token['content'] . ' ' . $tokens[$stackPtr + 2]['content']
+                $finalTokens[$newStackPtr] = $this->simpleToken($tokenValues[strtolower($content)], $content);
             }
             // Convert numbers, including decimals.
             if ($token['code'] === T_STRING
