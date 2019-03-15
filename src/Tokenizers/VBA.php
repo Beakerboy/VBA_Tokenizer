@@ -283,6 +283,8 @@ class VBA extends TokenizerBase
                 && in_array($tokens[$stackPtr + 2]['type'], $multiToken[$token['type']])) {
                 $content = $token['content'] . ' ' . $tokens[$stackPtr + 2]['content'];
                 $finalTokens[$newStackPtr] = $this->simpleToken($tokenValues[strtolower($content)], $content);
+                $stackPtr += 2;
+                $newStackPtr++;
             }
             // Convert numbers, including decimals.
             if ($token['code'] === T_STRING
