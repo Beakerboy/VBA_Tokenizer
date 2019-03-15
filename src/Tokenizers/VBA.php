@@ -6,29 +6,30 @@
  */
 namespace PHP_CodeSniffer\Tokenizers;
 
-define('T_THEN', 'PHPCS_T_THEN');
-define('T_BEGIN', 'PHPCS_T_BEGIN');
-define('T_END', 'PHPCS_T_END');
 define('T_ATTRIBUTE', 'PHPCS_T_ATTRIBUTE');
-define('T_OPTION', 'PHPCS_T_OPTION');
-define('T_LET', 'PHPCS_T_LET');
-define('T_SET', 'PHPCS_T_SET');
-define('T_SUB', 'PHPCS_T_SUB');
+define('T_BEGIN', 'PHPCS_T_BEGIN');
+define('T_CASE_ELSE', 'PHPCS_T_CASE_ELSE');
+define('T_CONCATENATE', 'PHPCS_T_CONCATENATE');
 define('T_DIM', 'PHPCS_T_DIM');
-define('T_EOL', 'PHPCS_T_EOL');
-define('T_IS', 'PHPCS_T_IS');
-define('T_NOTHING', 'PHPCS_T_NOTHING');
-define('T_NEXT', 'PHPCS_T_NEXT');
-define('T_SELECT', 'PHPCS_T_SELECT');
+define('T_EACH', 'PHPCS_T_EACH');
+define('T_END', 'PHPCS_T_END');
 define('T_END_FUNCTION', 'PHPCS_T_END_FUNCTION');
 define('T_END_SUB', 'PHPCS_T_END_SUB');
 define('T_END_PROPERTY', 'PHPCS_T_END_PROPERTY');
 define('T_END_SELECT', 'PHPCS_T_END_SELECT');
+define('T_EOL', 'PHPCS_T_EOL');
+define('T_IS', 'PHPCS_T_IS');
+define('T_LET', 'PHPCS_T_LET');
 define('T_LOOP', 'PHPCS_T_LOOP');
+define('T_NOTHING', 'PHPCS_T_NOTHING');
+define('T_NEXT', 'PHPCS_T_NEXT');
+define('T_OPTION', 'PHPCS_T_OPTION');
+define('T_SELECT', 'PHPCS_T_SELECT');
 define('T_SELECT_CASE', 'PHPCS_T_SELECT_CASE');
+define('T_SET', 'PHPCS_T_SET');
+define('T_SUB', 'PHPCS_T_SUB');
+define('T_THEN', 'PHPCS_T_THEN');
 define('T_WEND', 'PHPCS_T_WEND');
-define('T_CASE_ELSE', 'PHPCS_T_CASE_ELSE');
-define('T_CONCATENATE', 'PHPCS_T_CONCATENATE');
 
 use PHP_CodeSniffer\Util;
 use PHP_CodeSniffer\Exceptions\TokenizerException;
@@ -153,69 +154,70 @@ class VBA extends TokenizerBase
      * @var array
      */
     protected $tokenValues = [
-        'class'     => 'T_CLASS',
-        'begin'     => 'T_BEGIN',
-        'end'       => 'T_END',
-        'function'  => 'T_FUNCTION',
-        'attribute' => 'T_ATTRIBUTE',
-        'option'    => 'T_OPTION',
-        'implements'=> 'T_IMPLEMENTS',
-        'public'    => 'T_PUBLIC',
-        'private'   => 'T_PRIVATE',
-        'dim'       => 'T_DIM',
-        'set'       => 'T_SET',
-        'let'       => 'T_LET',
-        'property'  => 'T_PROPERTY',
-        'end property'    => 'T_END_PROPERTY',
-        'sub'       => 'T_SUB',
-        'end sub'   => 'T_END_SUB',
-        'end function'        => 'T_END_FUNCTION',
-        'select case'     => 'T_SELECT_CASE',
-        'end select'=> 'T_END_SELECT',
-        'if'        => 'T_IF',
-        'then'      => 'T_THEN',
-        'else'      => 'T_ELSE',
-        'else if'   => 'T_ELSE_IF',
-        'where'     => 'T_WHERE',
-        'wend'      => 'T_WEND',
-        'do'        => 'T_DO',
-        'loop'      => 'T_LOOP',
-        'for'       => 'T_FOR',
-        'for each'  => 'T_FOR_EACH',
-        'next'      => 'T_NEXT',
-        'as'        => 'T_AS',
-        'is'        => 'T_IS',
-        'nothing'   => 'T_NOTHING',
-        'true'      => 'T_TRUE',
-        'false'     => 'T_FALSE',
-        '('         => 'T_OPEN_PARENTHESIS',
-        ')'         => 'T_CLOSE_PARENTHESIS',
-        '{'         => 'T_OPEN_CURLY_BRACKET',
-        '}'         => 'T_CLOSE_CURLY_BRACKET',
-        '['         => 'T_OPEN_SQUARE_BRACKET',
-        ']'         => 'T_CLOSE_SQUARE_BRACKET',
-        '.'         => 'T_OBJECT_OPERATOR',
-        '+'         => 'T_PLUS',
-        '-'         => 'T_MINUS',
-        '*'         => 'T_MULTIPLY',
-        '%'         => 'T_MODULUS',
-        '/'         => 'T_DIVIDE',
-        '^'         => 'T_EXPONENT',
-        ','         => 'T_COMMA',
-        ';'         => 'T_SEMICOLON',
-        ':'         => 'T_COLON',
-        '<'         => 'T_LESS_THAN',
-        '>'         => 'T_GREATER_THAN',
-        '<='        => 'T_IS_SMALLER_OR_EQUAL',
-        '>='        => 'T_IS_GREATER_OR_EQUAL',
-        '<>'        => 'T_IS_NOT_EQUAL',
-        'not'       => 'T_BOOLEAN_NOT',
-        'or'        => 'T_BOOLEAN_OR',
-        'and'       => 'T_BOOLEAN_AND',
-        '='         => 'T_EQUAL',
-        ':='        => 'T_ASSIGNMENT',
-        '&'         => 'T_CONCATENATE',
-        "'"         => 'T_COMMENT',
+        'and'          => 'T_BOOLEAN_AND',
+        'as'           => 'T_AS',
+        'attribute'    => 'T_ATTRIBUTE',
+        'begin'        => 'T_BEGIN',
+        'class'        => 'T_CLASS',
+        'dim'          => 'T_DIM',
+        'do'           => 'T_DO',
+        'each'         => 'T_EACH'
+        'else'         => 'T_ELSE',
+        'elseif'       => 'T_ELSEIF',
+        'end'          => 'T_END',
+        'end function' => 'T_END_FUNCTION',
+        'end property' => 'T_END_PROPERTY',
+        'end select'   => 'T_END_SELECT',
+        'end sub'      => 'T_END_SUB',
+        'false'        => 'T_FALSE',
+        'for'          => 'T_FOR',
+        'for each'     => 'T_FOR_EACH',
+        'function'     => 'T_FUNCTION',
+        'option'       => 'T_OPTION',
+        'if'           => 'T_IF',
+        'implements'   => 'T_IMPLEMENTS',
+        'is'           => 'T_IS',
+        'let'          => 'T_LET',
+        'loop'         => 'T_LOOP',
+        'next'         => 'T_NEXT',
+        'not'          => 'T_BOOLEAN_NOT',
+        'nothing'      => 'T_NOTHING',
+        'or'           => 'T_BOOLEAN_OR',
+        'public'       => 'T_PUBLIC',
+        'private'      => 'T_PRIVATE',
+        'set'          => 'T_SET',
+        'property'     => 'T_PROPERTY',
+        'sub'          => 'T_SUB',
+        'select case'  => 'T_SELECT_CASE',
+        'then'         => 'T_THEN',
+        'true'         => 'T_TRUE',
+        'wend'         => 'T_WEND',
+        'where'        => 'T_WHERE',
+        '('            => 'T_OPEN_PARENTHESIS',
+        ')'            => 'T_CLOSE_PARENTHESIS',
+        '{'            => 'T_OPEN_CURLY_BRACKET',
+        '}'            => 'T_CLOSE_CURLY_BRACKET',
+        '['            => 'T_OPEN_SQUARE_BRACKET',
+        ']'            => 'T_CLOSE_SQUARE_BRACKET',
+        '.'            => 'T_OBJECT_OPERATOR',
+        '+'            => 'T_PLUS',
+        '-'            => 'T_MINUS',
+        '*'            => 'T_MULTIPLY',
+        '%'            => 'T_MODULUS',
+        '/'            => 'T_DIVIDE',
+        '^'            => 'T_EXPONENT',
+        ','            => 'T_COMMA',
+        ';'            => 'T_SEMICOLON',
+        ':'            => 'T_COLON',
+        '<'            => 'T_LESS_THAN',
+        '>'            => 'T_GREATER_THAN',
+        '<='           => 'T_IS_SMALLER_OR_EQUAL',
+        '>='           => 'T_IS_GREATER_OR_EQUAL',
+        '<>'           => 'T_IS_NOT_EQUAL',
+        '='            => 'T_EQUAL',
+        ':='           => 'T_ASSIGNMENT',
+        '&'            => 'T_CONCATENATE',
+        "'"            => 'T_COMMENT',
     ];
     /**
      * A list string delimiters.
@@ -242,6 +244,12 @@ class VBA extends TokenizerBase
             'T_PROPERTY',
             'T_FUNCTION',
             'T_SUB',
+        ],
+        'T_FOR' => [ 
+            'T_EACH',
+        ],
+        'T_SELECT' => [ 
+            'T_CASE',
         ],
     ];
     /**
@@ -273,7 +281,8 @@ class VBA extends TokenizerBase
             if (isset($multiToken[$token['type']])
                 && $tokens[$stackPtr + 1]['content'] === ' '
                 && in_array($tokens[$stackPtr + 2]['type'], $multiToken[$token['type']])) {
-                $content = $token['content'] . ' ' . $tokens[$stackPtr + 2]['content']
+                
+                $content = $token['content'] . ' ' . $tokens[$stackPtr + 2]['content'];
                 $finalTokens[$newStackPtr] = $this->simpleToken($tokenValues[strtolower($content)], $content);
             }
             // Convert numbers, including decimals.
