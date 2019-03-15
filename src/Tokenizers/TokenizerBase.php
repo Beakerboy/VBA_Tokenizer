@@ -137,7 +137,7 @@ class TokenizerBase extends Tokenizer
                 if ($this->commentTokens[$inComment] === null) {
                     // Comment ends at the next newline.
                     if ($this->isEol($char)) {
-                        $tokens[] = $this->simpleTOKEN('T_COMMENT', $buffer);
+                        $tokens[] = $this->simpleToken('T_COMMENT', $buffer);
                         $buffer = '';
                         $inComment = '';
                     }
