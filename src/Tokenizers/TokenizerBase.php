@@ -304,8 +304,12 @@ class TokenizerBase extends Tokenizer
                 // which means there was probably a syntax error somewhere.
                 $tokens[] = $this->simpleToken('T_STRING', $buffer);
             } else {
-                // Buffer contains whitespace from the end of the file.
-                $tokens[] = $this->simpleToken('T_WHITESPACE', $buffer);
+                // Buffer contains whitespace or EOL from the end of the file.
+                if ($this->isEol($buffer)) {
+                    $tokens[] = $this->simpleToken('T_EOL', $buffer);
+                } else {
+                    $tokens[] = $this->simpleToken('T_WHITESPACE', $buffer);
+                }
             }//end if
         }//end if
         return $tokens;
