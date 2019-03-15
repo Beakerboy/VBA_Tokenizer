@@ -159,7 +159,7 @@ class VBA extends TokenizerBase
         'attribute'    => 'T_ATTRIBUTE',
         'begin'        => 'T_BEGIN',
         'case'         => 'T_CASE',
-        'case else'    => 'T_CASE_ELSE';
+        'case else'    => 'T_CASE_ELSE',
         'class'        => 'T_CLASS',
         'dim'          => 'T_DIM',
         'do'           => 'T_DO',
