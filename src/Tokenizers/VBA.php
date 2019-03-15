@@ -241,6 +241,9 @@ class VBA extends TokenizerBase
     protected $escapeCharacter = '"';
 
     protected $multiToken = [
+        'T_CASE' => [
+            'T_ELSE',
+        ],
         'T_END' => [
             'T_SELECT',
             'T_PROPERTY',
@@ -280,9 +283,9 @@ class VBA extends TokenizerBase
             $token = $tokens[$stackPtr];
             // Convert multi-word tokens from token-whitespace-token
             // to the correct single token.
-            if (isset($multiToken[$token['type']])
+            if (isset($this->multiToken[$token['type']])
                 && $tokens[$stackPtr + 1]['content'] === ' '
-                && in_array($tokens[$stackPtr + 2]['type'], $multiToken[$token['type']])
+                && in_array($tokens[$stackPtr + 2]['type'], $this->multiToken[$token['type']])
             ) {
                 $content = $token['content'] . ' ' . $tokens[$stackPtr + 2]['content'];
                 $finalTokens[$newStackPtr] = $this->simpleToken($tokenValues[strtolower($content)], $content);
