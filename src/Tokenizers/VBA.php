@@ -285,6 +285,17 @@ class VBA extends TokenizerBase
                 $finalTokens[$newStackPtr] = $this->simpleToken($tokenValues[strtolower($content)], $content);
                 $stackPtr += 2;
                 $newStackPtr++;
+            } elseif ($token['type'] === 'T_EOL'
+                && !($token['content'] == "\r\n" 
+                     || $token['content'] == "\n"
+                     || $token['content'] == "\n")
+            ) {
+                // We have multiple EOLs in one token. Split them.
+                if ($token['content'] == "\r\n\r\n") {
+                    $finalTokens[$newStackPtr] = $this->simpleToken('T_EOL', "\r\n");
+                    $finalTokens[$newStackPtr] = $this->simpleToken('T_EOL', "\r\n");
+                    $newStackPtr += 2;
+                }
             } else {
                 $finalTokens[$newStackPtr] = $token;
                 $newStackPtr++;
