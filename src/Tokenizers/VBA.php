@@ -279,52 +279,17 @@ class VBA extends TokenizerBase
             // to the correct single token.
             if (isset($multiToken[$token['type']])
                 && $tokens[$stackPtr + 1]['content'] === ' '
-                && in_array($tokens[$stackPtr + 2]['type'], $multiToken[$token['type']])) {
+                && in_array($tokens[$stackPtr + 2]['type'], $multiToken[$token['type']])
+            ) {
                 $content = $token['content'] . ' ' . $tokens[$stackPtr + 2]['content'];
                 $finalTokens[$newStackPtr] = $this->simpleToken($tokenValues[strtolower($content)], $content);
                 $stackPtr += 2;
                 $newStackPtr++;
+            } else {
+                $finalTokens[$newStackPtr] = $token;
+                $newStackPtr++;
             }
-            // Convert numbers, including decimals.
-            if ($token['code'] === T_STRING
-                || $token['code'] === T_OBJECT_OPERATOR
-            ) {
-                $newContent  = '';
-                $oldStackPtr = $stackPtr;
-                while (preg_match('|^[0-9\.]+$|', $tokens[$stackPtr]['content']) !== 0) {
-                    $newContent .= $tokens[$stackPtr]['content'];
-                    $stackPtr++;
-                }
-                if ($newContent !== '' && $newContent !== '.') {
-                    $finalTokens[($newStackPtr - 1)]['content'] = $newContent;
-                    if (ctype_digit($newContent) === true) {
-                        $finalTokens[($newStackPtr - 1)]['code'] = constant('T_LNUMBER');
-                        $finalTokens[($newStackPtr - 1)]['type'] = 'T_LNUMBER';
-                    } else {
-                        $finalTokens[($newStackPtr - 1)]['code'] = constant('T_DNUMBER');
-                        $finalTokens[($newStackPtr - 1)]['type'] = 'T_DNUMBER';
-                    }
-                    $stackPtr--;
-                    continue;
-                } else {
-                    $stackPtr = $oldStackPtr;
-                }
-            }//end if
-            // Convert the token after an object operator into a string, in most cases.
-            if ($token['code'] === T_OBJECT_OPERATOR) {
-                for ($i = ($stackPtr + 1); $i < $numTokens; $i++) {
-                    if (isset(Util\Tokens::$emptyTokens[$tokens[$i]['code']]) === true) {
-                        continue;
-                    }
-                    if ($tokens[$i]['code']    !== T_LNUMBER
-                        && $tokens[$i]['code'] !== T_DNUMBER
-                    ) {
-                        $tokens[$i]['code'] = T_STRING;
-                        $tokens[$i]['type'] = 'T_STRING';
-                    }
-                    break;
-                }
-            }
+            
         }//end for
         if (PHP_CODESNIFFER_VERBOSITY > 1) {
             echo "\t*** END TOKENIZING ***".PHP_EOL;
