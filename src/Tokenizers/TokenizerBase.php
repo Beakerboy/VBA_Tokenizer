@@ -133,7 +133,16 @@ class TokenizerBase extends Tokenizer
                     $tokens[] = $this->simpleToken('T_EOL', $buffer);
                     $buffer = '';
                 }
-            }//end if
+            } elseif ($inString === '' && $inComment !== '' && $buffer !== '') {
+                if ($this->commentTokens[$inComment] === null) {
+                    // Comment ends at the next newline.
+                    if ($this->isEol($char)) {
+                        $tokens[] = $this->simpleTOKEN('T_COMMENT', $buffer);
+                        $buffer = '';
+                        $inComment = '';
+                    }
+                }
+            }
             
             // Process strings.
             if ($inComment === '' && isset($this->stringTokens[$char]) === true) {
@@ -183,10 +192,10 @@ class TokenizerBase extends Tokenizer
             }
             
             $buffer .= $char;
-            // We don't look for special tokens inside strings,
-            // so if we are in a string, we can continue here now
+            // We don't look for special tokens inside strings and comments,
+            // so if we are in a string or comment, we can continue here now
             // that the current char is in the buffer.
-            if ($inString !== '') {
+            if ($inString !== '' || $inComment !== '') {
                 continue;
             }
             
@@ -275,47 +284,6 @@ class TokenizerBase extends Tokenizer
                 } else {
                     $buffer = $char;
                 }//end if
-            }//end if
-            // Keep track of content inside comments.
-            if ($inComment === ''
-                && array_key_exists($buffer, $this->commentTokens) === true
-            ) {
-                // This is not really a comment if the content
-                // looks like \// (i.e., it is escaped).
-                if (isset($chars[($i - 2)]) === true && $chars[($i - 2)] === '\\') {
-                    $lastToken   = array_pop($tokens);
-                    $lastContent = $lastToken['content'];
-                    $value   = $this->tokenValues[strtolower($lastContent)];
-                    $content = Util\Common::prepareForOutput($lastContent);
-                    $this->verboseOutput("\t=> Removed token $value ($content)");
-                    $lastChars    = str_split($lastContent);
-                    $lastNumChars = count($lastChars);
-                    for ($x = 0; $x < $lastNumChars; $x++) {
-                        $lastChar = $lastChars[$x];
-                        $value    = $this->tokenValues[strtolower($lastChar)];
-                        $tokens[] = simpleToken($value, $lastChar);
-                    }
-                } else {
-                    // We have started a comment.
-                    $inComment = $buffer;
-                    $this->verboseOutput("\t\t* looking for end of comment *");
-                }//end if
-            } elseif ($inComment !== '') {
-                if ($this->commentTokens[$inComment] === null) {
-                    // Comment ends at the next newline.
-                    if (strpos($buffer, "\n") !== false) {
-                        $inComment = '';
-                    }
-                } elseif ($this->commentTokens[$inComment] === $buffer) {
-                    $inComment = '';
-                }
-                if ($inComment === '') {
-                    $this->verboseOutput("\t\t* found end of comment *");
-                }
-                if ($inComment === '' && $cleanBuffer === false) {
-                    $tokens[] = $this->simpleToken('T_STRING', $buffer);
-                    $buffer = '';
-                }
             }//end if
             if ($cleanBuffer === true) {
                 $buffer      = '';
