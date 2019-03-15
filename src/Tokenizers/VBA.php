@@ -289,7 +289,31 @@ class VBA extends TokenizerBase
                 $finalTokens[$newStackPtr] = $token;
                 $newStackPtr++;
             }
-            
+            // Convert numbers, including decimals.
+            if ($token['code'] === T_STRING
+                || $token['code'] === T_OBJECT_OPERATOR
+            ) {
+                $newContent  = '';
+                $oldStackPtr = $stackPtr;
+                while (preg_match('|^[0-9\.]+$|', $tokens[$stackPtr]['content']) !== 0) {
+                    $newContent .= $tokens[$stackPtr]['content'];
+                    $stackPtr++;
+                }
+                if ($newContent !== '' && $newContent !== '.') {
+                    $finalTokens[($newStackPtr - 1)]['content'] = $newContent;
+                    if (ctype_digit($newContent) === true) {
+                        $finalTokens[($newStackPtr - 1)]['code'] = constant('T_LNUMBER');
+                        $finalTokens[($newStackPtr - 1)]['type'] = 'T_LNUMBER';
+                    } else {
+                        $finalTokens[($newStackPtr - 1)]['code'] = constant('T_DNUMBER');
+                        $finalTokens[($newStackPtr - 1)]['type'] = 'T_DNUMBER';
+                    }
+                    $stackPtr--;
+                    continue;
+                } else {
+                    $stackPtr = $oldStackPtr;
+                }
+            }//end if
         }//end for
         if (PHP_CODESNIFFER_VERBOSITY > 1) {
             echo "\t*** END TOKENIZING ***".PHP_EOL;
