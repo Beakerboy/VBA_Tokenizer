@@ -81,7 +81,7 @@ class VBATest extends \PHPUnit\Framework\TestCase
             [T_LNUMBER, '1'], [T_EOL, "\r\n"],
             [T_WHITESPACE, '    '], [T_WEND, 'Wend'], [T_EOL, "\r\n"],
             [T_WHITESPACE, '    '],
-            [T_SELECT, 'Select'], [T_WHITESPACE, ' '],
+            [T_SELECT_CASE, 'Select Case'], [T_WHITESPACE, ' '],
             [T_STRING, 'iVariable'], [T_EOL, "\r\n"],
             [T_WHITESPACE, '        '],
             [T_CASE, 'Case'], [T_WHITESPACE, ' '],
