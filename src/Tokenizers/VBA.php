@@ -288,7 +288,7 @@ class VBA extends TokenizerBase
                 && in_array($tokens[$stackPtr + 2]['type'], $this->multiToken[$token['type']])
             ) {
                 $content = $token['content'] . ' ' . $tokens[$stackPtr + 2]['content'];
-                $finalTokens[$newStackPtr] = $this->simpleToken($tokenValues[strtolower($content)], $content);
+                $finalTokens[$newStackPtr] = $this->simpleToken($this->tokenValues[strtolower($content)], $content);
                 $stackPtr += 2;
                 $newStackPtr++;
             } elseif ($token['type'] === 'T_EOL'
