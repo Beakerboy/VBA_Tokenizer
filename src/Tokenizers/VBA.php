@@ -158,6 +158,7 @@ class VBA extends TokenizerBase
         'as'           => 'T_AS',
         'attribute'    => 'T_ATTRIBUTE',
         'begin'        => 'T_BEGIN',
+        'case'         => 'T_CASE',
         'class'        => 'T_CLASS',
         'dim'          => 'T_DIM',
         'do'           => 'T_DO',
@@ -188,11 +189,13 @@ class VBA extends TokenizerBase
         'set'          => 'T_SET',
         'property'     => 'T_PROPERTY',
         'sub'          => 'T_SUB',
+        'select'       => 'T_SELECT',
         'select case'  => 'T_SELECT_CASE',
         'then'         => 'T_THEN',
         'true'         => 'T_TRUE',
         'wend'         => 'T_WEND',
         'where'        => 'T_WHERE',
+        'while'        => 'T_WHILE',
         '('            => 'T_OPEN_PARENTHESIS',
         ')'            => 'T_CLOSE_PARENTHESIS',
         '{'            => 'T_OPEN_CURLY_BRACKET',
@@ -286,9 +289,7 @@ class VBA extends TokenizerBase
                 $stackPtr += 2;
                 $newStackPtr++;
             } elseif ($token['type'] === 'T_EOL'
-                && !($token['content'] == "\r\n" 
-                     || $token['content'] == "\n"
-                     || $token['content'] == "\n")
+                && !($token['content'] == "\r\n" || $token['content'] == "\n" || $token['content'] == "\r")
             ) {
                 // We have multiple EOLs in one token. Split them.
                 if ($token['content'] == "\r\n\r\n") {
