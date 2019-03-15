@@ -302,57 +302,6 @@ class TokenizerBase extends Tokenizer
         }//end if
         return $tokens;
     }
-    
-    protected function combineComments($tokens, &$stackPtr)
-    {
-        $token = $tokens[$stackPtr];
-        /*
-            Look for comments and join the tokens together.
-        */
-        if ($token['code'] === T_COMMENT) {
-            $newContent   = '';
-            $tokenContent = $token['content'];
-            $endContent = null;
-            if (isset($this->commentTokens[$tokenContent]) === true) {
-                $endContent = $this->commentTokens[$tokenContent];
-            }
-            while ($tokenContent !== $endContent) {
-                if ($endContent === null
-                    && $this->hasEolChar($tokenContent)
-                ) {
-                    // A null end token means the comment ends at the end of
-                    // the line so we look for newlines and split the token.
-                    $tokens[$stackPtr]['content'] = substr(
-                        $tokenContent,
-                        (strpos($tokenContent, $this->eolChar) + strlen($this->eolChar))
-                    );
-                    $tokenContent = substr(
-                        $tokenContent,
-                        0,
-                        (strpos($tokenContent, $this->eolChar) + strlen($this->eolChar))
-                    );
-                    // If the substr failed, skip the token as the content
-                    // will now be blank.
-                    if ($tokens[$stackPtr]['content'] !== false
-                        && $tokens[$stackPtr]['content'] !== ''
-                    ) {
-                        $stackPtr--;
-                    }
-                    break;
-                }//end if
-                $stackPtr++;
-                $newContent .= $tokenContent;
-                if (isset($tokens[$stackPtr]) === false) {
-                    break;
-                }
-                $tokenContent = $tokens[$stackPtr]['content'];
-            }//end while
-            // Save the new content in the current token so
-            // the code below can chop it up on newlines.
-            $token['content'] = $newContent.$tokenContent;
-        }//end if
-        return $token;
-    }
 
     /**
      * Create a simple token.
