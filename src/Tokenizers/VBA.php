@@ -217,7 +217,6 @@ class VBA extends TokenizerBase
         '='            => 'T_EQUAL',
         ':='           => 'T_ASSIGNMENT',
         '&'            => 'T_CONCATENATE',
-        "'"            => 'T_COMMENT',
     ];
     /**
      * A list string delimiters.
