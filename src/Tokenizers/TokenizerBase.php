@@ -112,6 +112,7 @@ class TokenizerBase extends Tokenizer
         $chars    = str_split($string);
         $numChars = count($chars);
         for ($i = 0; $i < $numChars; $i++) {
+            // Perform tasks where the new character triggers some action on the buffer.
             $char = $chars[$i];
             $content       = Util\Common::prepareForOutput($char);
             $bufferContent = Util\Common::prepareForOutput($buffer);
@@ -143,7 +144,14 @@ class TokenizerBase extends Tokenizer
                     }
                 }
             }
-            
+
+            // Process comments.
+            // This works for single-character comment starters, where comments end
+            // with EOL.
+            // If we found a comment start characcter, set $inComment
+            if ($inComment !== '' && isset($this->commentTokens[$char]) === true) {
+                $inComment = $char;
+            }
             // Process strings.
             if ($inComment === '' && isset($this->stringTokens[$char]) === true) {
                 if ($inString === $char) {
