@@ -119,7 +119,7 @@ moduleConfig :
 ;
 
 moduleConfigElement :
-	ambiguousIdentifier WS? EQ WS? literal endOfLine*
+	ambiguousIdentifier WS? EQ WS? literal (COLON literal)? endOfLine*
 ;
 
 moduleAttributes : (attributeStmt endOfLine+)+;
