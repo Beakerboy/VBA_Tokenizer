@@ -6,7 +6,7 @@ antlr4-parse
 
 for x in $(find \( -name "*.cls" -o -name "*.bas" -o -name "*.frm" \))
 do
-  foo=$(antlr4-parse ../../vba.g4 startRule $x)
+  foo=$(antlr4-parse vba.g4 startRule $x)
   echo "$x"
   if [[ $foo != "" ]];
   then echo $foo 1>&2;
