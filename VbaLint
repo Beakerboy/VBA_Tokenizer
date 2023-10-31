@@ -32,3 +32,21 @@ do
   fi
 done
 cd ../..
+cd testing/ClassModules
+for x in *.cls
+do
+  foo=$(antlr4-parse ../../vba.g4 startRule $x)
+  if [[ $foo != "" ]];
+  then echo "$x $foo" 1>&2;
+    exit 1;
+  fi
+done
+cd ../Modules
+for x in *.bas
+do
+  foo=$(antlr4-parse ../../vba.g4 startRule $x)
+  if [[ $foo != "" ]];
+  then echo "$x $foo" 1>&2;
+    exit 1;
+  fi
+done
