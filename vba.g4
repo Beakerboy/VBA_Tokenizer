@@ -918,7 +918,7 @@ R_SQUARE_BRACKET : ']';
 
 
 // literals
-GUID : '{' [0-9A-F]+ '-' [0-9A-F]+ '-' [0-9A-F]+ '-' [0-9A-F]+ '-' [0-9A-F]+'}';
+GUID : '{' BLOCK BLOCK MINUS BLOCK MINUS BLOCK MINUS BLOCK MINUS BLOCK BLOCK BLOCK '}';
 STRINGLITERAL : '"' (~["\r\n] | '""')* '"';
 OCTLITERAL : '&O' [0-7]+ '&'?;
 HEXLITERAL : '&H' [0-9A-F]+ '&'?;
@@ -954,3 +954,4 @@ IDENTIFIER :  ~[\]()\r\n\t.,'"|!@#$%^&*\-+:=; ]+ | L_SQUARE_BRACKET (~[!\]\r\n])
 fragment LETTER : [A-Z_\p{L}];
 fragment DIGIT : [0-9];
 fragment LETTERORDIGIT : [A-Z0-9_\p{L}];
+fragment BLOCK : [A-Za-z0-9] [A-Za-z0-9] [A-Za-z0-9] [A-Za-z0-9];
