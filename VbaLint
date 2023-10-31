@@ -13,3 +13,22 @@ do
     exit 1;
   fi
 done
+cd ../Modules
+for x in *.bas
+do
+  foo=$(antlr4-parse ../../vba.g4 startRule $x)
+  if [[ $foo != "" ]];
+  then echo "$x $foo" 1>&2;
+    exit 1;
+  fi
+done
+cd ../Forms
+for x in *.frm
+do
+  foo=$(antlr4-parse ../../vba.g4 startRule $x)
+  if [[ $foo != "" ]];
+  then echo "$x $foo" 1>&2;
+    exit 1;
+  fi
+done
+cd ../..
