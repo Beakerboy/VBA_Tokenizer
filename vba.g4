@@ -953,6 +953,6 @@ IDENTIFIER :  ~[\]()\r\n\t.,'"|!@#$%^&*\-+:=; ]+ | L_SQUARE_BRACKET (~[!\]\r\n])
 // letters
 fragment LETTER : [A-Z_\p{L}];
 fragment DIGIT : [0-9];
-fragment HEXDIGIT : [A-Fa-f0-9];
+fragment HEXDIGIT : [A-F0-9];
 fragment LETTERORDIGIT : [A-Z0-9_\p{L}];
-BLOCK : HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT;
+fragment BLOCK : HEXDIGIT HEXDIGIT HEXDIGIT HEXDIGIT;
